@@ -1,0 +1,21 @@
+COMMENT  ####
+COMMENT  #  POSITION - MINIMAL SUBSET  
+COMMENT  ####
+
+METADATA|Position|SourceSystemOwner|SourceSystemId|EffectiveStartDate|PositionCode|BusinessUnitName|Name|ActiveStatus|DepartmentId|JobId|LocationId|FullPartTime|RegularTemporary|HiringStatus|PositionType|FTE|HeadCount|WorkingHours|Frequency
+MERGE|Position|ALTAHRN01|131910|1951/01/01|131910|UOB Business Unit|Personal Assistant|A|300000009529910|300000009529240|300000004663603|FULL_TIME|R|APPROVED|SINGLE|1|1|36|W
+
+
+COMMENT  ####
+COMMENT  #  POSITIONGRADE - MINIMAL SUBSET  
+COMMENT  ####
+
+COMMENT  # METADATA|PositionGrade|SourceSystemOwner|SourceSystemId|PositionId(SourceSystemId)|EffectiveStartDate|GradeId(SourceSystemId)
+COMMENT  # MERGE|PositionGrade|ALTAHRN01|131910_GRADE|131910|1951/01/01|IC1
+
+COMMENT  ####
+COMMENT  #  POSITIONEVALUATION - MINIMAL SUBSET  
+COMMENT  ####
+
+COMMENT  # METADATA|PositionEvaluation|SourceSystemOwner|SourceSystemId|PositionId(SourceSystemId)|EvaluationSystem|DateEvaluated|MeasuredIn|Knowhow|Accountability|ProblemSolving
+COMMENT  # MERGE|PositionEvaluation|VISION|HW_SALES_HAY|HW_SALES|HAY|2015/01/01|POINTS|8|10|6

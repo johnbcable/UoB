@@ -1,0 +1,78 @@
+COMMENT  ####
+COMMENT  #  WORKER - DEMO MINIMAL SUBSET 
+COMMENT  ####
+METADATA|Worker|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|PersonNumber|StartDate|DateOfBirth|ActionCode
+MERGE|Worker|ALTAHRN01|50000016|1985/06/10|4712/12/31|50000016|1985/06/10|1965/02/28|HIRE
+
+COMMENT  ####
+COMMENT  #  PERSON LEGISLATIVE DATA - MINIMAL SUBSET
+COMMENT  ####
+METADATA|PersonLegislativeData|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|PersonId(SourceSystemId)|LegislationCode|Sex|MaritalStatus
+MERGE|PersonLegislativeData|ALTAHRN01|50000016_LEGISLATIVE|1985/06/10|4712/12/31|50000016|GB|M|M
+
+COMMENT  ####
+COMMENT  #  PERSON NAME - MINIMAL SUBSET
+COMMENT  ####
+METADATA|PersonName|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|PersonId(SourceSystemId)|NameType|LegislationCode|Title|LastName|FirstName|MiddleNames
+MERGE|PersonName|ALTAHRN01|50000016_GLOBAL|1985/06/10|4712/12/31|50000016|GLOBAL|GB|MR.|Devil|Tazmanian|
+
+COMMENT  ####
+COMMENT  #  WORK RELATIONSHIP - MINIMAL SUBSET
+COMMENT  ####
+METADATA|WorkRelationship|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|LegalEmployerName|DateStart|WorkerType|PrimaryFlag
+MERGE|WorkRelationship|ALTAHRN01|50000016_POS|50000016|The University of Birmingham|1985/06/10|E|Y
+
+COMMENT  ####
+COMMENT  #  WORK TERMS - MINIMAL SUBSET
+COMMENT  ####
+METADATA|WorkTerms|SourceSystemOwner|SourceSystemId|PeriodOfServiceId(SourceSystemId)|ActionCode|EffectiveStartDate|EffectiveEndDate|EffectiveSequence|EffectiveLatestChange|AssignmentName|AssignmentNumber|PrimaryWorkTermsFlag
+MERGE|WorkTerms|ALTAHRN01|50000016_EMP_TERM|50000016_POS|HIRE|1985/06/10|4712/12/31|1|Y|ET50000016|50000016_WT|Y
+
+COMMENT  ####
+COMMENT  #  ASSIGNMENT - MINIMAL SUBSET
+COMMENT  ####
+METADATA|Assignment|SourceSystemOwner|SourceSystemId|ActionCode|EffectiveStartDate|EffectiveEndDate|EffectiveSequence|EffectiveLatestChange|WorkTermsAssignmentId(SourceSystemId)|AssignmentName|AssignmentNumber|AssignmentStatusTypeCode|PersonTypeCode|BusinessUnitShortCode|LocationCode|JobCode|PrimaryAssignmentFlag
+MERGE|Assignment|ALTAHRN01|50000016_EMP_ASG|HIRE|1985/06/10|4712/12/31|1|Y|50000016_EMP_TERM|50000016|50000016|ACTIVE_PROCESS|Employee|UOB Business Unit|University of Birmingham|SUB_MAT_EXP_SP|Y
+
+COMMENT  ####
+COMMENT  #  PERSON PHONE - MINIMAL SUBSET
+COMMENT  ####
+METADATA|PersonPhone|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|DateFrom|DateTo|PhoneType|PhoneNumber|AreaCode|PrimaryFlag
+MERGE|PersonPhone|ALTAHRN01|50000016_PER_PHONE|50000016|1985/06/10|4712/12/31|W1|414 6966|0121|Y
+
+COMMENT  ####
+COMMENT  #  PERSON ADDRESS - MINIMAL SUBSET
+COMMENT  ####
+METADATA|PersonAddress|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|AddressType|PersonId(SourceSystemId)|AddressLine1|AddressLine2|TownOrCity|Region1|Country|PostalCode|LongPostalCode|TimezoneCode|PrimaryFlag
+MERGE|PersonAddress|ALTAHRN01|50000016_PER_ADDRESS|1985/06/10|4712/12/31|HOME|50000016|130 Rock Bottom|Bedrock |Birmingham|West Midlands|GB|B77 0TG|B74 0TG|GMT|Y
+
+COMMENT  ####
+COMMENT  #  PERSON EMAIL - MINIMAL SUBSET
+COMMENT  ####
+METADATA|PersonEmail|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|EmailType|EmailAddress|DateFrom|PrimaryFlag
+MERGE|PersonEmail|ALTAHRN01|50000016_PER_EMAIL|50000016|W1|M.Mouse@yopmail.com|1985/06/10|Y
+
+COMMENT  ####
+COMMENT  #  PERSON NATIONAL IDENTIFIER - MINIMAL SUBSET
+COMMENT  ####
+
+COMMENT  ####
+COMMENT  #  PERSON RELIGION - MINIMAL SUBSET
+COMMENT  ####
+
+COMMENT  ####
+COMMENT  #  PERSON ETHNICITY - MINIMAL SUBSET
+COMMENT  ####
+
+COMMENT  ####
+COMMENT  #  PERSON TYPE USAGE - MINIMAL SUBSET
+COMMENT  ####
+
+COMMENT  ####
+COMMENT  #  PERSON DOCUMENTATION - MINIMAL SUBSET
+COMMENT  ####
+
+COMMENT  ####
+COMMENT  #  PERSON DOCUMENTATION PASSPORT - MINIMAL SUBSET
+COMMENT  ####
+

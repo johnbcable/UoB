@@ -1,0 +1,8 @@
+
+
+
+COMMENT  ####
+COMMENT  #  GRADESINLADDER - BAND 100 - MINIMAL SUBSET 
+COMMENT  ####
+METADATA|GradesInLadder|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|GradeId(SourceSystemId)|GradesInLadderSequence
+MERGE|GradesInLadder|ALTAHRN01|SUPPORT-BAND100|1951/01/01|4712/12/31|BAND100|1

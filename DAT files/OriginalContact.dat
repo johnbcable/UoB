@@ -1,0 +1,33 @@
+COMMENT  ####
+COMMENT  #  CONTACT - MINIMAL SUBSET  
+COMMENT  ####
+METADATA|Contact|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|PersonNumber|StartDate
+MERGE|Contact|ALTAHRN01|50000500-CONTACT-01|50000500|2016/07/04|4712/12/31|50000500|2016/07/04
+
+COMMENT  ####
+COMMENT  #  CONTACT ADDRESS- MINIMAL SUBSET (MAY NOT BE REQUIRED) 
+COMMENT  ####
+METADATA|ContactAddress|PersonAddrUsageId|EffectiveStartDate|EffectiveEndDate|AddressType|PersonId|PersonNumber|AddressId|AddressLine1|AddressLine2|AddressLine3|AddressLine4|Building|FloorNumber|TownOrCity|Region1|Region2|Region3|Country|PostalCode|LongPostalCode|TimezoneCode|PrimaryFlag|AddlAddressAttribute1|AddlAddressAttribute2|AddlAddressAttribute3|AddlAddressAttribute4|AddlAddressAttribute5|SourceSystemOwner|SourceSystemId|GUID|SourceRefTableName=<source-table-name>|SourceRef001=<source-column-001>|SourceRef002=<source-column-002>|SourceRef003=<source-column-003>|SourceRef004=<source-column-004>|SourceRef005=<source-column-005>|SourceRef006=<source-column-006>|SourceRef007=<source-column-007>|SourceRef008=<source-column-008>|SourceRef009=<source-column-009>|SourceRef010=<source-column-010>
+
+COMMENT  ####
+COMMENT  #  CONTACT EMAIL- MINIMAL SUBSET (MAY NOT BE REQUIRED) 
+COMMENT  ####
+METADATA|ContactEmail|EmailAddressId|DateFrom|DateTo|PersonId|PersonNumber|EmailType|EmailAddress|PrimaryFlag|SourceSystemOwner|SourceSystemId|GUID|SourceRefTableName=<source-table-name>|SourceRef001=<source-column-001>|SourceRef002=<source-column-002>|SourceRef003=<source-column-003>|SourceRef004=<source-column-004>|SourceRef005=<source-column-005>|SourceRef006=<source-column-006>|SourceRef007=<source-column-007>|SourceRef008=<source-column-008>|SourceRef009=<source-column-009>|SourceRef010=<source-column-010>
+
+
+
+COMMENT  ####
+COMMENT  #  CONTACT NAME- MINIMAL SUBSET (REQUIRED) 
+COMMENT  ####
+METADATA|ContactName|PersonNameId|EffectiveStartDate|EffectiveEndDate|PersonId|PersonNumber|LegislationCode|NameType|FirstName|MiddleNames|LastName|Honors|KnownAs|PreNameAdjunct|MilitaryRank|PreviousLastName|Suffix|Title|CharSetContext|SourceSystemOwner|SourceSystemId|GUID|NameInformation1|NameInformation2|NameInformation3|NameInformation4|NameInformation5|NameInformation6|NameInformation7|NameInformation8|NameInformation9|NameInformation10|NameInformation11|NameInformation12|NameInformation13|NameInformation14|NameInformation15|NameInformation16|NameInformation17|NameInformation18|NameInformation19|NameInformation20|NameInformation21|NameInformation22|NameInformation23|NameInformation24|NameInformation25|NameInformation26|NameInformation27|NameInformation28|NameInformation29|NameInformation30|SourceRefTableName=<source-table-name>|SourceRef001=<source-column-001>|SourceRef002=<source-column-002>|SourceRef003=<source-column-003>|SourceRef004=<source-column-004>|SourceRef005=<source-column-005>|SourceRef006=<source-column-006>|SourceRef007=<source-column-007>|SourceRef008=<source-column-008>|SourceRef009=<source-column-009>|SourceRef010=<source-column-010>
+
+COMMENT  ####
+COMMENT  #  CONTACT PHONE- MINIMAL SUBSET (REQUIRED) 
+COMMENT  ####
+METADATA|ContactPhone|PhoneId|PhoneType|DateFrom|DateTo|PersonId|PersonNumber|CountryCodeNumber|AreaCode|PhoneNumber|Extension|LegislationCode|SpeedDialNumber|Validity|PrimaryFlag|SourceSystemOwner|SourceSystemId|GUID|SourceRefTableName=<source-table-name>|SourceRef001=<source-column-001>|SourceRef002=<source-column-002>|SourceRef003=<source-column-003>|SourceRef004=<source-column-004>|SourceRef005=<source-column-005>|SourceRef006=<source-column-006>|SourceRef007=<source-column-007>|SourceRef008=<source-column-008>|SourceRef009=<source-column-009>|SourceRef010=<source-column-010>
+
+COMMENT  ####
+COMMENT  #  CONTACT RELATIONSHIP- MINIMAL SUBSET (REQUIRED IF SOURCE DATA PRESENT) 
+COMMENT  ####
+METADATA|ContactRelationship|FLEX:PER_PERSON_CONTACT_RELATIONSHIP_DDF|_SPOUSE_EMPLOYER(PER_PERSON_CONTACT_RELATIONSHIP_DDF=AE)|_SPOUSE_LATEST_QUALIFICATION(PER_PERSON_CONTACT_RELATIONSHIP_DDF=AE)|_SUBJECT(PER_PERSON_CONTACT_RELATIONSHIP_DDF=AE)|_STATUTORY_DEPENDENT(PER_PERSON_CONTACT_RELATIONSHIP_DDF=AE)|_TFN(PER_PERSON_CONTACT_RELATIONSHIP_DDF=AU)|_LEGAL_EMPLOYER_CA(PER_PERSON_CONTACT_RELATIONSHIP_DDF=CH)|_CONTACT_WORKING(PER_PERSON_CONTACT_RELATIONSHIP_DDF=CH)|_CONTACT_WORKING_Display(PER_PERSON_CONTACT_RELATIONSHIP_DDF=CH)|_WORK_CANTON(PER_PERSON_CONTACT_RELATIONSHIP_DDF=CH)|_WORK_CANTON_Display(PER_PERSON_CONTACT_RELATIONSHIP_DDF=CH)|_SIDE_JOB(PER_PERSON_CONTACT_RELATIONSHIP_DDF=CH)|_SIDE_JOB_Display(PER_PERSON_CONTACT_RELATIONSHIP_DDF=CH)|_PENSIONER(PER_PERSON_CONTACT_RELATIONSHIP_DDF=CH)|_PENSIONER_Display(PER_PERSON_CONTACT_RELATIONSHIP_DDF=CH)|_GUARDIAN_NAME(PER_PERSON_CONTACT_RELATIONSHIP_DDF=IN)|_GUARDIAN_BIRTH_DATE(PER_PERSON_CONTACT_RELATIONSHIP_DDF=IN)|_GUARDIAN_ADDRESS(PER_PERSON_CONTACT_RELATIONSHIP_DDF=IN)|_GUARDIAN_TELEPHONE(PER_PERSON_CONTACT_RELATIONSHIP_DDF=IN)|_STATUTORY_DEPENDENT(PER_PERSON_CONTACT_RELATIONSHIP_DDF=KW)|_STATUTORY_DEPENDENT(PER_PERSON_CONTACT_RELATIONSHIP_DDF=ORA_HRX_BE)|_STATUTORY_DEPENDENT_Display(PER_PERSON_CONTACT_RELATIONSHIP_DDF=ORA_HRX_BE)|_STATUTORY_DEPENDENT(PER_PERSON_CONTACT_RELATIONSHIP_DDF=SA)|tinType(PER_PERSON_CONTACT_RELATIONSHIP_DDF=US)|tinType_Display(PER_PERSON_CONTACT_RELATIONSHIP_DDF=US)|tinNumber(PER_PERSON_CONTACT_RELATIONSHIP_DDF=US)|benefitsOffered(PER_PERSON_CONTACT_RELATIONSHIP_DDF=US)|benefitsOffered_Display(PER_PERSON_CONTACT_RELATIONSHIP_DDF=US)|ContactRelationshipId|EffectiveStartDate|EffectiveEndDate|PersonId|PersonNumber|RelatedPersonId|RelatedPersonNumber|ContactType|BeneficiaryFlag|BondholderFlag|DependentFlag|EmergencyContactFlag|StartLifeReasonId|EndLifeReasonId|ExistingPerson|PersonalFlag|PrimaryContactFlag|SequenceNumber|ThirdPartyPayFlag|SourceSystemOwner|SourceSystemId|GUID|LegislationCode|SourceRefTableName=<source-table-name>|SourceRef001=<source-column-001>|SourceRef002=<source-column-002>|SourceRef003=<source-column-003>|SourceRef004=<source-column-004>|SourceRef005=<source-column-005>|SourceRef006=<source-column-006>|SourceRef007=<source-column-007>|SourceRef008=<source-column-008>|SourceRef009=<source-column-009>|SourceRef010=<source-column-010>
+

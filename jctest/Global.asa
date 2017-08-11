@@ -1,0 +1,27 @@
+<<<<<<< HEAD
+<SCRIPT LANGUAGE=JScript RUNAT=Server>
+
+function Session_OnStart() {
+  Session.Timeout = 600;
+
+  Application("ALTAHRN") = "dsn=ALTAHRN;uid=cablej_rw;pwd=Mc3GtqS8RvoFyOT7PS0j;";
+ }
+
+function Session_OnEnd() {
+}
+
+</SCRIPT>
+=======
+<SCRIPT LANGUAGE=JScript RUNAT=Server>
+
+function Session_OnStart() {
+  Session.Timeout = 600;
+
+  Application("ALTAHRN") = "dsn=ALTAHRN;uid=cablej_rw;pwd=Mc3GtqS8RvoFyOT7PS0j;";
+ }
+
+function Session_OnEnd() {
+}
+
+</SCRIPT>
+>>>>>>> 0104ec4e7ab52d8fdbcea8b9efc1d52c7c9d89f8

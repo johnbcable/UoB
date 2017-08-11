@@ -1,0 +1,72 @@
+
+
+Insert Example
+
+The first file record includes all required fields and the action statement, Action=insert. The second file record does not list the required fields: dDocType, dDocAuthor, or dSecurityGroup.
+However, the information for these items is taken from the previous record. Also, the second record does not specify an action, so the insert action is carried over. Therefore, if the Content ID
+HR003 does not exist, the file will be inserted. However, if the Content ID does exist, it will not be inserted because the action is insert and not update.
+
+First record:
+
+Action=insert dDocName=HR001 dDocType=Form dDocTitle=New Employee Information Form dDocAuthor=Olson dSecurityGroup=Public primaryFile=hr001.doc
+dIndate=3/15/97 <<EOD>>
+
+Second record:
+
+dDocName=HR003 dDocTitle=Performance Review primaryFile=hr003.doc dIndate=3/15/97 <<EOD>>
+
+Delete Example
+
+The following example shows the batch load file syntax for deleting files. This example shows two file records. The first file record will delete all revisions of the Content ID HR001. The second file
+record will delete revision 2 of the content item HR002.
+
+Action=delete dDocName=HR001 <<EOD>> Action=delete dDocName=HR002 dRevLabel=2 <<EOD>>
+
+Update Example
+
+This example assumes that two files are already checked in to the system with the following metadata:
+HR001 has a Release Date of 9/26/98 and Revision of 1
+HR002 has a Release Date of 3/15/99 and Revision of 2
+
+The first file record, Content ID HR001, exists in the system, but it does not have a Revision (dRevLabel) specified in the batch load file. Therefore, the Batch Loader will compare the Release Date
+of the latest revision in the system with the Release Date specified in the batch load file. Since 2/20/99 is after 9/26/98, a new revision 2 for HR001 is added.
+
+The second file record, Content ID HR002, exists in the system and has a Revision (dRevLabel) specified, but Revision 3 does not exist in the system. Therefore, a new revision 3 for HR002 is
+added.
+
+Action=update dDocName=HR001 dDocType=Form dDocTitle=New Employee Form dDocAuthor=Olson dSecurityGroup=Public primaryFile=hr001.doc DInDate=2/20/99
+<<EOD>> dDocName=HR002 dDocTitle=Payroll Change Form primaryFile=hr002.doc DIndate=2/20/99 dRevLabel=3 <<EOD>>
+
+When specifying a custom metadata field value, use the field name preceded with an x. For example, if you have a custom metadata field called Location, then the batch load file entry will be
+xLocation=value.
+
+Mapping Files
+. have a .hda extension
+
+Creating Batch Load File from Command Line
+
+BatchLoader.exe -spider -q -ddirectory -mmappingfile -nbatchloadfile
+
+The following example shows the correct syntax to run the BatchBuilder from a Windows command line, where:
+
+Directory = c:/myfiles
+Mapping File = MyMappingFile
+Batch Load File = c:/batching/batchinsert.txt
+Excluded files = *.exe and *.zip
+
+BatchLoader.exe -spider -q -dc:/myfiles -mMyMappingFile -nc:/batching/batchinsert.txt -eexe,zip
+
+N.B.  Note use of UNIX-style directory slashes even though command runs on Windows?
+
+Running a Batch Load File
+
+The following example shows the correct syntax to run the Batch Loader from a Windows command line, where the batch load file is c:/batching/batchinsert.txt:
+
+BatchLoader.exe -q -nc:/batching/batchinsert.txt
+
+Remote Batch Loading
+
+Configure the local computer
+Test the configuration for the remote workstation
+Create the batch load command file
+Execute the upload.

@@ -1,0 +1,28 @@
+COMMENT  ####
+COMMENT  #  CONTACT RELATIONSHIP- MINIMAL SUBSET (REQUIRED IF SOURCE DATA PRESENT) 
+COMMENT  ####
+METADATA|ContactRelationship|PersonNumber|RelatedPersonNumber|EffectiveStartDate|EffectiveEndDate|ContactType|EmergencyContactFlag
+DELETE|ContactRelationship|8000001|50000500|2016/07/04|4712/12/31|S|Y
+
+COMMENT  ####
+COMMENT  #  CONTACT NAME- MINIMAL SUBSET (REQUIRED) 
+COMMENT  ####
+METADATA|ContactName|PersonNumber|EffectiveStartDate|EffectiveEndDate|LegislationCode|NameType|FirstName|LastName|Title
+DELETE|ContactName|8000001|2016/07/04|4712/12/31|GB|GLOBAL|Lesley|Cable|MRS.
+
+COMMENT  ####
+COMMENT  #  CONTACT PHONE- MINIMAL SUBSET (REQUIRED) 
+COMMENT  ####
+METADATA|ContactPhone|PersonNumber|PhoneType|PhoneNumber|DateFrom|DateTo|LegislationCode|PrimaryFlag
+DELETE|ContactPhone|8000001|H1|01675 443085|2016/07/04|4712/12/31|GB|Y
+
+COMMENT Data for Business Object: -Contact- to be used for non-existing persons, (external contacts), the employee the contact belongs to has the PersonNumber 50000500 while 
+COMMENT the contact gets 8000001
+
+COMMENT Must deletre main contact last as child records need to go first
+
+COMMENT  ####
+COMMENT  #  CONTACT - MINIMAL SUBSET  
+COMMENT  ####
+METADATA|Contact|PersonNumber|EffectiveStartDate|EffectiveEndDate|StartDate
+DELETE|Contact|8000001|2016/07/04|4712/12/31|2016/07/04

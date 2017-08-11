@@ -1,0 +1,21 @@
+COMMENT  ####
+COMMENT  #  JobFamily - MINIMAL SUBSET 
+COMMENT  ####
+COMMENT METADATA|JobFamily|FLEX:PER_JOB_FAMILY_DFF|payrollProrationRule(PER_JOB_FAMILY_DFF=Global Data Elements)|payrollProrationRule_Display(PER_JOB_FAMILY_DFF=Global Data Elements)|JobFamilyId|EffectiveStartDate|EffectiveEndDate|JobFamilyCode|JobFamilyName|ActionReasonCode|ActiveStatus|SourceSystemOwner|SourceSystemId|GUID|SourceRefTableName=<source-table-name>|SourceRef001=<source-column-001>|SourceRef002=<source-column-002>|SourceRef003=<source-column-003>|SourceRef004=<source-column-004>|SourceRef005=<source-column-005>|SourceRef006=<source-column-006>|SourceRef007=<source-column-007>|SourceRef008=<source-column-008>|SourceRef009=<source-column-009>|SourceRef010=<source-column-010>
+
+METADATA|JobFamily|SourceSystemOwner|SourceSystemId|JobFamilyCode|JobFamilyName|EffectiveStartDate|EffectiveEndDate|ActiveStatus|
+MERGE|JobFamily|ALTAHRN01|JF-ESTATES|ESTATES/FACILITIES|Estates/Facilities|1951/01/01|4712/12/31|A
+MERGE|JobFamily|ALTAHRN01|JF-SPECPROF|SPECIALIST/PROFESSIONAL|Specialist/Professional|1951/01/01|4712/12/31|A
+MERGE|JobFamily|ALTAHRN01|JF-SENOFF|SENIOR OFFICER/LEADERSHIP|Senior Officer/Leadership|1951/01/01|4712/12/31|A
+MERGE|JobFamily|ALTAHRN01|JF-AC-SENOFF|ACADEMIC SENIOR LEADERSHIP CLINICAL|Academic Senior Leadership Clinical|1951/01/01|4712/12/31|A
+MERGE|JobFamily|ALTAHRN01|JF-TECHNICAL|TECHNICAL|Technical|1951/01/01|4712/12/31|A
+MERGE|JobFamily|ALTAHRN01|JF-AC-CLINICAL|ACADEMIC CLINICAL|Academic Clinical|1951/01/01|4712/12/31|A
+MERGE|JobFamily|ALTAHRN01|JF-AC-NONCLINICAL|ACADEMIC NON-CLINICAL|Academic Non-clinical|1951/01/01|4712/12/31|A
+MERGE|JobFamily|ALTAHRN01|JF-CLERICAL|CLERICAL/ADMINISTRATIVE|Clerical/Administrative|1951/01/01|4712/12/31|A
+MERGE|JobFamily|ALTAHRN01|JF-AC-SENOFF-NONCLINICAL|ACADEMIC SENIOR LEADERSHIP NON CLINICAL|Academic Senior Leadership Non-clinical|1951/01/01|4712/12/31|A
+MERGE|JobFamily|ALTAHRN01|JF-MANAGER|MANAGER|Manager|1951/01/01|4712/12/31|A
+
+COMMENT  ####
+COMMENT  #  Need to return to DFF for payrollProrationRule when know how we are determining it from
+COMMENT  #  legacy data sources
+COMMENT  ####

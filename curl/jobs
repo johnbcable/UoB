@@ -1,0 +1,3 @@
+
+curl --user TECHADMIN6:Banzai29 -H "Content-Type: application/vnd.oracle.adf.resourceitem+json" "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreSetupApi/resources/11.12.1.0/jobs/describe" --output JobsOut.txt
+

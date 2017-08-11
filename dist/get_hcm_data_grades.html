@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Invoking the HCM REST Employee Service</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<script type='text/javascript' src='./js/rest-blog.js'></script>
+<style type="text/css">
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
+</head>
+<body>
+    <h2>Invoking the HCM REST Grades Service</h2>
+
+    <hr/>
+
+    <h3>Overview</h3>
+    <div>This is an example of how to invoke the HCM Grades REST Service.</div>
+
+    <h3>Request</h3>
+    <div id="rest-request"></div>
+
+    <h3>Response</h3>
+    <div id="rest-response"></div>
+
+    <script>
+        var
+
+        // set this to your server/host
+        server = 'https://edzz-test.hcm.em3.oraclecloud.com/',
+
+        // set this to the rest service endpoint you want to invoke
+        endpoint = 'hcmCoreSetupApi/resources/11.12.1.0/grades/',
+
+        // The query string
+        querystring = '',
+
+        // Fusion user with privileges to call HCM REST services
+        username = 'TECHADMIN6',
+
+        // the user's password
+        password = 'Banzai29',
+
+        // These are the div elements used to display the request and response
+        requestDiv = document.getElementById('rest-request'),
+        responseDiv = document.getElementById('rest-response');
+
+        // invoke the service using the variables defined above
+        invokeService(
+            server,
+            endpoint,
+            querystring,
+            username,
+            password,
+            requestDiv,
+            responseDiv
+          );
+
+    </script>
+
+</body>
+</html>

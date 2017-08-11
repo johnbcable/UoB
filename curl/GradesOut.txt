@@ -1,0 +1,836 @@
+{
+  "Resources" : {
+    "grades" : {
+      "discrColumnType" : false,
+      "title" : "Grade SDO Version 2",
+      "attributes" : [ {
+        "name" : "GradeId",
+        "type" : "integer",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "inCreate",
+        "precision" : 18,
+        "hasDefaultValueExpression" : true,
+        "properties" : {
+          "fnd:GLOBALLY_UNIQUE" : "true",
+          "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.workStructures.grades.gradeServiceV2.view.GradeUserKeyVO\", \"GradeCode;SetId\", \"GradeId\")"
+        },
+        "annotations" : {
+          "description" : "System generated primary key column."
+        }
+      }, {
+        "name" : "EffectiveStartDate",
+        "type" : "date",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "inCreate",
+        "title" : "Effective Start Date",
+        "annotations" : {
+          "description" : "Date Effective Entity: indicates the date at the beginning of the date range within which the row is effective."
+        }
+      }, {
+        "name" : "EffectiveEndDate",
+        "type" : "date",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "title" : "Effective End Date",
+        "annotations" : {
+          "description" : "Date Effective Entity: indicates the date at the end of the date range within which the row is effective."
+        }
+      }, {
+        "name" : "SetId",
+        "type" : "integer",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "inCreate",
+        "precision" : 18,
+        "properties" : {
+          "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.common.core.helper.SetIdKeyHelper\", \"SetCode:BindSetCode;\",\"SetId:SetId\")",
+          "IS_REQUIRED" : "true",
+          "fnd:APPLCORE_SETID_DETERMINANT_TYPE" : "SET"
+        },
+        "annotations" : {
+          "description" : "Identifies a set of reference data shared across business units and other entities. Also known as Reference Data Sets, they are used to filter reference data in transactional UIs."
+        }
+      }, {
+        "name" : "GradeName",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Name",
+        "maxLength" : "240",
+        "annotations" : {
+          "description" : "Denotes the name for grade."
+        }
+      }, {
+        "name" : "GradeCode",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 30,
+        "maxLength" : "30",
+        "properties" : {
+          "IS_IGNORECASE" : "true",
+          "IS_REQUIRED" : "true"
+        },
+        "annotations" : {
+          "description" : "Numbers or Characters that uniquely defines a short form for Grade for identification purposes."
+        }
+      }, {
+        "name" : "ActiveStatus",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 30,
+        "defaultValue" : "A",
+        "title" : "Status",
+        "controlType" : "choice",
+        "maxLength" : "30",
+        "properties" : {
+          "fnd:APPLCORE_SETID_LOOKUP_TYPE" : "EDR_ACTIVE"
+        },
+        "lov" : {
+          "childRef" : "ActiveStatusLOV",
+          "attributeMap" : [ {
+            "source" : "LookupCode",
+            "target" : "ActiveStatus"
+          } ],
+          "displayAttributes" : [ "Meaning" ]
+        },
+        "annotations" : {
+          "description" : "Indicates if a grade is active or inactive."
+        }
+      }, {
+        "name" : "CreationDate",
+        "type" : "datetime",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "never"
+      }, {
+        "name" : "LastUpdateDate",
+        "type" : "datetime",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "never"
+      } ],
+      "collection" : {
+        "rangeSize" : 25,
+        "finders" : [ {
+          "name" : "PrimaryKey",
+          "attributes" : [ {
+            "name" : "EffectiveEndDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective End Date"
+          }, {
+            "name" : "GradeId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "hasDefaultValueExpression" : true,
+            "properties" : {
+              "fnd:GLOBALLY_UNIQUE" : "true",
+              "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.workStructures.grades.gradeServiceV2.view.GradeUserKeyVO\", \"GradeCode;SetId\", \"GradeId\")"
+            }
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "title" : "Effective Start Date"
+          } ]
+        }, {
+          "name" : "GradeVOPrimaryKey",
+          "attributes" : [ {
+            "name" : "EffectiveEndDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective End Date"
+          }, {
+            "name" : "GradeId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "hasDefaultValueExpression" : true,
+            "properties" : {
+              "fnd:GLOBALLY_UNIQUE" : "true",
+              "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.workStructures.grades.gradeServiceV2.view.GradeUserKeyVO\", \"GradeCode;SetId\", \"GradeId\")"
+            }
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "title" : "Effective Start Date"
+          } ]
+        }, {
+          "name" : "AltKey",
+          "attributes" : [ {
+            "name" : "SetId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "properties" : {
+              "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.common.core.helper.SetIdKeyHelper\", \"SetCode:BindSetCode;\",\"SetId:SetId\")",
+              "IS_REQUIRED" : "true",
+              "fnd:APPLCORE_SETID_DETERMINANT_TYPE" : "SET"
+            }
+          }, {
+            "name" : "GradeCode",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 30,
+            "maxLength" : "30",
+            "properties" : {
+              "IS_IGNORECASE" : "true",
+              "IS_REQUIRED" : "true"
+            }
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "title" : "Effective Start Date"
+          } ]
+        } ],
+        "links" : [ {
+          "rel" : "self",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades",
+          "name" : "self",
+          "kind" : "collection"
+        } ],
+        "actions" : [ {
+          "name" : "get",
+          "method" : "GET",
+          "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+        } ]
+      },
+      "item" : {
+        "links" : [ {
+          "rel" : "lov",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/lov/ActiveStatusLOV",
+          "name" : "ActiveStatusLOV",
+          "kind" : "collection"
+        }, {
+          "rel" : "child",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex",
+          "name" : "GradeCustomerFlex",
+          "kind" : "collection",
+          "cardinality" : {
+            "value" : "1 to 1",
+            "sourceAttributes" : "EffectiveStartDate, GradeId, EffectiveEndDate",
+            "destinationAttributes" : "EffectiveStartDate, GradeId, EffectiveEndDate"
+          }
+        }, {
+          "rel" : "self",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}",
+          "name" : "self",
+          "kind" : "item"
+        }, {
+          "rel" : "canonical",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}",
+          "name" : "canonical",
+          "kind" : "item"
+        } ],
+        "actions" : [ {
+          "name" : "get",
+          "method" : "GET",
+          "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+        } ]
+      },
+      "annotations" : {
+        "description" : "An assignment grade indicates the relative rank, level or status of an employee in an assignment within an enterprise. For example IC3, M3, and so forth.",
+        "children" : [ {
+          "name" : "GradeCustomerFlex",
+          "description" : "Customer flexfield to store grade."
+        } ],
+        "categories" : {
+          "lba" : [ "HcmTop-HcmTop", "HcmTop-HcmTop : HcmWorkTop-Work Structures Grade, Job, and Position", "HcmTop-HcmTop : HcmWorkTop-Work Structures Grade, Job, and Position : HcmWorkGrades-Grades" ],
+          "lbo" : [ "HCM-HCM", "HCM-HCM : PER-Global Human Resources", "HCM-HCM : PER-Global Human Resources : PER_GRADE-Assignment Grade" ]
+        }
+      },
+      "children" : {
+        "GradeCustomerFlex" : {
+          "discrColumnType" : false,
+          "attributes" : [ {
+            "name" : "GradeId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "hasDefaultValueExpression" : true,
+            "properties" : {
+              "fnd:GLOBALLY_UNIQUE" : "true",
+              "DISPLAYHINT" : "Hide"
+            }
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective Start Date",
+            "properties" : {
+              "DISPLAYHINT" : "Hide"
+            }
+          }, {
+            "name" : "EffectiveEndDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective End Date",
+            "properties" : {
+              "DISPLAYHINT" : "Hide"
+            }
+          }, {
+            "name" : "contractLevel",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : false,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 150,
+            "title" : "Contract Level",
+            "controlType" : "combo_lov",
+            "maxLength" : "150",
+            "properties" : {
+              "FND_ACFF_IsGlobalDisplay" : "true",
+              "FND_ACFF_IsGlobal" : "true",
+              "FND_ACFF_FlexfieldResourceBundleResId" : "rev.a800.dPER_GRADES_DF..d6p.UOB_Contract_Level",
+              "FND_ACFF_SegmentName" : "UOB_Contract_Level",
+              "TOOLTIP" : "Contract Level",
+              "DISPLAYWIDTH" : "30",
+              "FORMTYPE" : "Summary",
+              "FND_ACFF_OpenIdentifier" : "contractLevel",
+              "FND_ACFF_NLS_UNIT" : "Contract Level"
+            },
+            "lov" : {
+              "childRef" : "LVVO_contractLevel",
+              "attributeMap" : [ {
+                "source" : "Value",
+                "target" : "contractLevel"
+              } ],
+              "displayAttributes" : [ "Value", "Description" ]
+            }
+          }, {
+            "name" : "__FLEX_Context",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : false,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 30,
+            "title" : "Context",
+            "controlType" : "choice",
+            "maxLength" : "30",
+            "properties" : {
+              "FND_ACFF_FlexfieldResourceBundleResId" : "rev.a800.dPER_GRADES_DF..d5p",
+              "TOOLTIP" : "Context",
+              "FND_ACFF_AkaAttrName" : "__FLEX_Context_DisplayValue",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_Bind_DescriptiveFlexfieldCode" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#\"PER_GRADES_DF\"",
+              "FND_ACFF_NLS_UNIT" : "Context",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_DisplayValue_Bind_ApplicationId" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#800",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_Bind_ApplicationId" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#800",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_DisplayValue_Bind_DescriptiveFlexfieldCode" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#\"PER_GRADES_DF\"",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_DisplayValue_Bind_ContextCode" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableViewAttrExpression#__FLEX_Context#$|__FLEX_Context|$",
+              "DISPLAYWIDTH" : "30",
+              "FORMTYPE" : "Summary"
+            },
+            "lov" : {
+              "childRef" : "LVVO___FLEX_Context",
+              "attributeMap" : [ {
+                "source" : "ContextCode",
+                "target" : "__FLEX_Context"
+              } ],
+              "displayAttributes" : [ "Name" ]
+            }
+          }, {
+            "name" : "__FLEX_Context_DisplayValue",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : false,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "hasDefaultValueExpression" : true,
+            "title" : "Context",
+            "maxLength" : "0",
+            "properties" : {
+              "DISPLAYHINT" : "Hide",
+              "FND_ACFF_FlexfieldResourceBundleResId" : "rev.a800.dPER_GRADES_DF..d5p",
+              "TOOLTIP" : "Context",
+              "updateable" : "false",
+              "DISPLAYWIDTH" : "30",
+              "FND_ACFF_AkaRealSegmentAttrName" : "__FLEX_Context",
+              "FND_ACFF_ListDisplayAttrName" : "Name",
+              "FND_ACFF_IsReadOnly" : "true",
+              "FND_ACFF_NLS_UNIT" : "Context"
+            }
+          } ],
+          "collection" : {
+            "rangeSize" : 0,
+            "finders" : [ {
+              "name" : "PrimaryKey",
+              "attributes" : [ {
+                "name" : "EffectiveEndDate",
+                "type" : "date",
+                "updatable" : true,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "always",
+                "title" : "Effective End Date",
+                "properties" : {
+                  "DISPLAYHINT" : "Hide"
+                }
+              }, {
+                "name" : "GradeId",
+                "type" : "integer",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "inCreate",
+                "precision" : 18,
+                "hasDefaultValueExpression" : true,
+                "properties" : {
+                  "fnd:GLOBALLY_UNIQUE" : "true",
+                  "DISPLAYHINT" : "Hide"
+                }
+              }, {
+                "name" : "EffectiveStartDate",
+                "type" : "date",
+                "updatable" : true,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "always",
+                "title" : "Effective Start Date",
+                "properties" : {
+                  "DISPLAYHINT" : "Hide"
+                }
+              } ]
+            } ],
+            "links" : [ {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex",
+              "name" : "self",
+              "kind" : "collection"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+            } ]
+          },
+          "item" : {
+            "links" : [ {
+              "rel" : "lov",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/lov/LVVO_contractLevel",
+              "name" : "LVVO_contractLevel",
+              "kind" : "collection"
+            }, {
+              "rel" : "lov",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/lov/LVVO___FLEX_Context",
+              "name" : "LVVO___FLEX_Context",
+              "kind" : "collection"
+            }, {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}",
+              "name" : "self",
+              "kind" : "item"
+            }, {
+              "rel" : "parent",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}",
+              "name" : "parent",
+              "kind" : "item"
+            }, {
+              "rel" : "canonical",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}",
+              "name" : "canonical",
+              "kind" : "item"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+            } ]
+          },
+          "children" : {
+            "LVVO_contractLevel" : {
+              "discrColumnType" : false,
+              "attributes" : [ {
+                "name" : "Value",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : false,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "title" : "Value",
+                "maxLength" : "0",
+                "properties" : {
+                  "DISPLAYWIDTH" : "30"
+                }
+              }, {
+                "name" : "Description",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : false,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "title" : "Description",
+                "maxLength" : "0",
+                "properties" : {
+                  "DISPLAYWIDTH" : "30"
+                }
+              } ],
+              "collection" : {
+                "rangeSize" : 0,
+                "finders" : [ {
+                  "name" : "PrimaryKey",
+                  "attributes" : [ {
+                    "name" : "Value",
+                    "type" : "string",
+                    "updatable" : false,
+                    "mandatory" : false,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "title" : "Value",
+                    "maxLength" : "0",
+                    "properties" : {
+                      "DISPLAYWIDTH" : "30"
+                    }
+                  } ]
+                } ],
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO_contractLevel",
+                  "name" : "self",
+                  "kind" : "collection"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+                } ]
+              },
+              "item" : {
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO_contractLevel/{id}",
+                  "name" : "self",
+                  "kind" : "item"
+                }, {
+                  "rel" : "parent",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}",
+                  "name" : "parent",
+                  "kind" : "item"
+                }, {
+                  "rel" : "canonical",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO_contractLevel/{id}",
+                  "name" : "canonical",
+                  "kind" : "item"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+                } ]
+              },
+              "links" : [ {
+                "rel" : "self",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO_contractLevel/describe",
+                "name" : "self",
+                "kind" : "describe"
+              }, {
+                "rel" : "canonical",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO_contractLevel/describe",
+                "name" : "canonical",
+                "kind" : "describe"
+              } ]
+            },
+            "LVVO___FLEX_Context" : {
+              "discrColumnType" : false,
+              "attributes" : [ {
+                "name" : "ApplicationId",
+                "type" : "integer",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 18
+              }, {
+                "name" : "DescriptiveFlexfieldCode",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 40
+              }, {
+                "name" : "ContextCode",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 80
+              }, {
+                "name" : "Name",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 80,
+                "title" : "Name",
+                "maxLength" : "80"
+              }, {
+                "name" : "Description",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : false,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 240,
+                "title" : "Description",
+                "maxLength" : "240"
+              }, {
+                "name" : "EnabledFlag",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : false,
+                "allowChanges" : "never",
+                "precision" : 1
+              } ],
+              "collection" : {
+                "rangeSize" : 0,
+                "finders" : [ {
+                  "name" : "PrimaryKey",
+                  "attributes" : [ {
+                    "name" : "ContextCode",
+                    "type" : "string",
+                    "updatable" : false,
+                    "mandatory" : true,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "precision" : 80
+                  }, {
+                    "name" : "DescriptiveFlexfieldCode",
+                    "type" : "string",
+                    "updatable" : false,
+                    "mandatory" : true,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "precision" : 40
+                  }, {
+                    "name" : "ApplicationId",
+                    "type" : "integer",
+                    "updatable" : false,
+                    "mandatory" : true,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "precision" : 18
+                  } ]
+                } ],
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO___FLEX_Context",
+                  "name" : "self",
+                  "kind" : "collection"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+                } ]
+              },
+              "item" : {
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO___FLEX_Context/{id}",
+                  "name" : "self",
+                  "kind" : "item"
+                }, {
+                  "rel" : "parent",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}",
+                  "name" : "parent",
+                  "kind" : "item"
+                }, {
+                  "rel" : "canonical",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO___FLEX_Context/{id}",
+                  "name" : "canonical",
+                  "kind" : "item"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+                } ]
+              },
+              "links" : [ {
+                "rel" : "self",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO___FLEX_Context/describe",
+                "name" : "self",
+                "kind" : "describe"
+              }, {
+                "rel" : "canonical",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/{id}/child/LVVO___FLEX_Context/describe",
+                "name" : "canonical",
+                "kind" : "describe"
+              } ]
+            }
+          },
+          "links" : [ {
+            "rel" : "self",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/describe",
+            "name" : "self",
+            "kind" : "describe"
+          }, {
+            "rel" : "canonical",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/GradeCustomerFlex/describe",
+            "name" : "canonical",
+            "kind" : "describe"
+          } ]
+        },
+        "ActiveStatusLOV" : {
+          "discrColumnType" : false,
+          "attributes" : [ {
+            "name" : "LookupCode",
+            "type" : "string",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 30,
+            "title" : "Lookup Code",
+            "maxLength" : "30"
+          }, {
+            "name" : "Meaning",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 80,
+            "title" : "Meaning",
+            "maxLength" : "80"
+          } ],
+          "collection" : {
+            "rangeSize" : 0,
+            "finders" : [ {
+              "name" : "PrimaryKey",
+              "attributes" : [ {
+                "name" : "LookupCode",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "inCreate",
+                "precision" : 30,
+                "title" : "Lookup Code",
+                "maxLength" : "30"
+              } ]
+            } ],
+            "links" : [ {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/ActiveStatusLOV",
+              "name" : "self",
+              "kind" : "collection"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+            } ]
+          },
+          "item" : {
+            "links" : [ {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/ActiveStatusLOV/{id}",
+              "name" : "self",
+              "kind" : "item"
+            }, {
+              "rel" : "parent",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}",
+              "name" : "parent",
+              "kind" : "item"
+            }, {
+              "rel" : "canonical",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/ActiveStatusLOV/{id}",
+              "name" : "canonical",
+              "kind" : "item"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+            } ]
+          },
+          "links" : [ {
+            "rel" : "self",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/ActiveStatusLOV/describe",
+            "name" : "self",
+            "kind" : "describe"
+          }, {
+            "rel" : "canonical",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/{id}/child/ActiveStatusLOV/describe",
+            "name" : "canonical",
+            "kind" : "describe"
+          } ]
+        }
+      },
+      "links" : [ {
+        "rel" : "self",
+        "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/describe",
+        "name" : "self",
+        "kind" : "describe"
+      }, {
+        "rel" : "canonical",
+        "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/grades/describe",
+        "name" : "canonical",
+        "kind" : "describe"
+      } ]
+    }
+  }
+}

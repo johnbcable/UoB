@@ -1,0 +1,6 @@
+COMMENT  ####
+COMMENT  #  JOB  
+COMMENT  ####
+METADATA|Job|SourceSystemOwner|SourceSystemId|JobFamilyId(SourceSystemId)|ActiveStatus|FullPartTime|JobFunctionCode|ManagerLevel|MedicalCheckupRequired|RegularTemporary|BenchmarkJobFlag|BenchmarkJobId|ProgressionJobId|SetId|EffectiveStartDate|EffectiveEndDate|Name|Language|ApprovalAuthority|SetCode|BenchmarkJobCode|ProgressionJobCode|JobFamilyName|ActionReasonCode|GUID|CategoryCode|GradeLadderId|GradeLadderName
+
+MERGE|Job|ALTAHRN01|
