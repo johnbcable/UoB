@@ -1,6 +1,18 @@
+<<<<<<< HEAD
 define([
 	"./core"
 ], function( jQuery ) {
+=======
+define( [
+	"./core",
+	"./var/document",
+	"./var/documentElement",
+	"./var/hasOwn",
+	"./var/indexOf"
+], function( jQuery, document, documentElement, hasOwn, indexOf ) {
+
+"use strict";
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 
 /*
  * Optional (non-Sizzle) selector module for custom builds.
@@ -27,6 +39,7 @@ define([
  * customize this stub for the project's specific needs.
  */
 
+<<<<<<< HEAD
 var docElem = window.document.documentElement,
 	selector_hasDuplicate,
 	matches = docElem.matches ||
@@ -67,6 +80,114 @@ var docElem = window.document.documentElement,
 	};
 
 jQuery.extend({
+=======
+var hasDuplicate, sortInput,
+	sortStable = jQuery.expando.split( "" ).sort( sortOrder ).join( "" ) === jQuery.expando,
+	matches = documentElement.matches ||
+		documentElement.webkitMatchesSelector ||
+		documentElement.mozMatchesSelector ||
+		documentElement.oMatchesSelector ||
+		documentElement.msMatchesSelector,
+
+	// CSS string/identifier serialization
+	// https://drafts.csswg.org/cssom/#common-serializing-idioms
+	rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\x80-\uFFFF\w-]/g,
+	fcssescape = function( ch, asCodePoint ) {
+		if ( asCodePoint ) {
+
+			// U+0000 NULL becomes U+FFFD REPLACEMENT CHARACTER
+			if ( ch === "\0" ) {
+				return "\uFFFD";
+			}
+
+			// Control characters and (dependent upon position) numbers get escaped as code points
+			return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
+		}
+
+		// Other potentially-special ASCII characters get backslash-escaped
+		return "\\" + ch;
+	};
+
+function sortOrder( a, b ) {
+
+	// Flag for duplicate removal
+	if ( a === b ) {
+		hasDuplicate = true;
+		return 0;
+	}
+
+	// Sort on method existence if only one input has compareDocumentPosition
+	var compare = !a.compareDocumentPosition - !b.compareDocumentPosition;
+	if ( compare ) {
+		return compare;
+	}
+
+	// Calculate position if both inputs belong to the same document
+	compare = ( a.ownerDocument || a ) === ( b.ownerDocument || b ) ?
+		a.compareDocumentPosition( b ) :
+
+		// Otherwise we know they are disconnected
+		1;
+
+	// Disconnected nodes
+	if ( compare & 1 ) {
+
+		// Choose the first element that is related to our preferred document
+		if ( a === document || a.ownerDocument === document &&
+			jQuery.contains( document, a ) ) {
+			return -1;
+		}
+		if ( b === document || b.ownerDocument === document &&
+			jQuery.contains( document, b ) ) {
+			return 1;
+		}
+
+		// Maintain original order
+		return sortInput ?
+			( indexOf.call( sortInput, a ) - indexOf.call( sortInput, b ) ) :
+			0;
+	}
+
+	return compare & 4 ? -1 : 1;
+}
+
+function uniqueSort( results ) {
+	var elem,
+		duplicates = [],
+		j = 0,
+		i = 0;
+
+	hasDuplicate = false;
+	sortInput = !sortStable && results.slice( 0 );
+	results.sort( sortOrder );
+
+	if ( hasDuplicate ) {
+		while ( ( elem = results[ i++ ] ) ) {
+			if ( elem === results[ i ] ) {
+				j = duplicates.push( i );
+			}
+		}
+		while ( j-- ) {
+			results.splice( duplicates[ j ], 1 );
+		}
+	}
+
+	// Clear input after sorting to release objects
+	// See https://github.com/jquery/sizzle/pull/225
+	sortInput = null;
+
+	return results;
+}
+
+function escape( sel ) {
+	return ( sel + "" ).replace( rcssescape, fcssescape );
+}
+
+jQuery.extend( {
+	uniqueSort: uniqueSort,
+	unique: uniqueSort,
+	escapeSelector: escape,
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	find: function( selector, context, results, seed ) {
 		var elem, nodeType,
 			i = 0;
@@ -80,17 +201,27 @@ jQuery.extend({
 		}
 
 		// Early return if context is not an element or document
+<<<<<<< HEAD
 		if ( (nodeType = context.nodeType) !== 1 && nodeType !== 9 ) {
+=======
+		if ( ( nodeType = context.nodeType ) !== 1 && nodeType !== 9 ) {
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 			return [];
 		}
 
 		if ( seed ) {
+<<<<<<< HEAD
 			while ( (elem = seed[i++]) ) {
 				if ( jQuery.find.matchesSelector(elem, selector) ) {
+=======
+			while ( ( elem = seed[ i++ ] ) ) {
+				if ( jQuery.find.matchesSelector( elem, selector ) ) {
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 					results.push( elem );
 				}
 			}
 		} else {
+<<<<<<< HEAD
 			jQuery.merge( results, context.querySelectorAll(selector) );
 		}
 
@@ -114,6 +245,9 @@ jQuery.extend({
 			while ( j-- ) {
 				results.splice( duplicates[ j ], 1 );
 			}
+=======
+			jQuery.merge( results, context.querySelectorAll( selector ) );
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 		}
 
 		return results;
@@ -125,17 +259,32 @@ jQuery.extend({
 			nodeType = elem.nodeType;
 
 		if ( !nodeType ) {
+<<<<<<< HEAD
 			// If no nodeType, this is expected to be an array
 			while ( (node = elem[i++]) ) {
+=======
+
+			// If no nodeType, this is expected to be an array
+			while ( ( node = elem[ i++ ] ) ) {
+
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 				// Do not traverse comment nodes
 				ret += jQuery.text( node );
 			}
 		} else if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 			// Use textContent for elements
 			return elem.textContent;
 		} else if ( nodeType === 3 || nodeType === 4 ) {
 			return elem.nodeValue;
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 		// Do not include comment or processing instruction nodes
 
 		return ret;
@@ -143,19 +292,39 @@ jQuery.extend({
 	contains: function( a, b ) {
 		var adown = a.nodeType === 9 ? a.documentElement : a,
 			bup = b && b.parentNode;
+<<<<<<< HEAD
 		return a === bup || !!( bup && bup.nodeType === 1 && adown.contains(bup) );
 	},
 	isXMLDoc: function( elem ) {
 		return (elem.ownerDocument || elem).documentElement.nodeName !== "HTML";
+=======
+		return a === bup || !!( bup && bup.nodeType === 1 && adown.contains( bup ) );
+	},
+	isXMLDoc: function( elem ) {
+
+		// documentElement is verified for cases where it doesn't yet exist
+		// (such as loading iframes in IE - #4833)
+		var documentElement = elem && ( elem.ownerDocument || elem ).documentElement;
+		return documentElement ? documentElement.nodeName !== "HTML" : false;
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	},
 	expr: {
 		attrHandle: {},
 		match: {
+<<<<<<< HEAD
 			bool: /^(?:checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped)$/i,
 			needsContext: /^[\x20\t\r\n\f]*[>+~]/
 		}
 	}
 });
+=======
+			bool: new RegExp( "^(?:checked|selected|async|autofocus|autoplay|controls|defer" +
+				"|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped)$", "i" ),
+			needsContext: /^[\x20\t\r\n\f]*[>+~]/
+		}
+	}
+} );
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 
 jQuery.extend( jQuery.find, {
 	matches: function( expr, elements ) {
@@ -165,8 +334,22 @@ jQuery.extend( jQuery.find, {
 		return matches.call( elem, expr );
 	},
 	attr: function( elem, name ) {
+<<<<<<< HEAD
 		return elem.getAttribute( name );
 	}
 });
 
 });
+=======
+		var fn = jQuery.expr.attrHandle[ name.toLowerCase() ],
+
+			// Don't get fooled by Object.prototype properties (jQuery #13807)
+			value = fn && hasOwn.call( jQuery.expr.attrHandle, name.toLowerCase() ) ?
+				fn( elem, name, jQuery.isXMLDoc( elem ) ) :
+				undefined;
+		return value !== undefined ? value : elem.getAttribute( name );
+	}
+} );
+
+} );
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c

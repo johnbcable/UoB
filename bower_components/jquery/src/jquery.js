@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 define([
+=======
+define( [
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	"./core",
 	"./selector",
 	"./traversing",
 	"./callbacks",
 	"./deferred",
+<<<<<<< HEAD
+=======
+	"./deferred/exceptionHook",
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	"./core/ready",
 	"./data",
 	"./queue",
@@ -11,6 +19,10 @@ define([
 	"./attributes",
 	"./event",
 	"./event/alias",
+<<<<<<< HEAD
+=======
+	"./event/focusin",
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	"./manipulation",
 	"./manipulation/_evalUrl",
 	"./wrap",
@@ -32,6 +44,14 @@ define([
 	"./exports/global"
 ], function( jQuery ) {
 
+<<<<<<< HEAD
 return jQuery;
 
 });
+=======
+"use strict";
+
+return jQuery;
+
+} );
+>>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c

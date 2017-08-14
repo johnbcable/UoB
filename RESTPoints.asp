@@ -105,9 +105,9 @@ var mydebug = new String("N").toString();
 
 %>
 
-	<script src="./bower_components/jquery/dist/jquery.js"></script>
-  <script src="/UoB/js/fusionextractdatawriter.js"></script>
-  <script src="/UoB/js/RESTPoints.js"></script>
+	<script src="/UoB/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/UoB/dist/assets/js/fusionextractdatawriter.js"></script>
+  <script src="/UoB/dist/assets/js/RESTPoints.js"></script>
 
 	</body>
 
