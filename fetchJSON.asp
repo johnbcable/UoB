@@ -202,6 +202,10 @@ querylist(21) = "SELECT 'MERGE' as METADATA, 'ContactRelationship' as ContactRel
 
 
 
+
+
+querylist(49) = "SELECT Title, Forename, Surname, PreferredName, PersonCode, HomeTelephone, AnonymisedWorkEmail, AddressLine1, AddressLine2, AddressLine3, Town, Region, Country, Postcode, Format(DOB,'YYYY-MM-DD') as DateOfBirth, EthnicOriginDescription, Gender, NINumber, UserName from AnonPersonFeed WHERE PersonCode = {{p1}}"
+
 ' METADATA|PersonDisability|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|PersonId(SourceSystemId)|Category|DisabilityCode|LegislationCode|Status
 ' N.B.  Try with out specing a DisabilityCode (below)
 ' MERGE|PersonDisability|ALTAHRN01|50000500_DIS_97|2016/07/04|4712/12/31|50000500|97|Information Refused|97|GB|TEMPORARY
