@@ -1,6 +1,5 @@
 {
   "name": "jquery",
-<<<<<<< HEAD
   "version": "2.1.3",
   "main": "dist/jquery.js",
   "license": "MIT",
@@ -26,17 +25,3 @@
     "library"
   ]
 }
-=======
-  "main": "dist/jquery.js",
-  "license": "MIT",
-  "ignore": [
-    "package.json"
-  ],
-  "keywords": [
-    "jquery",
-    "javascript",
-    "browser",
-    "library"
-  ]
-}
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c

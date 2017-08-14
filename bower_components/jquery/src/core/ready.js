@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 define([
 	"../core",
 	"../core/init",
@@ -11,41 +10,11 @@ var readyList;
 jQuery.fn.ready = function( fn ) {
 	// Add the callback
 	jQuery.ready.promise().done( fn );
-=======
-define( [
-	"../core",
-	"../var/document",
-	"../core/readyException",
-	"../deferred"
-], function( jQuery, document ) {
-
-"use strict";
-
-// The deferred used on DOM ready
-var readyList = jQuery.Deferred();
-
-jQuery.fn.ready = function( fn ) {
-
-	readyList
-		.then( fn )
-
-		// Wrap jQuery.readyException in a function so that the lookup
-		// happens at the time of error handling instead of callback
-		// registration.
-		.catch( function( error ) {
-			jQuery.readyException( error );
-		} );
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 
 	return this;
 };
 
-<<<<<<< HEAD
 jQuery.extend({
-=======
-jQuery.extend( {
-
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	// Is the DOM ready to be used? Set to true once it occurs.
 	isReady: false,
 
@@ -53,7 +22,6 @@ jQuery.extend( {
 	// the ready event fires. See #6781
 	readyWait: 1,
 
-<<<<<<< HEAD
 	// Hold (or release) the ready event
 	holdReady: function( hold ) {
 		if ( hold ) {
@@ -63,8 +31,6 @@ jQuery.extend( {
 		}
 	},
 
-=======
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	// Handle when the DOM is ready
 	ready: function( wait ) {
 
@@ -83,7 +49,6 @@ jQuery.extend( {
 
 		// If there are functions bound, to execute
 		readyList.resolveWith( document, [ jQuery ] );
-<<<<<<< HEAD
 
 		// Trigger any bound ready events
 		if ( jQuery.fn.triggerHandler ) {
@@ -130,37 +95,3 @@ jQuery.ready.promise = function( obj ) {
 jQuery.ready.promise();
 
 });
-=======
-	}
-} );
-
-jQuery.ready.then = readyList.then;
-
-// The ready event handler and self cleanup method
-function completed() {
-	document.removeEventListener( "DOMContentLoaded", completed );
-	window.removeEventListener( "load", completed );
-	jQuery.ready();
-}
-
-// Catch cases where $(document).ready() is called
-// after the browser event has already occurred.
-// Support: IE <=9 - 10 only
-// Older IE sometimes signals "interactive" too soon
-if ( document.readyState === "complete" ||
-	( document.readyState !== "loading" && !document.documentElement.doScroll ) ) {
-
-	// Handle it asynchronously to allow scripts the opportunity to delay ready
-	window.setTimeout( jQuery.ready );
-
-} else {
-
-	// Use the handy event callback
-	document.addEventListener( "DOMContentLoaded", completed );
-
-	// A fallback to window.onload, that will always work
-	window.addEventListener( "load", completed );
-}
-
-} );
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
