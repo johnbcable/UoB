@@ -1,0 +1,19 @@
+<SCRIPT LANGUAGE=JScript RUNAT=Server>
+
+function Session_OnStart() {
+  Session.Timeout = 300;
+  Response.Cookies("member")("memberid")="";
+  Response.Cookies("member")("membername")="";
+  Response.Cookies("member")("acclevel")=0;
+
+  Application("ALTAHRN") = "dsn=ALTAHRN;uid=cablej_rw;pwd=Mc3GtqS8RvoFyOT7PS0j;";
+  Application("testdata") = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\\inetpub\\wwwroot\\data\\TestData.mdb;"
+ }
+
+function Session_OnEnd() {
+  Response.Cookies("member")("memberid")="";
+  Response.Cookies("member")("membername")="";
+  Response.Cookies("member")("acclevel")=0;
+}
+
+</SCRIPT>
