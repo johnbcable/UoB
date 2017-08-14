@@ -1,0 +1,40 @@
+COMMENT  ####
+COMMENT  #  CONTACT - MINIMAL SUBSET  
+COMMENT  ####
+METADATA|Contact|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|StartDate
+MERGE|Contact|ALTAHRN01|50000500-CONT-01|2016/07/04|4712/12/31|2016/07/04
+
+COMMENT  ####
+COMMENT  #  CONTACT NAME- MINIMAL SUBSET (REQUIRED) 
+COMMENT  ####
+METADATA|ContactName|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|LegislationCode|NameType|FirstName|LastName|Title
+MERGE|ContactName|ALTAHRN01|50000500-CONTNAME-01|50000500-CONT-01|2016/07/04|4712/12/31|GB|GLOBAL|Lesley|Cable|MRS.
+
+COMMENT  ####
+COMMENT  #  CONTACT PHONE- MINIMAL SUBSET (REQUIRED) 
+COMMENT  ####
+METADATA|ContactPhone|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|PhoneType|PhoneNumber|DateFrom|DateTo|LegislationCode|PrimaryFlag
+MERGE|ContactPhone|ALTAHRN01|50000500-CONTPHON-01|50000500-CONT-01|H1|01675 443085|2016/07/04|4712/12/31|GB|Y
+
+COMMENT  ####
+COMMENT  #  CONTACT RELATIONSHIP- MINIMAL SUBSET (REQUIRED IF SOURCE DATA PRESENT) 
+COMMENT  ####
+METADATA|ContactRelationship|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|RelatedPersonNumber|ContactType|EmergencyContactFlag
+MERGE|ContactRelationship|ALTAHRN01|50000500-CONTREL-01|50000500-CONT-01|2016/07/04|4712/12/31|50000500|EMRG|Y
+
+COMMENT  ####
+COMMENT  #  CONTACT ADDRESS- MINIMAL SUBSET (MAY NOT BE REQUIRED) 
+COMMENT  ####
+METADATA|ContactAddress|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)EffectiveStartDate|EffectiveEndDate|AddressType|AddressLine1|AddressLine2|AddressLine3|AddressLine4|TownOrCity|Region1|Country|PostalCode|PrimaryFlag
+
+COMMENT  ####
+COMMENT  #  CONTACT EMAIL- MINIMAL SUBSET (MAY NOT BE REQUIRED) 
+COMMENT  ####
+METADATA|ContactEmail|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|DateFrom|DateTo|EmailType|EmailAddress|PrimaryFlag|
+
+COMMENT Data for Business Object: -Contact- to be used for non-existing persons, 
+COMMENT (external contacts), the employee the contact belongs to has the PersonNumber 50000500 while 
+COMMENT the contact gets allocated via SourceSystemOwner and SourceSystemId
+
+COMMENT Must delete main contact last as child records need to go first
+

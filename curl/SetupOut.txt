@@ -1,0 +1,859 @@
+{
+  "Resources" : {
+    "locations" : {
+      "discrColumnType" : false,
+      "title" : "Location SDO Version 2",
+      "attributes" : [ {
+        "name" : "LocationId",
+        "type" : "integer",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "inCreate",
+        "precision" : 18,
+        "hasDefaultValueExpression" : true,
+        "properties" : {
+          "fnd:GLOBALLY_UNIQUE" : "true",
+          "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.locations.model.view.LocationVVO\",\"LocationCode:InternalLocationCode;SetId\",\"LocationId\");"
+        },
+        "annotations" : {
+          "description" : "System generated primary key column."
+        }
+      }, {
+        "name" : "SetId",
+        "type" : "integer",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "inCreate",
+        "precision" : 18,
+        "title" : "Set",
+        "properties" : {
+          "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.common.core.helper.SetIdKeyHelper\",\"SetCode:BindSetCode;\");",
+          "IS_REQUIRED" : "true"
+        },
+        "annotations" : {
+          "description" : "Identifies a set of reference data shared across business units and other entities. Also known as Reference Data Sets, they are used to filter reference data in transactional UIs."
+        }
+      }, {
+        "name" : "TelephoneNumber1",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : false,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Main Phone",
+        "maxLength" : "240"
+      }, {
+        "name" : "TelephoneNumber2",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : false,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Fax",
+        "maxLength" : "240"
+      }, {
+        "name" : "TelephoneNumber3",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : false,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Other Phone",
+        "maxLength" : "240"
+      }, {
+        "name" : "EmailAddress",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : false,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "E-Mail",
+        "maxLength" : "240",
+        "annotations" : {
+          "description" : "Represents the email address of the location."
+        }
+      }, {
+        "name" : "ShipToSiteFlag",
+        "type" : "boolean",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 30,
+        "defaultValue" : true,
+        "title" : "Ship-to Site",
+        "maxLength" : "30",
+        "properties" : {
+          "JboValueMapProperty" : "oracle.jbo.valuemaps.BooleanYNPropertySet"
+        },
+        "annotations" : {
+          "description" : "Indicates the location is a ship to site."
+        }
+      }, {
+        "name" : "ReceivingSiteFlag",
+        "type" : "boolean",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 30,
+        "defaultValue" : true,
+        "title" : "Receiving Site",
+        "maxLength" : "30",
+        "properties" : {
+          "JboValueMapProperty" : "oracle.jbo.valuemaps.BooleanYNPropertySet"
+        },
+        "annotations" : {
+          "description" : "Indicates the location is a receiving site."
+        }
+      }, {
+        "name" : "BillToSiteFlag",
+        "type" : "boolean",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 30,
+        "defaultValue" : true,
+        "title" : "Bill-to Site",
+        "maxLength" : "30",
+        "properties" : {
+          "JboValueMapProperty" : "oracle.jbo.valuemaps.BooleanYNPropertySet"
+        },
+        "annotations" : {
+          "description" : "Indicates the location is a bill to site."
+        }
+      }, {
+        "name" : "OfficeSiteFlag",
+        "type" : "boolean",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 30,
+        "defaultValue" : true,
+        "title" : "Office Site",
+        "maxLength" : "30",
+        "properties" : {
+          "JboValueMapProperty" : "oracle.jbo.valuemaps.BooleanYNPropertySet"
+        },
+        "annotations" : {
+          "description" : "Indicates the location is an office site."
+        }
+      }, {
+        "name" : "LocationCode",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 120,
+        "title" : "Code",
+        "maxLength" : "120",
+        "properties" : {
+          "IS_IGNORECASE" : "true",
+          "IS_REQUIRED" : "true"
+        },
+        "annotations" : {
+          "description" : "Location Code"
+        }
+      }, {
+        "name" : "LocationName",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 60,
+        "maxLength" : "60",
+        "properties" : {
+          "DISPLAYWIDTH" : "30"
+        },
+        "annotations" : {
+          "description" : "Location Name"
+        }
+      }, {
+        "name" : "Description",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : false,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "annotations" : {
+          "description" : "Description for the location."
+        }
+      }, {
+        "name" : "MainAddressId",
+        "type" : "integer",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : false,
+        "allowChanges" : "inCreate",
+        "precision" : 18,
+        "defaultValue" : 1,
+        "title" : "Main Address",
+        "properties" : {
+          "DISPLAYHINT" : "Hide"
+        }
+      }, {
+        "name" : "AddressLine1",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Address Line 1",
+        "maxLength" : "240",
+        "annotations" : {
+          "description" : "First line of address"
+        }
+      }, {
+        "name" : "AddressLine2",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Address Line 2",
+        "maxLength" : "240",
+        "annotations" : {
+          "description" : "Second line of address"
+        }
+      }, {
+        "name" : "AddressLine3",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Address Line 3",
+        "maxLength" : "240",
+        "annotations" : {
+          "description" : "Third line of address"
+        }
+      }, {
+        "name" : "AddressLine4",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Address Line 4",
+        "maxLength" : "240",
+        "annotations" : {
+          "description" : "Fourth line of address"
+        }
+      }, {
+        "name" : "Country",
+        "type" : "string",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "inCreate",
+        "precision" : 60,
+        "title" : "Country",
+        "maxLength" : "60",
+        "annotations" : {
+          "description" : "Country of the address"
+        }
+      }, {
+        "name" : "PostalCode",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 30,
+        "title" : "Postal Code",
+        "maxLength" : "30",
+        "annotations" : {
+          "description" : "Postal code of the address"
+        }
+      }, {
+        "name" : "Region1",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 120,
+        "title" : "Region 1",
+        "maxLength" : "120",
+        "annotations" : {
+          "description" : "Primary region in which the address is located."
+        }
+      }, {
+        "name" : "Region2",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 120,
+        "title" : "Region 2",
+        "maxLength" : "120",
+        "annotations" : {
+          "description" : "Sub-region of Region 1."
+        }
+      }, {
+        "name" : "Region3",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 120,
+        "title" : "Region 3",
+        "maxLength" : "120",
+        "annotations" : {
+          "description" : "Sub-region of Region 2."
+        }
+      }, {
+        "name" : "TownOrCity",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 30,
+        "title" : "Town or City",
+        "maxLength" : "30",
+        "annotations" : {
+          "description" : "Name of the Town or City for the address"
+        }
+      }, {
+        "name" : "EffectiveStartDate",
+        "type" : "date",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "title" : "Effective Start Date",
+        "annotations" : {
+          "description" : "Date Effective Entity: indicates the date at the beginning of the date range within which the row is effective."
+        }
+      }, {
+        "name" : "EffectiveEndDate",
+        "type" : "date",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "title" : "Effective End Date",
+        "annotations" : {
+          "description" : "Date Effective Entity: indicates the date at the end of the date range within which the row is effective."
+        }
+      }, {
+        "name" : "CreationDate",
+        "type" : "datetime",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : false,
+        "allowChanges" : "never",
+        "properties" : {
+          "DISPLAYHINT" : "Hide"
+        }
+      }, {
+        "name" : "LastUpdateDate",
+        "type" : "datetime",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : false,
+        "allowChanges" : "never",
+        "properties" : {
+          "DISPLAYHINT" : "Hide"
+        }
+      } ],
+      "collection" : {
+        "rangeSize" : 25,
+        "finders" : [ {
+          "name" : "PrimaryKey",
+          "attributes" : [ {
+            "name" : "LocationId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "hasDefaultValueExpression" : true,
+            "properties" : {
+              "fnd:GLOBALLY_UNIQUE" : "true",
+              "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.locations.model.view.LocationVVO\",\"LocationCode:InternalLocationCode;SetId\",\"LocationId\");"
+            }
+          }, {
+            "name" : "EffectiveEndDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective End Date"
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective Start Date"
+          } ]
+        }, {
+          "name" : "LocationVOPrimaryKey",
+          "attributes" : [ {
+            "name" : "LocationId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "hasDefaultValueExpression" : true,
+            "properties" : {
+              "fnd:GLOBALLY_UNIQUE" : "true",
+              "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.locations.model.view.LocationVVO\",\"LocationCode:InternalLocationCode;SetId\",\"LocationId\");"
+            }
+          }, {
+            "name" : "EffectiveEndDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective End Date"
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective Start Date"
+          } ]
+        }, {
+          "name" : "AlternateKey",
+          "attributes" : [ {
+            "name" : "LocationCode",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 120,
+            "title" : "Code",
+            "maxLength" : "120",
+            "properties" : {
+              "IS_IGNORECASE" : "true",
+              "IS_REQUIRED" : "true"
+            }
+          }, {
+            "name" : "SetId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "title" : "Set",
+            "properties" : {
+              "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.common.core.helper.SetIdKeyHelper\",\"SetCode:BindSetCode;\");",
+              "IS_REQUIRED" : "true"
+            }
+          } ]
+        } ],
+        "links" : [ {
+          "rel" : "self",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations",
+          "name" : "self",
+          "kind" : "collection"
+        } ],
+        "actions" : [ {
+          "name" : "get",
+          "method" : "GET",
+          "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+        } ]
+      },
+      "item" : {
+        "links" : [ {
+          "rel" : "child",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF",
+          "name" : "LocationDFF",
+          "kind" : "collection",
+          "cardinality" : {
+            "value" : "1 to 1",
+            "sourceAttributes" : "EffectiveEndDate, LocationDetailsId, EffectiveStartDate",
+            "destinationAttributes" : "EffectiveEndDate, LocationDetailsId, EffectiveStartDate"
+          }
+        }, {
+          "rel" : "self",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}",
+          "name" : "self",
+          "kind" : "item"
+        }, {
+          "rel" : "canonical",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}",
+          "name" : "canonical",
+          "kind" : "item"
+        } ],
+        "actions" : [ {
+          "name" : "get",
+          "method" : "GET",
+          "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+        } ]
+      },
+      "annotations" : {
+        "description" : "New service to capture location information. A location is a physical address that is applicable to an organizational entity.",
+        "children" : [ {
+          "name" : "LocationDFF",
+          "description" : "Customer Flexfield for location."
+        } ],
+        "categories" : {
+          "lba" : [ "HcmTop-HcmTop", "HcmTop-HcmTop : HcmLocations-Locations" ],
+          "lbo" : [ "HCM-HCM", "HCM-HCM : PER-Global Human Resources", "HCM-HCM : PER-Global Human Resources : PER_LOCATION-Location" ]
+        }
+      },
+      "children" : {
+        "LocationDFF" : {
+          "discrColumnType" : false,
+          "attributes" : [ {
+            "name" : "LocationDetailsId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "hasDefaultValueExpression" : true,
+            "properties" : {
+              "fnd:GLOBALLY_UNIQUE" : "true",
+              "DISPLAYHINT" : "Hide"
+            }
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective Start Date",
+            "properties" : {
+              "DISPLAYHINT" : "Hide"
+            }
+          }, {
+            "name" : "EffectiveEndDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective End Date",
+            "properties" : {
+              "DISPLAYHINT" : "Hide"
+            }
+          }, {
+            "name" : "__FLEX_Context",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : false,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 30,
+            "title" : "Context Value",
+            "controlType" : "choice",
+            "maxLength" : "30",
+            "properties" : {
+              "FND_ACFF_FlexfieldResourceBundleResId" : "rev.a800.dPER_LOCATIONS_DF..d5p",
+              "TOOLTIP" : "Context Value",
+              "FND_ACFF_AkaAttrName" : "__FLEX_Context_DisplayValue",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_Bind_DescriptiveFlexfieldCode" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#\"PER_LOCATIONS_DF\"",
+              "FND_ACFF_NLS_UNIT" : "Context Value",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_DisplayValue_Bind_ApplicationId" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#800",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_Bind_ApplicationId" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#800",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_DisplayValue_Bind_DescriptiveFlexfieldCode" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#\"PER_LOCATIONS_DF\"",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_DisplayValue_Bind_ContextCode" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableViewAttrExpression#__FLEX_Context#$|__FLEX_Context|$",
+              "DISPLAYWIDTH" : "30",
+              "FORMTYPE" : "Summary"
+            },
+            "lov" : {
+              "childRef" : "LVVO___FLEX_Context",
+              "attributeMap" : [ {
+                "source" : "ContextCode",
+                "target" : "__FLEX_Context"
+              } ],
+              "displayAttributes" : [ "Name" ]
+            }
+          }, {
+            "name" : "__FLEX_Context_DisplayValue",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : false,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "hasDefaultValueExpression" : true,
+            "title" : "Context Value",
+            "maxLength" : "0",
+            "properties" : {
+              "DISPLAYHINT" : "Hide",
+              "FND_ACFF_FlexfieldResourceBundleResId" : "rev.a800.dPER_LOCATIONS_DF..d5p",
+              "TOOLTIP" : "Context Value",
+              "updateable" : "false",
+              "DISPLAYWIDTH" : "30",
+              "FND_ACFF_AkaRealSegmentAttrName" : "__FLEX_Context",
+              "FND_ACFF_ListDisplayAttrName" : "Name",
+              "FND_ACFF_IsReadOnly" : "true",
+              "FND_ACFF_NLS_UNIT" : "Context Value"
+            }
+          } ],
+          "collection" : {
+            "rangeSize" : 0,
+            "finders" : [ {
+              "name" : "PrimaryKey",
+              "attributes" : [ {
+                "name" : "EffectiveEndDate",
+                "type" : "date",
+                "updatable" : true,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "always",
+                "title" : "Effective End Date",
+                "properties" : {
+                  "DISPLAYHINT" : "Hide"
+                }
+              }, {
+                "name" : "EffectiveStartDate",
+                "type" : "date",
+                "updatable" : true,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "always",
+                "title" : "Effective Start Date",
+                "properties" : {
+                  "DISPLAYHINT" : "Hide"
+                }
+              }, {
+                "name" : "LocationDetailsId",
+                "type" : "integer",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "inCreate",
+                "precision" : 18,
+                "hasDefaultValueExpression" : true,
+                "properties" : {
+                  "fnd:GLOBALLY_UNIQUE" : "true",
+                  "DISPLAYHINT" : "Hide"
+                }
+              } ]
+            } ],
+            "links" : [ {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF",
+              "name" : "self",
+              "kind" : "collection"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+            } ]
+          },
+          "item" : {
+            "links" : [ {
+              "rel" : "lov",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/{id}/lov/LVVO___FLEX_Context",
+              "name" : "LVVO___FLEX_Context",
+              "kind" : "collection"
+            }, {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/{id}",
+              "name" : "self",
+              "kind" : "item"
+            }, {
+              "rel" : "parent",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}",
+              "name" : "parent",
+              "kind" : "item"
+            }, {
+              "rel" : "canonical",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/{id}",
+              "name" : "canonical",
+              "kind" : "item"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+            } ]
+          },
+          "children" : {
+            "LVVO___FLEX_Context" : {
+              "discrColumnType" : false,
+              "attributes" : [ {
+                "name" : "ApplicationId",
+                "type" : "integer",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 18
+              }, {
+                "name" : "DescriptiveFlexfieldCode",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 40
+              }, {
+                "name" : "ContextCode",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 80
+              }, {
+                "name" : "Name",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 80,
+                "title" : "Name",
+                "maxLength" : "80"
+              }, {
+                "name" : "Description",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : false,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 240,
+                "title" : "Description",
+                "maxLength" : "240"
+              }, {
+                "name" : "EnabledFlag",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : false,
+                "allowChanges" : "never",
+                "precision" : 1
+              } ],
+              "collection" : {
+                "rangeSize" : 0,
+                "finders" : [ {
+                  "name" : "PrimaryKey",
+                  "attributes" : [ {
+                    "name" : "ContextCode",
+                    "type" : "string",
+                    "updatable" : false,
+                    "mandatory" : true,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "precision" : 80
+                  }, {
+                    "name" : "DescriptiveFlexfieldCode",
+                    "type" : "string",
+                    "updatable" : false,
+                    "mandatory" : true,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "precision" : 40
+                  }, {
+                    "name" : "ApplicationId",
+                    "type" : "integer",
+                    "updatable" : false,
+                    "mandatory" : true,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "precision" : 18
+                  } ]
+                } ],
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/{id}/child/LVVO___FLEX_Context",
+                  "name" : "self",
+                  "kind" : "collection"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+                } ]
+              },
+              "item" : {
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/{id}/child/LVVO___FLEX_Context/{id}",
+                  "name" : "self",
+                  "kind" : "item"
+                }, {
+                  "rel" : "parent",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/{id}",
+                  "name" : "parent",
+                  "kind" : "item"
+                }, {
+                  "rel" : "canonical",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/{id}/child/LVVO___FLEX_Context/{id}",
+                  "name" : "canonical",
+                  "kind" : "item"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+                } ]
+              },
+              "links" : [ {
+                "rel" : "self",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/{id}/child/LVVO___FLEX_Context/describe",
+                "name" : "self",
+                "kind" : "describe"
+              }, {
+                "rel" : "canonical",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/{id}/child/LVVO___FLEX_Context/describe",
+                "name" : "canonical",
+                "kind" : "describe"
+              } ]
+            }
+          },
+          "links" : [ {
+            "rel" : "self",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/describe",
+            "name" : "self",
+            "kind" : "describe"
+          }, {
+            "rel" : "canonical",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/{id}/child/LocationDFF/describe",
+            "name" : "canonical",
+            "kind" : "describe"
+          } ]
+        }
+      },
+      "links" : [ {
+        "rel" : "self",
+        "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/describe",
+        "name" : "self",
+        "kind" : "describe"
+      }, {
+        "rel" : "canonical",
+        "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/locations/describe",
+        "name" : "canonical",
+        "kind" : "describe"
+      } ]
+    }
+  }
+}

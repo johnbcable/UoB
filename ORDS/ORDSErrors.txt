@@ -1,0 +1,42 @@
+Connected
+
+Error starting at line : 3 in command -
+BEGIN
+ORDS.define_module(
+	p_module_name => 'mapping',
+	p_base_path => 'mapping/',
+	p_items_per_page => 0);
+ORDS.define_template(
+	p_module_name => 'mapping',
+	p_pattern => 'country/');
+-- READ : All records.
+ORDS.define_handler(
+	p_module_name => 'mapping',
+	p_pattern => 'country/',
+	p_method => 'GET',
+	p_source_type => ORDS.source_type_query,
+	p_source => 'SELECT * FROM CountryCodes',
+	p_items_per_page => 0);
+-- READ : One Record
+ORDS.define_template(
+	p_module_name => 'mapping',
+	p_pattern => 'country/:countrycode');
+ORDS.define_handler(
+	p_module_name => 'mapping',
+	p_pattern => 'country/:countrycode',
+	p_method => 'GET',
+	p_source_type => ORDS.source_type_query,
+	p_source => 'SELECT * FROM CountryCodes WHERE ISOCountryCode = :empno',
+	p_items_per_page => 0);
+COMMIT;
+END;
+Error report -
+ORA-01403: no data found
+ORA-06512: at "ORDS_METADATA.ORDS_INTERNAL", line 617
+ORA-06512: at "ORDS_METADATA.ORDS_SECURITY", line 63
+ORA-06512: at "ORDS_METADATA.ORDS", line 722
+ORA-06512: at line 2
+01403. 00000 -  "no data found"
+*Cause:    No data was found from the objects.
+*Action:   There was no data from the objects which may be due to end of fetch.
+Connection created by CONNECT script command disconnected

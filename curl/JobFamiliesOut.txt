@@ -1,0 +1,857 @@
+{
+  "Resources" : {
+    "jobFamilies" : {
+      "discrColumnType" : false,
+      "title" : "HR Job Family SDO",
+      "attributes" : [ {
+        "name" : "JobFamilyId",
+        "type" : "integer",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "inCreate",
+        "precision" : 18,
+        "hasDefaultValueExpression" : true,
+        "properties" : {
+          "fnd:GLOBALLY_UNIQUE" : "true",
+          "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.workStructures.jobs.jobFamilyServiceV2.view.JobFamilyUserKeyVO\",\"JobFamilyName\");"
+        },
+        "annotations" : {
+          "description" : "System generated primary key column."
+        }
+      }, {
+        "name" : "EffectiveStartDate",
+        "type" : "date",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "title" : "Effective Start Date",
+        "annotations" : {
+          "description" : "Date Effective Entity: indicates the date at the beginning of the date range within which the row is effective."
+        }
+      }, {
+        "name" : "EffectiveEndDate",
+        "type" : "date",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "title" : "Effective End Date",
+        "annotations" : {
+          "description" : "Date Effective Entity: indicates the date at the end of the date range within which the row is effective."
+        }
+      }, {
+        "name" : "JobFamilyName",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Name",
+        "maxLength" : "240",
+        "properties" : {
+          "IS_IGNORECASE" : "true",
+          "IS_REQUIRED" : "true"
+        },
+        "annotations" : {
+          "description" : "Denoted the name for the Job Family."
+        }
+      }, {
+        "name" : "JobFamilyCode",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 240,
+        "title" : "Job Family Code",
+        "maxLength" : "240",
+        "annotations" : {
+          "description" : "Denoted the code  for the Job Family."
+        }
+      }, {
+        "name" : "ActionReasonId",
+        "type" : "integer",
+        "updatable" : true,
+        "mandatory" : false,
+        "queryable" : false,
+        "allowChanges" : "always",
+        "defaultValue" : 0
+      }, {
+        "name" : "ActiveStatus",
+        "type" : "string",
+        "updatable" : true,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "always",
+        "precision" : 30,
+        "defaultValue" : "A",
+        "title" : "Status",
+        "controlType" : "choice",
+        "maxLength" : "30",
+        "lov" : {
+          "childRef" : "ActiveStatusLOV",
+          "attributeMap" : [ {
+            "source" : "LookupCode",
+            "target" : "ActiveStatus"
+          } ],
+          "displayAttributes" : [ "Meaning" ]
+        },
+        "annotations" : {
+          "description" : "Indicates if a job family is active or inactive."
+        }
+      }, {
+        "name" : "CreationDate",
+        "type" : "datetime",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "never"
+      }, {
+        "name" : "LastUpdateDate",
+        "type" : "datetime",
+        "updatable" : false,
+        "mandatory" : true,
+        "queryable" : true,
+        "allowChanges" : "never"
+      } ],
+      "collection" : {
+        "rangeSize" : 25,
+        "finders" : [ {
+          "name" : "PrimaryKey",
+          "attributes" : [ {
+            "name" : "EffectiveEndDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective End Date"
+          }, {
+            "name" : "JobFamilyId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "hasDefaultValueExpression" : true,
+            "properties" : {
+              "fnd:GLOBALLY_UNIQUE" : "true",
+              "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.workStructures.jobs.jobFamilyServiceV2.view.JobFamilyUserKeyVO\",\"JobFamilyName\");"
+            }
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective Start Date"
+          } ]
+        }, {
+          "name" : "JobFamilyVOPrimaryKey",
+          "attributes" : [ {
+            "name" : "EffectiveEndDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective End Date"
+          }, {
+            "name" : "JobFamilyId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "hasDefaultValueExpression" : true,
+            "properties" : {
+              "fnd:GLOBALLY_UNIQUE" : "true",
+              "KeyHelper" : "keyContextHelper.resolve(\"oracle.apps.hcm.workStructures.jobs.jobFamilyServiceV2.view.JobFamilyUserKeyVO\",\"JobFamilyName\");"
+            }
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective Start Date"
+          } ]
+        }, {
+          "name" : "AltKey",
+          "attributes" : [ {
+            "name" : "JobFamilyName",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 240,
+            "title" : "Name",
+            "maxLength" : "240",
+            "properties" : {
+              "IS_IGNORECASE" : "true",
+              "IS_REQUIRED" : "true"
+            }
+          } ]
+        } ],
+        "links" : [ {
+          "rel" : "self",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies",
+          "name" : "self",
+          "kind" : "collection"
+        } ],
+        "actions" : [ {
+          "name" : "get",
+          "method" : "GET",
+          "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+        } ]
+      },
+      "item" : {
+        "links" : [ {
+          "rel" : "lov",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/lov/ActiveStatusLOV",
+          "name" : "ActiveStatusLOV",
+          "kind" : "collection"
+        }, {
+          "rel" : "child",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF",
+          "name" : "JobFamilyDFF",
+          "kind" : "collection",
+          "cardinality" : {
+            "value" : "1 to 1",
+            "sourceAttributes" : "EffectiveStartDate, JobFamilyId, EffectiveEndDate",
+            "destinationAttributes" : "EffectiveStartDate, JobFamilyId, EffectiveEndDate"
+          }
+        }, {
+          "rel" : "self",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}",
+          "name" : "self",
+          "kind" : "item"
+        }, {
+          "rel" : "canonical",
+          "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}",
+          "name" : "canonical",
+          "kind" : "item"
+        } ],
+        "actions" : [ {
+          "name" : "get",
+          "method" : "GET",
+          "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+        } ]
+      },
+      "annotations" : {
+        "description" : "New service to define the job families that are used to group jobs.",
+        "children" : [ {
+          "name" : "JobFamilyDFF",
+          "description" : "Customer's flexfield for job family."
+        } ],
+        "categories" : {
+          "lba" : [ "HcmTop-HcmTop", "HcmTop-HcmTop : HcmWorkTop-Work Structures Grade, Job, and Position", "HcmTop-HcmTop : HcmWorkTop-Work Structures Grade, Job, and Position : HcmWorkJobs-Work Structures Job" ],
+          "lbo" : [ "HCM-HCM", "HCM-HCM : PER-Global Human Resources", "HCM-HCM : PER-Global Human Resources : PER_JOB_FAMILY-HR Job Family" ]
+        }
+      },
+      "children" : {
+        "JobFamilyDFF" : {
+          "discrColumnType" : false,
+          "attributes" : [ {
+            "name" : "JobFamilyId",
+            "type" : "integer",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 18,
+            "hasDefaultValueExpression" : true,
+            "properties" : {
+              "fnd:GLOBALLY_UNIQUE" : "true",
+              "DISPLAYHINT" : "Hide"
+            }
+          }, {
+            "name" : "EffectiveStartDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective Start Date",
+            "properties" : {
+              "DISPLAYHINT" : "Hide"
+            }
+          }, {
+            "name" : "EffectiveEndDate",
+            "type" : "date",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "title" : "Effective End Date",
+            "properties" : {
+              "DISPLAYHINT" : "Hide"
+            }
+          }, {
+            "name" : "payrollProrationRule",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : false,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 150,
+            "title" : "Payroll Proration Rule",
+            "maxLength" : "150",
+            "properties" : {
+              "DISPLAYHINT" : "Hide",
+              "FND_ACFF_FlexfieldResourceBundleResId" : "rev.a800.dPER_JOB_FAMILY_DFF..d6p.Payrollx20Prorationx20Rule",
+              "FND_ACFF_IsRequired" : "true",
+              "TOOLTIP" : "Payroll Proration Rule",
+              "FND_ACFF_DisplayAttributeName" : "payrollProrationRule_Display",
+              "FND_ACFF_VAPPE_LVVO_payrollProrationRule_Bind_ValidationDate" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#oracle.apps.fnd.applcore.oaext.model.FlexfieldQueryContext.getValidationDate(adf.isCriteriaRow, adf.object.viewObject)",
+              "FND_ACFF_DVT" : "C",
+              "FND_ACFF_NLS_UNIT" : "Payroll Proration Rule",
+              "FND_ACFF_DV" : "Workday",
+              "FND_ACFF_IsGlobal" : "true",
+              "FND_ACFF_VAPPE_LVVO_payrollProrationRule_Display_Bind_Id" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableViewAttrExpression#payrollProrationRule#$|payrollProrationRule|$",
+              "FND_ACFF_SegmentName" : "Payroll Proration Rule",
+              "FND_ACFF_OpenIdentifier" : "payrollProrationRule",
+              "FORMTYPE" : "Summary"
+            }
+          }, {
+            "name" : "payrollProrationRule_Display",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : false,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "hasDefaultValueExpression" : true,
+            "title" : "Payroll Proration Rule",
+            "controlType" : "combo_lov",
+            "maxLength" : "0",
+            "properties" : {
+              "FND_ACFF_SegmentAttributeName" : "payrollProrationRule",
+              "FND_ACFF_IsGlobalDisplay" : "true",
+              "FND_ACFF_FlexfieldResourceBundleResId" : "rev.a800.dPER_JOB_FAMILY_DFF..d6p.Payrollx20Prorationx20Rule",
+              "FND_ACFF_IsRequired" : "true",
+              "TOOLTIP" : "Payroll Proration Rule",
+              "FND_ACFF_ListDisplayAttrName" : "Value",
+              "FORMTYPE" : "Summary",
+              "FND_ACFF_NLS_UNIT" : "Payroll Proration Rule"
+            },
+            "lov" : {
+              "childRef" : "LVVO_payrollProrationRule",
+              "attributeMap" : [ {
+                "source" : "Value",
+                "target" : "payrollProrationRule_Display"
+              }, {
+                "source" : "Id",
+                "target" : "payrollProrationRule",
+                "derived" : true
+              } ],
+              "displayAttributes" : [ "Value" ]
+            }
+          }, {
+            "name" : "__FLEX_Context",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : false,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 30,
+            "title" : "Context Value",
+            "controlType" : "choice",
+            "maxLength" : "30",
+            "properties" : {
+              "FND_ACFF_FlexfieldResourceBundleResId" : "rev.a800.dPER_JOB_FAMILY_DFF..d5p",
+              "TOOLTIP" : "Context Value",
+              "FND_ACFF_AkaAttrName" : "__FLEX_Context_DisplayValue",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_Bind_DescriptiveFlexfieldCode" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#\"PER_JOB_FAMILY_DFF\"",
+              "FND_ACFF_NLS_UNIT" : "Context Value",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_DisplayValue_Bind_ApplicationId" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#800",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_Bind_ApplicationId" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#800",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_DisplayValue_Bind_DescriptiveFlexfieldCode" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableExpression#$null$#\"PER_JOB_FAMILY_DFF\"",
+              "FND_ACFF_VAPPE_LVVO___FLEX_Context_DisplayValue_Bind_ContextCode" : "oracle.apps.fnd.applcore.flex.runtime.util.common.PortableViewAttrExpression#__FLEX_Context#$|__FLEX_Context|$",
+              "DISPLAYWIDTH" : "30",
+              "FORMTYPE" : "Summary"
+            },
+            "lov" : {
+              "childRef" : "LVVO___FLEX_Context",
+              "attributeMap" : [ {
+                "source" : "ContextCode",
+                "target" : "__FLEX_Context"
+              } ],
+              "displayAttributes" : [ "Name" ]
+            }
+          }, {
+            "name" : "__FLEX_Context_DisplayValue",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : false,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "hasDefaultValueExpression" : true,
+            "title" : "Context Value",
+            "maxLength" : "0",
+            "properties" : {
+              "DISPLAYHINT" : "Hide",
+              "FND_ACFF_FlexfieldResourceBundleResId" : "rev.a800.dPER_JOB_FAMILY_DFF..d5p",
+              "TOOLTIP" : "Context Value",
+              "updateable" : "false",
+              "DISPLAYWIDTH" : "30",
+              "FND_ACFF_AkaRealSegmentAttrName" : "__FLEX_Context",
+              "FND_ACFF_ListDisplayAttrName" : "Name",
+              "FND_ACFF_IsReadOnly" : "true",
+              "FND_ACFF_NLS_UNIT" : "Context Value"
+            }
+          } ],
+          "collection" : {
+            "rangeSize" : 0,
+            "finders" : [ {
+              "name" : "PrimaryKey",
+              "attributes" : [ {
+                "name" : "EffectiveEndDate",
+                "type" : "date",
+                "updatable" : true,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "always",
+                "title" : "Effective End Date",
+                "properties" : {
+                  "DISPLAYHINT" : "Hide"
+                }
+              }, {
+                "name" : "JobFamilyId",
+                "type" : "integer",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "inCreate",
+                "precision" : 18,
+                "hasDefaultValueExpression" : true,
+                "properties" : {
+                  "fnd:GLOBALLY_UNIQUE" : "true",
+                  "DISPLAYHINT" : "Hide"
+                }
+              }, {
+                "name" : "EffectiveStartDate",
+                "type" : "date",
+                "updatable" : true,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "always",
+                "title" : "Effective Start Date",
+                "properties" : {
+                  "DISPLAYHINT" : "Hide"
+                }
+              } ]
+            } ],
+            "links" : [ {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF",
+              "name" : "self",
+              "kind" : "collection"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+            } ]
+          },
+          "item" : {
+            "links" : [ {
+              "rel" : "lov",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/lov/LVVO_payrollProrationRule",
+              "name" : "LVVO_payrollProrationRule",
+              "kind" : "collection"
+            }, {
+              "rel" : "lov",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/lov/LVVO___FLEX_Context",
+              "name" : "LVVO___FLEX_Context",
+              "kind" : "collection"
+            }, {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}",
+              "name" : "self",
+              "kind" : "item"
+            }, {
+              "rel" : "parent",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}",
+              "name" : "parent",
+              "kind" : "item"
+            }, {
+              "rel" : "canonical",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}",
+              "name" : "canonical",
+              "kind" : "item"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+            } ]
+          },
+          "children" : {
+            "LVVO___FLEX_Context" : {
+              "discrColumnType" : false,
+              "attributes" : [ {
+                "name" : "ApplicationId",
+                "type" : "integer",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 18
+              }, {
+                "name" : "DescriptiveFlexfieldCode",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 40
+              }, {
+                "name" : "ContextCode",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 80
+              }, {
+                "name" : "Name",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 80,
+                "title" : "Name",
+                "maxLength" : "80"
+              }, {
+                "name" : "Description",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : false,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "precision" : 240,
+                "title" : "Description",
+                "maxLength" : "240"
+              }, {
+                "name" : "EnabledFlag",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : false,
+                "allowChanges" : "never",
+                "precision" : 1
+              } ],
+              "collection" : {
+                "rangeSize" : 0,
+                "finders" : [ {
+                  "name" : "PrimaryKey",
+                  "attributes" : [ {
+                    "name" : "ContextCode",
+                    "type" : "string",
+                    "updatable" : false,
+                    "mandatory" : true,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "precision" : 80
+                  }, {
+                    "name" : "DescriptiveFlexfieldCode",
+                    "type" : "string",
+                    "updatable" : false,
+                    "mandatory" : true,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "precision" : 40
+                  }, {
+                    "name" : "ApplicationId",
+                    "type" : "integer",
+                    "updatable" : false,
+                    "mandatory" : true,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "precision" : 18
+                  } ]
+                } ],
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO___FLEX_Context",
+                  "name" : "self",
+                  "kind" : "collection"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+                } ]
+              },
+              "item" : {
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO___FLEX_Context/{id}",
+                  "name" : "self",
+                  "kind" : "item"
+                }, {
+                  "rel" : "parent",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}",
+                  "name" : "parent",
+                  "kind" : "item"
+                }, {
+                  "rel" : "canonical",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO___FLEX_Context/{id}",
+                  "name" : "canonical",
+                  "kind" : "item"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+                } ]
+              },
+              "links" : [ {
+                "rel" : "self",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO___FLEX_Context/describe",
+                "name" : "self",
+                "kind" : "describe"
+              }, {
+                "rel" : "canonical",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO___FLEX_Context/describe",
+                "name" : "canonical",
+                "kind" : "describe"
+              } ]
+            },
+            "LVVO_payrollProrationRule" : {
+              "discrColumnType" : false,
+              "attributes" : [ {
+                "name" : "Id",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : false,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "maxLength" : "0",
+                "properties" : {
+                  "DISPLAYHINT" : "Hide",
+                  "DISPLAYWIDTH" : "30"
+                }
+              }, {
+                "name" : "Value",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : false,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "title" : "Value",
+                "maxLength" : "0",
+                "properties" : {
+                  "DISPLAYWIDTH" : "30"
+                }
+              }, {
+                "name" : "StartDateActive",
+                "type" : "date",
+                "updatable" : false,
+                "mandatory" : false,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "properties" : {
+                  "DISPLAYHINT" : "Hide",
+                  "DISPLAYWIDTH" : "30"
+                }
+              }, {
+                "name" : "EndDateActive",
+                "type" : "date",
+                "updatable" : false,
+                "mandatory" : false,
+                "queryable" : true,
+                "allowChanges" : "never",
+                "properties" : {
+                  "DISPLAYHINT" : "Hide",
+                  "DISPLAYWIDTH" : "30"
+                }
+              } ],
+              "collection" : {
+                "rangeSize" : 0,
+                "finders" : [ {
+                  "name" : "PrimaryKey",
+                  "attributes" : [ {
+                    "name" : "Id",
+                    "type" : "string",
+                    "updatable" : false,
+                    "mandatory" : false,
+                    "queryable" : true,
+                    "allowChanges" : "never",
+                    "maxLength" : "0",
+                    "properties" : {
+                      "DISPLAYHINT" : "Hide",
+                      "DISPLAYWIDTH" : "30"
+                    }
+                  } ]
+                } ],
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO_payrollProrationRule",
+                  "name" : "self",
+                  "kind" : "collection"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+                } ]
+              },
+              "item" : {
+                "links" : [ {
+                  "rel" : "self",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO_payrollProrationRule/{id}",
+                  "name" : "self",
+                  "kind" : "item"
+                }, {
+                  "rel" : "parent",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}",
+                  "name" : "parent",
+                  "kind" : "item"
+                }, {
+                  "rel" : "canonical",
+                  "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO_payrollProrationRule/{id}",
+                  "name" : "canonical",
+                  "kind" : "item"
+                } ],
+                "actions" : [ {
+                  "name" : "get",
+                  "method" : "GET",
+                  "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+                } ]
+              },
+              "links" : [ {
+                "rel" : "self",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO_payrollProrationRule/describe",
+                "name" : "self",
+                "kind" : "describe"
+              }, {
+                "rel" : "canonical",
+                "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/{id}/child/LVVO_payrollProrationRule/describe",
+                "name" : "canonical",
+                "kind" : "describe"
+              } ]
+            }
+          },
+          "links" : [ {
+            "rel" : "self",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/describe",
+            "name" : "self",
+            "kind" : "describe"
+          }, {
+            "rel" : "canonical",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/JobFamilyDFF/describe",
+            "name" : "canonical",
+            "kind" : "describe"
+          } ]
+        },
+        "ActiveStatusLOV" : {
+          "discrColumnType" : false,
+          "attributes" : [ {
+            "name" : "LookupCode",
+            "type" : "string",
+            "updatable" : false,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "inCreate",
+            "precision" : 30,
+            "title" : "Lookup Code",
+            "maxLength" : "30"
+          }, {
+            "name" : "Meaning",
+            "type" : "string",
+            "updatable" : true,
+            "mandatory" : true,
+            "queryable" : true,
+            "allowChanges" : "always",
+            "precision" : 80,
+            "title" : "Meaning",
+            "maxLength" : "80"
+          } ],
+          "collection" : {
+            "rangeSize" : 0,
+            "finders" : [ {
+              "name" : "PrimaryKey",
+              "attributes" : [ {
+                "name" : "LookupCode",
+                "type" : "string",
+                "updatable" : false,
+                "mandatory" : true,
+                "queryable" : true,
+                "allowChanges" : "inCreate",
+                "precision" : 30,
+                "title" : "Lookup Code",
+                "maxLength" : "30"
+              } ]
+            } ],
+            "links" : [ {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/ActiveStatusLOV",
+              "name" : "self",
+              "kind" : "collection"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourcecollection+json", "application/json" ]
+            } ]
+          },
+          "item" : {
+            "links" : [ {
+              "rel" : "self",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/ActiveStatusLOV/{id}",
+              "name" : "self",
+              "kind" : "item"
+            }, {
+              "rel" : "parent",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}",
+              "name" : "parent",
+              "kind" : "item"
+            }, {
+              "rel" : "canonical",
+              "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/ActiveStatusLOV/{id}",
+              "name" : "canonical",
+              "kind" : "item"
+            } ],
+            "actions" : [ {
+              "name" : "get",
+              "method" : "GET",
+              "responseType" : [ "application/vnd.oracle.adf.resourceitem+json", "application/json" ]
+            } ]
+          },
+          "links" : [ {
+            "rel" : "self",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/ActiveStatusLOV/describe",
+            "name" : "self",
+            "kind" : "describe"
+          }, {
+            "rel" : "canonical",
+            "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/{id}/child/ActiveStatusLOV/describe",
+            "name" : "canonical",
+            "kind" : "describe"
+          } ]
+        }
+      },
+      "links" : [ {
+        "rel" : "self",
+        "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/describe",
+        "name" : "self",
+        "kind" : "describe"
+      }, {
+        "rel" : "canonical",
+        "href" : "https://edzz-test.hcm.em3.oraclecloud.com:443/hcmCoreSetupApi/resources/11.12.1.0/jobFamilies/describe",
+        "name" : "canonical",
+        "kind" : "describe"
+      } ]
+    }
+  }
+}

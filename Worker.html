@@ -1,0 +1,164 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>Foundation for Sites</title>
+    <header name = "Access-Control-Allow-Origin" value = "*" />
+    <link rel="stylesheet" href="assets/css/app.css">
+  </head>
+  <body>
+
+    <<<<<<< HEAD
+    <!doctype html>  
+    <html>  
+    <head>
+        <script type="text/javascript">
+        var stockData = [
+            {
+                Symbol: "AAPL",
+                Company: "Apple Inc.",
+                Price: "132.54"
+            },
+            {
+                Symbol: "INTC",
+                Company: "Intel Corporation",
+                Price: "33.45"
+            },
+            {
+                Symbol: "GOOG",
+                Company: "Google Inc",
+                Price: "554.52"
+            },
+        ];
+    
+    
+        var workerData = [
+            {
+                METADATA: "MERGE",
+                Worker: "Worker",
+                SourceSystemOwner: "ALTAHRN01",
+                SourceSystemId: "27332087",
+                EffectiveStartDate: "2016/07/04",
+                EffectiveEndDate: "4712/12/31",
+                PersonNumber: "27332087",
+                StartDate: "2016/07/04",
+                DateOfBirth: "1956/04/29",
+                ActionCode: "HIRE"
+            },
+            {
+                METADATA: "MERGE",
+                Worker: "Worker",
+                SourceSystemOwner: "ALTAHRN01",
+                SourceSystemId: "50000001",
+                EffectiveStartDate: "2015/11/01",
+                EffectiveEndDate: "4712/12/31",
+                PersonNumber: "50000001",
+                StartDate: "2015/11/01",
+                DateOfBirth: "1951/07/23",
+                ActionCode: "HIRE"
+            }
+        ];
+    
+        console.log(stockData);
+        console.log(workerData);
+    
+        console.log("About to update workerData to set it to DELETE");
+        workerData[1].METADATA = "DELETE";
+        console.log("Finished updating workerData to DELETE");
+        
+        console.log(workerData);
+    
+        </script>
+    
+    </head>  
+    <body>
+    
+        <a href='#' onclick='downloadDAT({ data: stockData, filename: "stockData.dat" });'>Download stockData DAT</a><br /><br />
+    
+        <a href='#' onclick='downloadDAT({ data: workerData, filename: "Worker.dat" });'>Download Worker DAT</a>
+    
+        <script src="js/datawriter.js"></script>
+    
+    </body>  
+    =======
+    <!doctype html>  
+    <html>  
+    <head>
+        <script type="text/javascript">
+        var stockData = [
+            {
+                Symbol: "AAPL",
+                Company: "Apple Inc.",
+                Price: "132.54"
+            },
+            {
+                Symbol: "INTC",
+                Company: "Intel Corporation",
+                Price: "33.45"
+            },
+            {
+                Symbol: "GOOG",
+                Company: "Google Inc",
+                Price: "554.52"
+            },
+        ];
+    
+    
+        var workerData = [
+            {
+                METADATA: "MERGE",
+                Worker: "Worker",
+                SourceSystemOwner: "ALTAHRN01",
+                SourceSystemId: "27332087",
+                EffectiveStartDate: "2016/07/04",
+                EffectiveEndDate: "4712/12/31",
+                PersonNumber: "27332087",
+                StartDate: "2016/07/04",
+                DateOfBirth: "1956/04/29",
+                ActionCode: "HIRE"
+            },
+            {
+                METADATA: "MERGE",
+                Worker: "Worker",
+                SourceSystemOwner: "ALTAHRN01",
+                SourceSystemId: "50000001",
+                EffectiveStartDate: "2015/11/01",
+                EffectiveEndDate: "4712/12/31",
+                PersonNumber: "50000001",
+                StartDate: "2015/11/01",
+                DateOfBirth: "1951/07/23",
+                ActionCode: "HIRE"
+            }
+        ];
+    
+        console.log(stockData);
+        console.log(workerData);
+    
+        console.log("About to update workerData to set it to DELETE");
+        workerData[1].METADATA = "DELETE";
+        console.log("Finished updating workerData to DELETE");
+        
+        console.log(workerData);
+    
+        </script>
+    
+    </head>  
+    <body>
+    
+        <a href='#' onclick='downloadDAT({ data: stockData, filename: "stockData.dat" });'>Download stockData DAT</a><br /><br />
+    
+        <a href='#' onclick='downloadDAT({ data: workerData, filename: "Worker.dat" });'>Download Worker DAT</a>
+    
+        <script src="js/datawriter.js"></script>
+    
+    </body>  
+    >>>>>>> 0104ec4e7ab52d8fdbcea8b9efc1d52c7c9d89f8
+    </html>
+
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
