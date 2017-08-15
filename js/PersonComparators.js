@@ -9,9 +9,20 @@
 //
 var curperson = new String("").toString();
 var baselegacyurl = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49"
-var basefusionurl = " https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/emps/?onlyData"
+var basefusionurl = " https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/emps/?onlyData&limit=40000"
 var myfusion = new Object();   // Global result from Fusion
 var mylegacy = new Object();   // Global result from legacy data store
+// Now set up local debugging flag
+var debugthis = true;    	// Set to false for normal production use
+
+// Utility functions
+
+// Register Handlebars helpers
+
+Handlebars.registerHelper('equalsTo', function(v1, v2, options) {
+    if(v1 == v2) { return options.fn(this); }
+    else { return options.inverse(this); }
+});
 
 //==================================================
 function paramSetup() {
@@ -35,18 +46,15 @@ function getLegacyWorkerData() {
 	// var eventsfound = false;
 	$.getJSON(url,function(data){
 
-		console.log(data);
-
-		// Now loop through returned data correcting it as required.
+			// Now loop through returned data correcting it as required.
 
 		// console.log(url);
 
-		// var jsonstring = JSON.stringify(data);
+		var jsonstring = JSON.stringify(data);
 
-		// jsonstring = new String("{allAnonymousWorkers:"+jsonstring+"}");
+		jsonstring = new String("{legacydata:"+jsonstring+"}");
 
-		// var eventdata = $.parseJSON(jsonstring);
-		// var anonymousworkerdata = eval("(" + jsonstring + ")");
+		var legacydata = eval("(" + jsonstring + ")");
 
 		// Set the boolean if we have data
 		// if (eventdata.length > 1)
@@ -58,31 +66,54 @@ function getLegacyWorkerData() {
 
 		// Now fill in return object with Fusion comparator data
 
-		querylist(49) = "SELECT Title, Forename, Surname, PreferredName, PersonCode, HomeTelephone, AnonymisedWorkEmail, AddressLine1, AddressLine2, AddressLine3, Town, Region, Country, Postcode, Format(DOB,'YYYY-MM-DD') as DateOfBirth, EthnicOriginDescription, Gender, NINumber, UserName from AnonPersonFeed WHERE PersonCode = {{p1}}"
+		// querylist(49) = "SELECT Title, Forename, Surname, PreferredName, PersonCode, HomeTelephone, AnonymisedWorkEmail, AddressLine1, AddressLine2, AddressLine3, Town, Region, Country, Postcode, Format(DOB,'YYYY-MM-DD') as DateOfBirth, EthnicOriginDescription, Gender, NINumber, UserName from AnonPersonFeed WHERE PersonCode = {{p1}}"
 
-		mylegacy.Title=data.Title;
-		mylegacy.Forename=data.Forename;
-		mylegacy.Surname=data.items.LastName;
-		mylegacy.PreferredName=data.PreferredName;
-		mylegacy.PersonCode=data.PersonCode;
-		mylegacy.HomeTelephone=data.HomeTelephone;
-		mylegacy.WorksEmailAddress=data.AnonymisedWorkEmail;
-		mylegacy.AddressLine1=data.AddressLine1;
-		mylegacy.AddressLine2=data.AddressLine2;
-		mylegacy.AddressLine3=data.AddressLine3;
-		mylegacy.Town=data.Town;
-		mylegacy.Region=data.Region;
-		mylegacy.Country=data.Country;
-		mylegacy.Postcode=data.Postcode;
-		mylegacy.DateOfBirth=data.DateOfBirth;
-		mylegacy.EthnicOriginDescription=data.EthnicOriginDescription;
-		mylegacy.Gender=data.Gender;
-		mylegacy.NINumber=data.NINumber;
-		mylegacy.UserName=data.UserName;
+		// console.log(legacydata);
+		console.log(legacydata.legacydata[0].Title);
 
-		// return(legacydata);
+		mylegacy = JSON.parse(JSON.stringify(legacydata.legacydata[0]));
+
+		console.log("Global mylegacy data structure now contains:");
+		console.log(mylegacy);
+
+		/*
+		mylegacy = {
+			title: new String(legacydata.legacydata[0].Title).toString();
+			forename: new String(legacydata.legacydata[0].Forename).toString();
+			surname: new String(legacydata.legacydata[0].LastName).toString();
+			preferredName: new String(legacydata.legacydata[0].PreferredName).toString();
+			personCode: new String(legacydata.legacydata[0].PersonCode).toString();
+			homeTelephone: new String(legacydata.legacydata[0].HomeTelephone).toString();
+			worksEmailAddress: new String(legacydata.legacydata[0].AnonymisedWorkEmail).toString();
+			addressLine1: new String(legacydata.legacydata[0].AddressLine1).toString();
+			addressLine2: new String(legacydata.legacydata[0].AddressLine2).toString();
+			addressLine3: new String(legacydata.legacydata[0].AddressLine3).toString();
+			town: new String(legacydata.legacydata[0].Town).toString();
+			region: new String(legacydata.legacydata[0].Region).toString();
+			country: new String(legacydata.legacydata[0].Country).toString();
+			postcode: new String(legacydata.legacydata[0].Postcode).toString();
+			dateOfBirth: new String(legacydata.legacydata[0].DateOfBirth).toString();
+			ethnicOriginDescription: new String(legacydata.legacydata[0].EthnicOriginDescription).toString();
+			gender: new String(legacydata.legacydata[0].Gender).toString();
+			nINumber: new String(legacydata.legacydata[0].NINumber).toString();
+			userName: new String(legacydata.legacydata[0].UserName).toString();
+		};
+		*/
+
+		//Get the HTML from the template   in the script tag
+	  // var theTemplateScript = $("#fixturelist-template").html();
+
+	  //Compile the template
+	  // var theTemplate = Handlebars.compile (theTemplateScript);
+		// Handlebars.registerPartial("description", $("#shoe-description").html());
+		// Clear out detsination HTML element
+		// $("#main").empty();
+		// Append template filled with data
+		// $("#main").append (theTemplate(fixturedata));
 
 	});  // end of function(data)
+
+	console.log("My title in global data object inside getLegacyWorkerData is "+mylegacy['Title']);
 
 }
 
@@ -98,12 +129,12 @@ function getFusionWorkerData() {
 	// var eventsfound = false;
 	$.getJSON(url,function(data){
 
-		console.log(data.items);
+		console.log("Salutation is "+data.items[0].Salutation);
 
 		// Now fill in return object with Fusion comparator data
-		myfusion.Title=data.items["Salutation"];
-		myfusion.Forename=data.items.FirstName;
-		myfusion.Surname=data.items.LastName;
+		myfusion.Title=data.items[0].Salutation;
+		myfusion.Forename=data.items[0].FirstName;
+		myfusion.Surname=data.items[0].LastName;
 		myfusion.PreferredName=data.items.PreferredName;
 		myfusion.PersonCode=data.items.PersonNumer;
 		myfusion.HomeTelephone=data.items.HomePhoneNumber;
@@ -124,6 +155,8 @@ function getFusionWorkerData() {
 		// return(fusiondata);
 
 	});  // end of function(data)
+
+	console.log(myfusion);
 
 }
 
@@ -158,14 +191,13 @@ $(document).ready(function() {
 		// Get legacy data for this person
 
 		getLegacyWorkerData()
-		console.log(mylegacy);
+		console.log("My legacy name is " +mylegacy['Forename']+" "+mylegacy['Surname']);
 
 
 		// Get fusion data for this person
 
 		getFusionWorkerData()
-		console.log(myfusion);
-
+		console.log("My legacy name is " +myfusion.Forename+" "+myfusion.LastName);
 
 	});
 
