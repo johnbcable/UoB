@@ -129,34 +129,49 @@ function getFusionWorkerData() {
 	// var eventsfound = false;
 	$.getJSON(url,function(data){
 
-		console.log("Salutation is "+data.items[0].Salutation);
+		// console.log("Salutation is "+data.items[0]['Salutation']);
+
+    var jsonstring = JSON.stringify(data.items);
+    console.log(jsonstring);
+    
+    $("#comparisonresults").empty();
+		// Append template filled with data
+		$("#comparisonresults").append (jsonstring);
+
+		jsonstring = new String("{fusiondata:"+jsonstring+"}");
+
+		var fusiondata = eval("(" + jsonstring + ")");
+
+    myfusion = JSON.parse(JSON.stringify(data.items));
 
 		// Now fill in return object with Fusion comparator data
-		myfusion.Title=data.items[0].Salutation;
+		/*
+    myfusion.Title=data.items[0].Salutation;
 		myfusion.Forename=data.items[0].FirstName;
 		myfusion.Surname=data.items[0].LastName;
-		myfusion.PreferredName=data.items.PreferredName;
-		myfusion.PersonCode=data.items.PersonNumer;
-		myfusion.HomeTelephone=data.items.HomePhoneNumber;
-		myfusion.WorksEmailAddress=data.items.WorkEmail;
-		myfusion.AddressLine1=data.items.AddressLine1;
-		myfusion.AddressLine2=data.items.AddressLine2;
-		myfusion.AddressLine3=data.items.AddressLine3;
-		myfusion.Town=data.items.City;
-		myfusion.Region=data.items.Region;
-		myfusion.Country=data.items.Country;
-		myfusion.Postcode=data.items.PostalCode;
-		myfusion.DateOfBirth=data.items.DateOfBirth;
-		myfusion.EthnicOriginDescription=data.items.Ethnicity;
-		myfusion.Gender=data.items.Gender;
-		myfusion.NINumber=data.items.NationalId;
-		myfusion.UserName=data.items.UserName;
+		myfusion.PreferredName=data.items[0].PreferredName;
+		myfusion.PersonCode=data.items[0].PersonNumer;
+		myfusion.HomeTelephone=data.items[0].HomePhoneNumber;
+		myfusion.WorksEmailAddress=data.items[0].WorkEmail;
+		myfusion.AddressLine1=data.items[0].AddressLine1;
+		myfusion.AddressLine2=data.items[0].AddressLine2;
+		myfusion.AddressLine3=data.items[0].AddressLine3;
+		myfusion.Town=data.items[0].City;
+		myfusion.Region=data.items[0].Region;
+		myfusion.Country=data.items[0].Country;
+		myfusion.Postcode=data.items[0].PostalCode;
+		myfusion.DateOfBirth=data.items[0].DateOfBirth;
+		myfusion.EthnicOriginDescription=data.items[0].Ethnicity;
+		myfusion.Gender=data.items[0].Gender;
+		myfusion.NINumber=data.items[0].NationalId;
+		myfusion.UserName=data.items[0].UserName;
+    */
 
 		// return(fusiondata);
 
 	});  // end of function(data)
 
-	console.log(myfusion);
+	// console.log(myfusion);
 
 }
 
@@ -197,7 +212,7 @@ $(document).ready(function() {
 		// Get fusion data for this person
 
 		getFusionWorkerData()
-		console.log("My legacy name is " +myfusion.Forename+" "+myfusion.LastName);
+		console.log("My Fusion name is " +myfusion['Forename']+" "+myfusion['Surname']);
 
 	});
 

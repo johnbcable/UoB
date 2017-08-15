@@ -36,6 +36,91 @@
 
     <div id="comparisonresults"></div>
 
+    <!--       Handlebars templates    -->
+
+    <script id="fusionlist-template" type="x-handlebars-template">
+    {{#if allFixtures }}
+    <div class="row hide-for-small-only">
+      <div class="large-10 medium-10 large-offset-1 medium-offset-1 fixturelist columns">
+        <div class="row">
+          <div class="large-2 medium-2 centered columns">
+            Date
+          </div>
+          <div class="large-6 medium-6 columns">
+            Opponents<br /><span class="ourteam">Our Team</span>
+          </div>
+          <div class="large-2 medium-2 centered columns">
+            Our Score
+          </div>
+          <div class="large-2 medium-2 centered columns">
+            Their Score
+          </div>
+        </div>
+        <hr />
+        {{#each allFixtures}}
+        <div class="row">
+          <div class="large-2 medium-2 centered columns">
+            {{fixturedate}}
+          </div>
+          <div class="large-6 medium-6 columns">
+            {{opponents}}&nbsp;({{homeoraway}})
+            {{#if pair1}}
+            <br /><span class="ourteam">{{pair1}}, {{pair2}}</span>
+            {{/if}}
+          </div>
+          <div class="large-2 medium-2 centered columns">
+            {{hamptonresult}}
+          </div>
+          <div class="large-2 medium-2 centered columns">
+            {{opponentresult}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{#each allFixtures}}
+    <div class="row show-for-small-only">
+      <hr />
+      <div class="row">
+        <div class="small-8 small-offset-1 columns">
+          <h6>vs {{opponents}}</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-10 small-offset-1 columns">
+          <div class="row">
+            <div class="small-4 columns">
+              Result:   <span class="ourteam">{{hamptonresult}}&nbsp;&ndash;&nbsp;{{opponentresult}}</span>
+            </div>
+            <div class="small-8 small-fixturedate columns">
+              Played on:  {{fixturedate}}
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#if pair1}}
+      <div class="row">
+        <div class="small-10 small-offset-1 columns">
+          Team: <span class="ourteam">{{pair1}}, {{pair2}}
+          </div>
+        </div>
+        {{/if}}
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="row">
+        <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 columns">
+          <p>
+            No fixtures found
+          </p>
+        </div>
+      </div>
+      {{/if}}
+      </script>
+
+
+    <!--    End of Handlebars templates    -->
+
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/foundation/js/foundation.min.js"></script>
     <script src="bower_components/handlebars/handlebars.js"></script>
