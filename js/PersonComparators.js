@@ -41,12 +41,10 @@ function getLegacyWorkerData() {
 	var myperson = curperson;
 
 	url += "&p1="+myperson;
-	console.log(url);
+	// console.log(url);
 
 	// var eventsfound = false;
 	$.getJSON(url,function(data){
-
-			// Now loop through returned data correcting it as required.
 
 		// console.log(url);
 
@@ -68,8 +66,8 @@ function getLegacyWorkerData() {
 
 		// querylist(49) = "SELECT Title, Forename, Surname, PreferredName, PersonCode, HomeTelephone, AnonymisedWorkEmail, AddressLine1, AddressLine2, AddressLine3, Town, Region, Country, Postcode, Format(DOB,'YYYY-MM-DD') as DateOfBirth, EthnicOriginDescription, Gender, NINumber, UserName from AnonPersonFeed WHERE PersonCode = {{p1}}"
 
-		// console.log(legacydata);
-		console.log(legacydata.legacydata[0].Title);
+		console.log(legacydata);
+	  console.log(legacydata.legacydata[0].Title);
 
 		mylegacy = JSON.parse(JSON.stringify(legacydata.legacydata[0]));
 
@@ -132,17 +130,23 @@ function getFusionWorkerData() {
 		// console.log("Salutation is "+data.items[0]['Salutation']);
 
     var jsonstring = JSON.stringify(data.items);
-    console.log(jsonstring);
-    
-    $("#comparisonresults").empty();
+    // console.log(jsonstring);
+
+    // $("#comparisonresults").empty();
 		// Append template filled with data
-		$("#comparisonresults").append (jsonstring);
+		// $("#comparisonresults").append (jsonstring);
 
 		jsonstring = new String("{fusiondata:"+jsonstring+"}");
 
 		var fusiondata = eval("(" + jsonstring + ")");
 
-    myfusion = JSON.parse(JSON.stringify(data.items));
+    console.log(fusiondata);
+	  console.log(fusiondata.fusiondata[0].Title);
+
+    myfusion = JSON.parse(JSON.stringify(fusiondata.fusiondata[0]));
+
+		console.log("Global myfusion data structure now contains:");
+		console.log(myfusion);
 
 		// Now fill in return object with Fusion comparator data
 		/*
@@ -205,14 +209,14 @@ $(document).ready(function() {
 
 		// Get legacy data for this person
 
-		getLegacyWorkerData()
-		console.log("My legacy name is " +mylegacy['Forename']+" "+mylegacy['Surname']);
+		getLegacyWorkerData();
+		console.log("mylegacy after getLegacyWorkerData: "+mylegacy);
 
 
 		// Get fusion data for this person
 
-		getFusionWorkerData()
-		console.log("My Fusion name is " +myfusion['Forename']+" "+myfusion['Surname']);
+		getFusionWorkerData();
+    console.log("myfusion after getFusionWorkerData: "+myfusion);
 
 	});
 
