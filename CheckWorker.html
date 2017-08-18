@@ -38,80 +38,105 @@
 
     <!--       Handlebars templates    -->
 
+
     <script id="fusionlist-template" type="x-handlebars-template">
-    {{#if allFixtures }}
+    {{#if fusionperson}}
     <div class="row hide-for-small-only">
-      <div class="large-10 medium-10 large-offset-1 medium-offset-1 fixturelist columns">
+      <div class="large-10 medium-10 large-offset-1 medium-offset-1 fusionlist columns">
         <div class="row">
-          <div class="large-2 medium-2 centered columns">
-            Date
-          </div>
-          <div class="large-6 medium-6 columns">
-            Opponents<br /><span class="ourteam">Our Team</span>
-          </div>
-          <div class="large-2 medium-2 centered columns">
-            Our Score
-          </div>
-          <div class="large-2 medium-2 centered columns">
-            Their Score
-          </div>
-        </div>
-        <hr />
-        {{#each allFixtures}}
-        <div class="row">
-          <div class="large-2 medium-2 centered columns">
-            {{fixturedate}}
-          </div>
-          <div class="large-6 medium-6 columns">
-            {{opponents}}&nbsp;({{homeoraway}})
-            {{#if pair1}}
-            <br /><span class="ourteam">{{pair1}}, {{pair2}}</span>
-            {{/if}}
-          </div>
-          <div class="large-2 medium-2 centered columns">
-            {{hamptonresult}}
-          </div>
-          <div class="large-2 medium-2 centered columns">
-            {{opponentresult}}
-          </div>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-    {{#each allFixtures}}
-    <div class="row show-for-small-only">
-      <hr />
-      <div class="row">
-        <div class="small-8 small-offset-1 columns">
-          <h6>vs {{opponents}}</h6>
-        </div>
-      </div>
-      <div class="row">
-        <div class="small-10 small-offset-1 columns">
-          <div class="row">
-            <div class="small-4 columns">
-              Result:   <span class="ourteam">{{hamptonresult}}&nbsp;&ndash;&nbsp;{{opponentresult}}</span>
-            </div>
-            <div class="small-8 small-fixturedate columns">
-              Played on:  {{fixturedate}}
-            </div>
-          </div>
-        </div>
-      </div>
-      {{#if pair1}}
-      <div class="row">
-        <div class="small-10 small-offset-1 columns">
-          Team: <span class="ourteam">{{pair1}}, {{pair2}}
-          </div>
-        </div>
-        {{/if}}
-      </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Fusion Data</th>
+                <th>Legacy Data</th>
+              </tr>
+            </thead>
+            <tbody>
+            {{#each fusionperson}}
+              <tr>
+                <td>Personal Title</td>
+                <td id="fusiontitle">{{fusionperson.Title}}</td>
+                <td id="legacytitle"></td>
+              </tr>
+              <tr>
+                <td>Forename</td>
+                <td id="fusionforename">{{fusionperson.Forename}}</td>
+                <td id="legacyforename"></td>
+              </tr>
+              <tr>
+                <td>Surname</td>
+                <td id="fusionsurname">{{fusionperson.Surname}}</td>
+                <td id="legacysurname"></td>
+              </tr>
+              <tr>
+                <td>Preferred Name</td>
+                <td id="fusionpreferredname">{{fusionperson.PreferredName}}</td>
+                <td id="legacypreferredname"></td>
+              </tr>
+              <tr>
+                <td>Person Code</td>
+                <td id="fusionpersoncode">{{fusionperson.PersonCode}}</td>
+                <td id="legacypersoncode"></td>
+              </tr>
+              <tr>
+                <td>Home Telephone</td>
+                <td id="fusionhometelephone">{{fusionperson.HomeTelephone}}</td>
+                <td id="legacyhometelephone"></td>
+              </tr>
+              <tr>
+                <td>Work Email</td>
+                <td id="fusionworkemail">{{fusionperson.WorksEmailAddress}}</td>
+                <td id="legacyworkemail"></td>
+              </tr>
+              <tr>
+                <td>Address</td>
+                <td id="fusionaddress">
+                  {{fusionperson.AddressLine1}}<br />
+                  {{fusionperson.AddressLine2}}<br />
+                  {{fusionperson.AddressLine3}}<br />
+                  {{fusionperson.Town}}<br />
+                  {{fusionperson.Region}}<br />
+                  {{fusionperson.Country}}<br />
+                  {{fusionperson.Postcode}}<br />
+                </td>
+                <td id="legacyaddress">
+
+                </td>
+              </tr>
+              <tr>
+                <td>Date Of Birth</td>
+                <td id="fusiondob">{{fusionperson.DateOfBirth}}</td>
+                <td id="legacydob"></td>
+              </tr>
+              <tr>
+                <td>Ethnicity</td>
+                <td id="fusionethnicity">{{fusionperson.EthnicOriginDescription}}</td>
+                <td id="legacyethnicity"></td>
+              </tr>
+              <tr>
+                <td>Gender</td>
+                <td id="fusiongender">{{fusionperson.Gender}}</td>
+                <td id="legacygender"></td>
+              </tr>
+              <tr>
+                <td>NI Number</td>
+                <td id="fusionni">{{fusionperson.NINumber}}</td>
+                <td id="legacyni"></td>
+              </tr>
+              <tr>
+                <td>User Name</td>
+                <td id="fusionusername">{{fusionperson.UserName}}</td>
+                <td id="legacyusername"></td>
+              </tr>
+            </tbody>
+          </table>
       {{/each}}
       {{else}}
       <div class="row">
         <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 columns">
           <p>
-            No fixtures found
+            No fusion data found
           </p>
         </div>
       </div>

@@ -226,9 +226,10 @@ function getLocations(filetype) {
 }
 
 // ============================================================================
-function getDepartments(filetype) {
+function getOrganisations(orgtype, filetype) {
 
-	var url = baseSetupURL +"organizations?onlyData&limit=1000&q=ClassificationCode=DEPARTMENT";
+	var myorgtype = orgtype || 'DEPARTMENT';
+	var url = baseSetupURL +"organizations?onlyData&limit=1000&q=ClassificationCode="+myorgtype;
 	var generatedfiletype = filetype || '';
 
 	console.log(url);
@@ -245,17 +246,17 @@ function getDepartments(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Departments</h1>');
+			$('#jsonheader').html('<h1>All Organisations of Classification '+myorgtype+'</h1>');
 
 			$('#receivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
 				 console.log("DAT file chosen");
-				 downloadDAT({ data: data.items, filename: "Organization.dat" });
+				 downloadDAT({ data: data.items, filename: myorgtype+".dat" });
 			 }
 			 if (generatedfiletype == 'CSV') {
 				 console.log("CSV file chosen");
-				 downloadCSV({ data: data.items, filename: "Organization.csv" });
+				 downloadCSV({ data: data.items, filename:  myorgtype+".csv" });
 			 }
 
 		},
@@ -359,21 +360,117 @@ $(document).ready(function() {
 	});
 
 	// ===========================================
-	// Organizations (departments)
+	// Organizations
+	// 1. Departments
 	$('#allorganizationslink').click( function(event) {
 		event.preventDefault();
-		getDepartments();
+		getOrganisations('DEPARTMENT');
 	});
 
 	$('#allorganizationsdat').click( function(event) {
 		event.preventDefault();
-		getDepartments('DAT');
+		getOrganisations('DEPARTMENT','DAT');
 	});
 
 	$('#allorganizationscsv').click( function(event) {
 		event.preventDefault();
-		getDepartments('CSV');
+		getOrganisations('DEPARTMENT','CSV');
 	});
 
+	// 2. Divisions
+	$('#alldivisionslink').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_DIVISION');
+	});
+
+	$('#alldivisionsdat').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_DIVISION','DAT');
+	});
+
+	$('#alldivisionscsv').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_DIVISION','CSV');
+	});
+
+	// 3. Payroll Statutory Units
+	$('#allpsulink').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_PSU');
+	});
+
+	$('#allpsudat').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_PSU','DAT');
+	});
+
+	$('#allpsucsv').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_PSU','CSV');
+	});
+
+	// 4. Tax Reporting Unit
+	$('#alltrulink').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_TRU');
+	});
+
+	$('#alltrudat').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_TRU','DAT');
+	});
+
+	$('#alltrucsv').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_TRU','CSV');
+	});
+
+	// 5. Legal Reporting Unit
+	$('#alllrulink').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_LRU');
+	});
+
+	$('#alllrudat').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_LRU','DAT');
+	});
+
+	$('#alllrucsv').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_LRU','CSV');
+	});
+
+	// 6. Legal Employer
+	$('#alllemplink').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_LEMP');
+	});
+
+	$('#alllempdat').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_LEMP','DAT');
+	});
+
+	$('#alllempcsv').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_LEMP','CSV');
+	});
+
+	// 7. Reporting Establishment
+	$('#allrelink').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_REPORTING_ESTABLISHMENT');
+	});
+
+	$('#allredat').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_REPORTING_ESTABLISHMENT','DAT');
+	});
+
+	$('#allrecsv').click( function(event) {
+		event.preventDefault();
+		getOrganisations('HCM_REPORTING_ESTABLISHMENT','CSV');
+	});
 
 })  // end of document.ready

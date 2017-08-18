@@ -92,6 +92,42 @@ var mydebug = new String("N").toString();
         <td><a id="allorganizationsdat" href='#'>DAT file</td>
         <td><a id="allorganizationscsv" href='#'>CSV file</td>
       </tr>
+      <tr>
+        <td>All Divisions</td>
+        <td><a id="alldivisionslink" href='#'>JSON</a></td>
+        <td><a id="alldivisionsdat" href='#'>DAT file</td>
+        <td><a id="alldivisionscsv" href='#'>CSV file</td>
+      </tr>
+      <tr>
+        <td>Payroll Statutory Unit (PSU)</td>
+        <td><a id="allpsulink" href='#'>JSON</a></td>
+        <td><a id="allpsudat" href='#'>DAT file</td>
+        <td><a id="allpsucsv" href='#'>CSV file</td>
+      </tr>
+      <tr>
+        <td>Tax Reporting Unit (TRU)</td>
+        <td><a id="alltrulink" href='#'>JSON</a></td>
+        <td><a id="alltrudat" href='#'>DAT file</td>
+        <td><a id="alltrucsv" href='#'>CSV file</td>
+      </tr>
+      <tr>
+        <td>Legal Reporting Unit (LRU)</td>
+        <td><a id="alllrulink" href='#'>JSON</a></td>
+        <td><a id="alllrudat" href='#'>DAT file</td>
+        <td><a id="alllrucsv" href='#'>CSV file</td>
+      </tr>
+      <tr>
+        <td>Legal Employer (LEMP)</td>
+        <td><a id="alllemplink" href='#'>JSON</a></td>
+        <td><a id="alllempdat" href='#'>DAT file</td>
+        <td><a id="alllempcsv" href='#'>CSV file</td>
+      </tr>
+      <tr>
+        <td>Reporting Establishment</td>
+        <td><a id="allrelink" href='#'>JSON</a></td>
+        <td><a id="allredat" href='#'>DAT file</td>
+        <td><a id="allrecsv" href='#'>CSV file</td>
+      </tr>
     </tbody>
   </table>
 

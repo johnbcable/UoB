@@ -112,7 +112,8 @@ function getLegacyWorkerData() {
 	});  // end of function(data)
 
 	console.log("My title in global data object inside getLegacyWorkerData is "+mylegacy['Title']);
-
+  
+  return true;
 }
 
 // ============================================================================
@@ -136,7 +137,7 @@ function getFusionWorkerData() {
 		// Append template filled with data
 		// $("#comparisonresults").append (jsonstring);
 
-		jsonstring = new String("{fusiondata:"+jsonstring+"}");
+		jsonstring = new String("{fusionperson:"+jsonstring+"}");
 
 		var fusiondata = eval("(" + jsonstring + ")");
 
@@ -171,16 +172,30 @@ function getFusionWorkerData() {
 		myfusion.UserName=data.items[0].UserName;
     */
 
+    //Get the HTML from the template   in the script tag
+	  var theTemplateScript = $("#fusionlist-template").html();
+
+	  //Compile the template
+	  var theTemplate = Handlebars.compile (theTemplateScript);
+		// Handlebars.registerPartial("description", $("#shoe-description").html());
+		// Clear out detsination HTML element
+		$("#comparisonresults").empty();
+		// Append template filled with data
+		$("#comparisonresults").append (theTemplate(fusiondata));
+
 		// return(fusiondata);
 
 	});  // end of function(data)
 
 	// console.log(myfusion);
+  return true;
 
 }
 
 
 $(document).ready(function() {
+
+  var result;
 
 	$('#mysubmit').click( function(event) {
 		event.preventDefault();
@@ -209,13 +224,13 @@ $(document).ready(function() {
 
 		// Get legacy data for this person
 
-		getLegacyWorkerData();
+		result = getLegacyWorkerData();
 		console.log("mylegacy after getLegacyWorkerData: "+mylegacy);
 
 
 		// Get fusion data for this person
 
-		getFusionWorkerData();
+		result = getFusionWorkerData();
     console.log("myfusion after getFusionWorkerData: "+myfusion);
 
 	});
