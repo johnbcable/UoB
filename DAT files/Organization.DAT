@@ -93,18 +93,67 @@ MERGE|Organization|ALTAHRN01|UNIADMIN|01/01/1951|University Administrative Servi
 MERGE|Organization|ALTAHRN01|UNISERVICES|01/01/1951|University Services|DEPARTMENT|LOC-HR-EDGBASTON
 MERGE|Organization|ALTAHRN01|VCSUITE|01/01/1951|Vice-Chancellors' Suite|DEPARTMENT|LOC-HR-EDGBASTON
 MERGE|Organization|ALTAHRN01|WORKLINK|01/01/1951|Worklink|DEPARTMENT|LOC-HR-EDGBASTON
+
 COMMENT #  DIVISION
+
+MERGE|Organization|ALTAHRN01|DIV_COL_SS|01/01/1951|College of Social Sciences|HCM_DIVISION|LOC_HR_EDGBASTON
+MERGE|Organization|ALTAHRN01|DIV_COL_AL|01/01/1951|College of Arts and Law|HCM_DIVISION|LOC_HR_EDGBASTON
+MERGE|Organization|ALTAHRN01|DIV_COL_EPS|01/01/1951|College of Engineering and Physical Sciences|HCM_DIVISION|LOC_HR_EDGBASTON
+MERGE|Organization|ALTAHRN01|DIV_COL_LES|01/01/1951|College of Life and Environmental Sciences|HCM_DIVISION|LOC_HR_EDGBASTON
+MERGE|Organization|ALTAHRN01|DIV_COL_MDS|01/01/1951|College of Medical and Dental Sciences|HCM_DIVISION|LOC_HR_EDGBASTON
+MERGE|Organization|ALTAHRN01|DIV_COL_PS|01/01/1951|Professional Services|HCM_DIVISION|LOC_HR_EDGBASTON
+MERGE|Organization|ALTAHRN01|DIV_COL_OTHER|01/01/1951|Other Instututional Areas|HCM_DIVISION|LOC_HR_EDGBASTON
 
 COMMENT #  PAYROLL STATUTORY UNIT
 
+MERGE|Organization|ALTAHRN01|UOB_PSU|0001-01-01|The University of Birmingham|HCM_PSU|
+MERGE|Organization|ALTAHRN01|UOB_SCHOOL_NEW__PSU|0001-01-01|The University of Birmingham School-NEW|HCM_PSU|
+MERGE|Organization|ALTAHRN01|UOB_PAS_PSU|0001-01-01|The University of Birmingham Pension and Assurance Scheme|HCM_PSU|
+MERGE|Organization|ALTAHRN01|ALTA_CYCLO_PSU|0001-01-01|Alta Cyclotron Services Limited|HCM_PSU|||I
+MERGE|Organization|ALTAHRN01|UOB_CHINA_PSU|0001-01-01|Alta Birmingham China Limited|HCM_PSU|||I
+MERGE|Organization|ALTAHRN01|UOB_SELLYOAK_PSU|0001-01-01|The University of Birmingham Selly Oak Educational Trust|HCM_PSU|||I
+MERGE|Organization|ALTAHRN01|ALTA_INNOV_PSU|0001-01-01|Alta Innovations Limited|HCM_PSU|
+MERGE|Organization|ALTAHRN01|BRP_PSU|0001-01-01|Birmingham Research Park Limited|HCM_PSU|||I
+MERGE|Organization|ALTAHRN01|UOB_SCHOOL_PSU|0001-01-01|The University of Birmingham School|HCM_PSU|
+MERGE|Organization|ALTAHRN01|RUSSELL_PSU|0001-01-01|Russell Group|HCM_PSU|
+
 COMMENT #  TAX REPORTING UNIT
+
+MERGE|Organization|ALTAHRN01|UOB_TRU|0001-01-01|The University of Birmingham|HCM_TRU|
+MERGE|Organization|ALTAHRN01|UOB_PAS_TRU|0001-01-01|The University of Birmingham Pension and Assurance Scheme|HCM_TRU|
+MERGE|Organization|ALTAHRN01|ALTA_INNOV_TRU|0001-01-01|Alta Innovations Limited|HCM_TRU|
+MERGE|Organization|ALTAHRN01|UOB_SCHOOL_TRU|0001-01-01|The University of Birmingham School|HCM_TRU|
 
 COMMENT #  LEGAL REPORTING UNIT
 
+MERGE|Organization|ALTAHRN01|UOB_LRU|0001-01-01|The University of Birmingham|HCM_LRU|
+MERGE|Organization|ALTAHRN01|UOB_SCHOOL_NEW__LRU|0001-01-01|The University of Birmingham School-NEW|HCM_LRU|
+MERGE|Organization|ALTAHRN01|UOB_PAS_LRU|0001-01-01|The University of Birmingham Pension and Assurance Scheme|HCM_LRU|
+MERGE|Organization|ALTAHRN01|ALTA_CYCLO_LRU|0001-01-01|Alta Cyclotron Services Limited|HCM_LRU|
+MERGE|Organization|ALTAHRN01|UOB_CHINA_LRU|0001-01-01|Alta Birmingham China Limited|HCM_LRU|
+MERGE|Organization|ALTAHRN01|UOB_SELLYOAK_LRU|0001-01-01|The University of Birmingham Selly Oak Educational Trust|HCM_LRU|
+MERGE|Organization|ALTAHRN01|ALTA_INNOV_LRU|0001-01-01|Alta Innovations Limited|HCM_LRU|
+MERGE|Organization|ALTAHRN01|BRP_LRU|0001-01-01|Birmingham Research Park Limited|HCM_LRU|
+MERGE|Organization|ALTAHRN01|UOB_SCHOOL_LRU|0001-01-01|The University of Birmingham School|HCM_LRU|
+MERGE|Organization|ALTAHRN01|RUSSELL_LRU|0001-01-01|Russell Group|HCM_LRU|
+
 COMMENT #  LEGAL EMPOLOYER
+
+MERGE|Organization|ALTAHRN01|UOB_LEMP|0001-01-01|The University of Birmingham|HCM_LEMP|
+MERGE|Organization|ALTAHRN01|UOB_SCHOOL_NEW__LEMP|0001-01-01|The University of Birmingham School-NEW|HCM_LEMP|
+MERGE|Organization|ALTAHRN01|UOB_PAS_LEMP|0001-01-01|The University of Birmingham Pension and Assurance Scheme|HCM_LEMP|
+MERGE|Organization|ALTAHRN01|ALTA_CYCLO_LEMP|0001-01-01|Alta Cyclotron Services Limited|HCM_LEMP|
+MERGE|Organization|ALTAHRN01|UOB_CHINA_LEMP|0001-01-01|Alta Birmingham China Limited|HCM_LEMP|
+MERGE|Organization|ALTAHRN01|UOB_SELLYOAK_LEMP|0001-01-01|The University of Birmingham Selly Oak Educational Trust|HCM_LEMP|
+MERGE|Organization|ALTAHRN01|ALTA_INNOV_LEMP|0001-01-01|Alta Innovations Limited|HCM_LEMP|
+MERGE|Organization|ALTAHRN01|BRP_LEMP|0001-01-01|Birmingham Research Park Limited|HCM_LEMP|
+MERGE|Organization|ALTAHRN01|UOB_SCHOOL_LEMP|0001-01-01|The University of Birmingham School|HCM_LEMP|
+MERGE|Organization|ALTAHRN01|RUSSELL_LEMP|0001-01-01|Russell Group|HCM_LEMP|
 
 COMMENT #  REPORTING ESTABLISHMENT
 
+MERGE|Organization|ALTAHRN01|UOB-RE|0001-01-01|The University of Birmingham|HCM_REPORTING_ESTABLISHMENT|
+MERGE|Organization|ALTAHRN01|UOB-PAS-RE|0001-01-01|The University of Birmingham Pension and Assurance Scheme|HCM_REPORTING_ESTABLISHMENT|
 
 COMMENT  ####
 COMMENT  #  ORGUNITCLASSIFICATION - MINIMAL SUBSET  (FOR HR)
