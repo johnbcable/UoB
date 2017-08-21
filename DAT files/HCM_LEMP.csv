@@ -1,11 +1,11 @@
-MERGE,Organization,EffectiveStartDate,Name,ClassificationCode,LocationId,Status
-MERGE,Organization,0001-01-01,The University of Birmingham,HCM_LEMP,LOC_HR_EDGBASTON,A
-MERGE,Organization,0001-01-01,The University of Birmingham School-NEW,HCM_LEMP,LOC_HR_EDGBASTON,A
-MERGE,Organization,0001-01-01,The University of Birmingham Pension and Assurance Scheme,HCM_LEMP,LOC_HR_EDGBASTON,A
-MERGE,Organization,0001-01-01,Alta Cyclotron Services Limited,HCM_LEMP,LOC_HR_EDGBASTON,I
-MERGE,Organization,0001-01-01,Alta Birmingham China Limited,HCM_LEMP,LOC_HR_EDGBASTON,I
-MERGE,Organization,0001-01-01,The University of Birmingham Selly Oak Educational Trust,HCM_LEMP,LOC_HR_EDGBASTON,I
-MERGE,Organization,0001-01-01,Alta Innovations Limited,HCM_LEMP,LOC_HR_EDGBASTON,A
-MERGE,Organization,0001-01-01,Birmingham Research Park Limited,HCM_LEMP,LOC_HR_EDGBASTON,I
-MERGE,Organization,0001-01-01,The University of Birmingham School,HCM_LEMP,LOC_HR_EDGBASTON,A
-MERGE,Organization,0001-01-01,Russell Group,HCM_LEMP,LOC_HR_EDGBASTON,A
+MERGE,Organization,SourceSystemOwner,SourceSystemId,EffectiveStartDate,Name,ClassificationCode,LocationId,Status
+MERGE,Organization,ALTAHRN01,UOB_LEMP,0001-01-01,The University of Birmingham,HCM_LEMP,,A
+MERGE,Organization,ALTAHRN01,UOB_SCHOOL_NEW__LEMP,0001-01-01,The University of Birmingham School-NEW,HCM_LEMP,,A
+MERGE,Organization,ALTAHRN01,UOB_PAS_LEMP,0001-01-01,The University of Birmingham Pension and Assurance Scheme,HCM_LEMP,,A
+MERGE,Organization,ALTAHRN01,ALTA_CYCLO_LEMP,0001-01-01,Alta Cyclotron Services Limited,HCM_LEMP,,I
+MERGE,Organization,ALTAHRN01,UOB_CHINA_LEMP,0001-01-01,Alta Birmingham China Limited,HCM_LEMP,,I
+MERGE,Organization,ALTAHRN01,UOB_SELLYOAK_LEMP,0001-01-01,The University of Birmingham Selly Oak Educational Trust,HCM_LEMP,,I
+MERGE,Organization,ALTAHRN01,ALTA_INNOV_LEMP,0001-01-01,Alta Innovations Limited,HCM_LEMP,,A
+MERGE,Organization,ALTAHRN01,BRP_LEMP,0001-01-01,Birmingham Research Park Limited,HCM_LEMP,,I
+MERGE,Organization,ALTAHRN01,UOB_SCHOOL_LEMP,0001-01-01,The University of Birmingham School,HCM_LEMP,,A
+MERGE,Organization,ALTAHRN01,RUSSELL_LEMP,0001-01-01,Russell Group,HCM_LEMP,,A
