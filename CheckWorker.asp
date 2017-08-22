@@ -30,32 +30,34 @@ var mydebug = new String("N").toString();
 %>
 <!doctype html>
 <html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Access-Control-Allow-Origin" content="*">
-    <title>Foundation for Sites</title>
-    <header name = "Access-Control-Allow-Origin" value = "*" />
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Checking Worker Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="Description" lang="en" content="Checking Worker Details">
     <!--
     <link rel="stylesheet" href="assets/css/app.css">
   -->
   </head>
   <body>
 
-    <div class="grid-container">
-      <div class="grid-x grid-margin-x">
-        <div class="large-12 cell">
+    <div>
+      <div>
+        <div>
           <h1>Checking Migrated Worker Details</h1>
         </div>
       </div>
 
       <form>
-        <div class="grid-x grid-margin-x">
-          <div class="large-12 cell">
+        <div>
+          <div>
             <label>UoB Person ID (from ID badge)</label>
             <input type="text" name="personcode" id="personcode" placeholder="Person ID" />&nbsp;&nbsp;
+            <a id="personcomparator" href='#'>Check &raquo;</a>
+            <!--
             <input type="submit" name="mysubmit" id="mysubmit" value="Check &raquo;" />
+            -->
           </div>
         </div>
       </form>
@@ -63,10 +65,11 @@ var mydebug = new String("N").toString();
 
     <hr />
 
-    <div id="comparisonresults"></div>
+
+      <div id="jsonheader"></div>
+      <div id="receivedjson"></div>
 
     <!--       Handlebars templates    -->
-
 
     <script id="fusionlist-template" type="x-handlebars-template">
     {{#if fusionperson}}
@@ -175,11 +178,7 @@ var mydebug = new String("N").toString();
 
     <!--    End of Handlebars templates    -->
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/foundation/js/foundation.min.js"></script>
-    <script src="bower_components/handlebars/handlebars.js"></script>
-    <script src="bower_components/sammy/lib/sammy.js"></script>
-    <script src="/UoB/js/app.js"></script>
+    <script src="/UoB/bower_components/jquery/dist/jquery.js"></script>
     <script src="/UoB/js/PersonComparators.js"></script>
   </body>
 </html>
