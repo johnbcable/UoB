@@ -7,11 +7,11 @@
 //	Normally called from CheckWorker.html
 //
 //
-var curperson = new String("").toString();
-var baselegacyurl = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49"
-var basefusionurl = " https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/emps/?onlyData&limit=40000"
-var myfusion = new Object();   // Global result from Fusion
-var mylegacy = new Object();   // Global result from legacy data store
+var curperson = "";
+var baselegacyurl = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49";
+var basefusionurl = " https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
+var myfusion = {};   // Global result from Fusion
+var mylegacy = {};   // Global result from legacy data store
 // Now set up local debugging flag
 var debugthis = true;    	// Set to false for normal production use
 
@@ -19,10 +19,12 @@ var debugthis = true;    	// Set to false for normal production use
 
 // Register Handlebars helpers
 
+/*
 Handlebars.registerHelper('equalsTo', function(v1, v2, options) {
     if(v1 == v2) { return options.fn(this); }
     else { return options.inverse(this); }
 });
+*/
 
 //==================================================
 function paramSetup() {
@@ -30,7 +32,10 @@ function paramSetup() {
 	curperson = $('#personcode').val();     // get the person code from form
 	curperson = curperson || 5500165;
 
-	console.log("Current person = "+curperson);
+	// Blank out content of destination div's
+  $('#jsonheader').html('');
+	$('#receivedjson').html('');
+
 
 }
 
@@ -40,19 +45,26 @@ function getLegacyWorkerData() {
 	var url = baselegacyurl;
 	var myperson = curperson;
 
-	url += "&p1="+myperson;
-	// console.log(url);
+	url += "&p1=";
+	url +=  myperson;
+
+	//  console.log(url);
 
 	// var eventsfound = false;
-	$.getJSON(url,function(data){
+	$.getJSON(url, function (data) {
 
-		// console.log(url);
+		// console.log("Legacy url: "+url);
 
 		var jsonstring = JSON.stringify(data);
 
-		jsonstring = new String("{legacydata:"+jsonstring+"}");
+		jsonstring = new String("{legacydata:" + jsonstring + "}").toString();
+    // console.log("Legacy jsonstring: "+jsonstring);
 
 		var legacydata = eval("(" + jsonstring + ")");
+
+    $('#jsonheader').html('<h1>All Jobs</h1>');
+
+    $('#receivedjson').html(jsonstring);
 
 		// Set the boolean if we have data
 		// if (eventdata.length > 1)
@@ -66,13 +78,14 @@ function getLegacyWorkerData() {
 
 		// querylist(49) = "SELECT Title, Forename, Surname, PreferredName, PersonCode, HomeTelephone, AnonymisedWorkEmail, AddressLine1, AddressLine2, AddressLine3, Town, Region, Country, Postcode, Format(DOB,'YYYY-MM-DD') as DateOfBirth, EthnicOriginDescription, Gender, NINumber, UserName from AnonPersonFeed WHERE PersonCode = {{p1}}"
 
-		console.log(legacydata);
-	  console.log(legacydata.legacydata[0].Title);
+		// console.log(legacydata);
+	  // console.log(legacydata.legacydata[0].Title);
 
-		mylegacy = JSON.parse(JSON.stringify(legacydata.legacydata[0]));
+		mylegacy = legacydata;
+    // mylegacy = JSON.parse(JSON.stringify(legacydata.legacydata[0]));
 
-		console.log("Global mylegacy data structure now contains:");
-		console.log(mylegacy);
+		// console.log("Global mylegacy data structure now contains:");
+		// console.log(mylegacy);
 
 		/*
 		mylegacy = {
@@ -111,84 +124,95 @@ function getLegacyWorkerData() {
 
 	});  // end of function(data)
 
-	console.log("My title in global data object inside getLegacyWorkerData is "+mylegacy['Title']);
-  
-  return true;
+	// console.log("My title in global data object inside getLegacyWorkerData is "+mylegacy['Title']);
+
+  // return true;
 }
 
 // ============================================================================
 function getFusionWorkerData() {
 
-	var url = basefusionurl;
+	var url = new String(basefusionurl).toString();
 	var myperson = curperson;
 
-	url += "&q=PersonNumber="+myperson;
-	console.log(url);
+	url += "emps?onlyData&limit=1000&&q=PersonNumber="+myperson;
+	console.log("Inside getFusionWorkerData:"+url);
 
-	// var eventsfound = false;
-	$.getJSON(url,function(data){
+  $.ajax({
+		type: "GET",
+		url: url,
+		dataType: "json",
+		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
+		success: function(data) {
 
-		// console.log("Salutation is "+data.items[0]['Salutation']);
+      var jsonstring = JSON.stringify(data);
+      // console.log("Fusion data: "+data);
 
-    var jsonstring = JSON.stringify(data.items);
-    // console.log(jsonstring);
+      $('#jsonheader').html('<h1>Fusion Worker Data</h1>');
 
-    // $("#comparisonresults").empty();
-		// Append template filled with data
-		// $("#comparisonresults").append (jsonstring);
+			$('#receivedjson').html(jsonstring);
 
-		jsonstring = new String("{fusionperson:"+jsonstring+"}");
+      // $("#comparisonresults").empty();
+  		// Append template filled with data
+  		// $("#comparisonresults").append (jsonstring);
 
-		var fusiondata = eval("(" + jsonstring + ")");
+  		// jsonstring = new String("{fusionperson:"+jsonstring+"}");
+      // console.log("Fusion jsonstring: "+jsonstring);
 
-    console.log(fusiondata);
-	  console.log(fusiondata.fusiondata[0].Title);
+  		var fusiondata = eval("(" + jsonstring + ")");
 
-    myfusion = JSON.parse(JSON.stringify(fusiondata.fusiondata[0]));
+      // console.log(fusiondata);
+  	  // console.log(fusiondata.fusiondata[0].Title);
 
-		console.log("Global myfusion data structure now contains:");
-		console.log(myfusion);
+      myfusion = JSON.parse(JSON.stringify(fusiondata));
 
-		// Now fill in return object with Fusion comparator data
-		/*
-    myfusion.Title=data.items[0].Salutation;
-		myfusion.Forename=data.items[0].FirstName;
-		myfusion.Surname=data.items[0].LastName;
-		myfusion.PreferredName=data.items[0].PreferredName;
-		myfusion.PersonCode=data.items[0].PersonNumer;
-		myfusion.HomeTelephone=data.items[0].HomePhoneNumber;
-		myfusion.WorksEmailAddress=data.items[0].WorkEmail;
-		myfusion.AddressLine1=data.items[0].AddressLine1;
-		myfusion.AddressLine2=data.items[0].AddressLine2;
-		myfusion.AddressLine3=data.items[0].AddressLine3;
-		myfusion.Town=data.items[0].City;
-		myfusion.Region=data.items[0].Region;
-		myfusion.Country=data.items[0].Country;
-		myfusion.Postcode=data.items[0].PostalCode;
-		myfusion.DateOfBirth=data.items[0].DateOfBirth;
-		myfusion.EthnicOriginDescription=data.items[0].Ethnicity;
-		myfusion.Gender=data.items[0].Gender;
-		myfusion.NINumber=data.items[0].NationalId;
-		myfusion.UserName=data.items[0].UserName;
-    */
+  		// console.log("Global myfusion data structure now contains:");
+  		// console.log(myfusion);
 
-    //Get the HTML from the template   in the script tag
-	  var theTemplateScript = $("#fusionlist-template").html();
+  		// Now fill in return object with Fusion comparator data
+  		/*
+      myfusion.Title=data.items[0].Salutation;
+  		myfusion.Forename=data.items[0].FirstName;
+  		myfusion.Surname=data.items[0].LastName;
+  		myfusion.PreferredName=data.items[0].PreferredName;
+  		myfusion.PersonCode=data.items[0].PersonNumer;
+  		myfusion.HomeTelephone=data.items[0].HomePhoneNumber;
+  		myfusion.WorksEmailAddress=data.items[0].WorkEmail;
+  		myfusion.AddressLine1=data.items[0].AddressLine1;
+  		myfusion.AddressLine2=data.items[0].AddressLine2;
+  		myfusion.AddressLine3=data.items[0].AddressLine3;
+  		myfusion.Town=data.items[0].City;
+  		myfusion.Region=data.items[0].Region;
+  		myfusion.Country=data.items[0].Country;
+  		myfusion.Postcode=data.items[0].PostalCode;
+  		myfusion.DateOfBirth=data.items[0].DateOfBirth;
+  		myfusion.EthnicOriginDescription=data.items[0].Ethnicity;
+  		myfusion.Gender=data.items[0].Gender;
+  		myfusion.NINumber=data.items[0].NationalId;
+  		myfusion.UserName=data.items[0].UserName;
+      */
 
-	  //Compile the template
-	  var theTemplate = Handlebars.compile (theTemplateScript);
-		// Handlebars.registerPartial("description", $("#shoe-description").html());
-		// Clear out detsination HTML element
-		$("#comparisonresults").empty();
-		// Append template filled with data
-		$("#comparisonresults").append (theTemplate(fusiondata));
+      //Get the HTML from the template   in the script tag
+  	  // var theTemplateScript = $("#fusionlist-template").html();
 
-		// return(fusiondata);
+  	  //Compile the template
+  	  // var theTemplate = Handlebars.compile (theTemplateScript);
+  		// Handlebars.registerPartial("description", $("#shoe-description").html());
+  		// Clear out detsination HTML element
+  		// $("#comparisonresults").empty();
+  		// Append template filled with data
+  		// $("#comparisonresults").append (theTemplate(fusiondata));
 
-	});  // end of function(data)
+  		// return(fusiondata);
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			$('#error').html(xhr.responseText);
+		}
+
+	});  // end of ajax call
 
 	// console.log(myfusion);
-  return true;
+  // return true;
 
 }
 
@@ -197,7 +221,7 @@ $(document).ready(function() {
 
   var result;
 
-	$('#mysubmit').click( function(event) {
+  $('#personcomparator').click( function(event) {
 		event.preventDefault();
 
 		/*
@@ -224,14 +248,14 @@ $(document).ready(function() {
 
 		// Get legacy data for this person
 
-		result = getLegacyWorkerData();
-		console.log("mylegacy after getLegacyWorkerData: "+mylegacy);
+		// getLegacyWorkerData();
+		// console.log("mylegacy after getLegacyWorkerData: "+mylegacy);
 
 
 		// Get fusion data for this person
 
-		result = getFusionWorkerData();
-    console.log("myfusion after getFusionWorkerData: "+myfusion);
+		getFusionWorkerData();
+    // console.log("myfusion after getFusionWorkerData: "+myfusion);
 
 	});
 
