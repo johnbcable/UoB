@@ -1,14 +1,9 @@
-<<<<<<< HEAD
 define([
-=======
-define( [
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	"./core",
 	"./var/concat",
 	"./var/push",
 	"./core/access",
 	"./manipulation/var/rcheckableType",
-<<<<<<< HEAD
 	"./manipulation/support",
 	"./data/var/data_priv",
 	"./data/var/data_user",
@@ -60,70 +55,11 @@ function manipulationTarget( elem, content ) {
 		elem.getElementsByTagName("tbody")[0] ||
 			elem.appendChild( elem.ownerDocument.createElement("tbody") ) :
 		elem;
-=======
-	"./manipulation/var/rtagName",
-	"./manipulation/var/rscriptType",
-	"./manipulation/wrapMap",
-	"./manipulation/getAll",
-	"./manipulation/setGlobalEval",
-	"./manipulation/buildFragment",
-	"./manipulation/support",
-
-	"./data/var/dataPriv",
-	"./data/var/dataUser",
-	"./data/var/acceptData",
-	"./core/DOMEval",
-	"./core/nodeName",
-
-	"./core/init",
-	"./traversing",
-	"./selector",
-	"./event"
-], function( jQuery, concat, push, access,
-	rcheckableType, rtagName, rscriptType,
-	wrapMap, getAll, setGlobalEval, buildFragment, support,
-	dataPriv, dataUser, acceptData, DOMEval, nodeName ) {
-
-"use strict";
-
-var
-
-	/* eslint-disable max-len */
-
-	// See https://github.com/eslint/eslint/issues/3229
-	rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
-
-	/* eslint-enable */
-
-	// Support: IE <=10 - 11, Edge 12 - 13
-	// In IE/Edge using regex groups here causes severe slowdowns.
-	// See https://connect.microsoft.com/IE/feedback/details/1736512/
-	rnoInnerhtml = /<script|<style|<link/i,
-
-	// checked="checked" or checked
-	rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i,
-	rscriptTypeMasked = /^true\/(.*)/,
-	rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
-
-// Prefer a tbody over its parent table for containing new rows
-function manipulationTarget( elem, content ) {
-	if ( nodeName( elem, "table" ) &&
-		nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
-
-		return jQuery( ">tbody", elem )[ 0 ] || elem;
-	}
-
-	return elem;
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 }
 
 // Replace/restore the type attribute of script elements for safe DOM manipulation
 function disableScript( elem ) {
-<<<<<<< HEAD
 	elem.type = (elem.getAttribute("type") !== null) + "/" + elem.type;
-=======
-	elem.type = ( elem.getAttribute( "type" ) !== null ) + "/" + elem.type;
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	return elem;
 }
 function restoreScript( elem ) {
@@ -132,17 +68,12 @@ function restoreScript( elem ) {
 	if ( match ) {
 		elem.type = match[ 1 ];
 	} else {
-<<<<<<< HEAD
 		elem.removeAttribute("type");
-=======
-		elem.removeAttribute( "type" );
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	}
 
 	return elem;
 }
 
-<<<<<<< HEAD
 // Mark scripts as having already been evaluated
 function setGlobalEval( elems, refElements ) {
 	var i = 0,
@@ -155,8 +86,6 @@ function setGlobalEval( elems, refElements ) {
 	}
 }
 
-=======
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 function cloneCopyEvent( src, dest ) {
 	var i, l, type, pdataOld, pdataCur, udataOld, udataCur, events;
 
@@ -165,15 +94,9 @@ function cloneCopyEvent( src, dest ) {
 	}
 
 	// 1. Copy private data: events, handlers, etc.
-<<<<<<< HEAD
 	if ( data_priv.hasData( src ) ) {
 		pdataOld = data_priv.access( src );
 		pdataCur = data_priv.set( dest, pdataOld );
-=======
-	if ( dataPriv.hasData( src ) ) {
-		pdataOld = dataPriv.access( src );
-		pdataCur = dataPriv.set( dest, pdataOld );
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 		events = pdataOld.events;
 
 		if ( events ) {
@@ -189,7 +112,6 @@ function cloneCopyEvent( src, dest ) {
 	}
 
 	// 2. Copy user data
-<<<<<<< HEAD
 	if ( data_user.hasData( src ) ) {
 		udataOld = data_user.access( src );
 		udataCur = jQuery.extend( {}, udataOld );
@@ -208,16 +130,6 @@ function getAll( context, tag ) {
 		ret;
 }
 
-=======
-	if ( dataUser.hasData( src ) ) {
-		udataOld = dataUser.access( src );
-		udataCur = jQuery.extend( {}, udataOld );
-
-		dataUser.set( dest, udataCur );
-	}
-}
-
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 // Fix IE bugs, see support tests
 function fixInput( src, dest ) {
 	var nodeName = dest.nodeName.toLowerCase();
@@ -232,126 +144,7 @@ function fixInput( src, dest ) {
 	}
 }
 
-<<<<<<< HEAD
 jQuery.extend({
-=======
-function domManip( collection, args, callback, ignored ) {
-
-	// Flatten any nested arrays
-	args = concat.apply( [], args );
-
-	var fragment, first, scripts, hasScripts, node, doc,
-		i = 0,
-		l = collection.length,
-		iNoClone = l - 1,
-		value = args[ 0 ],
-		isFunction = jQuery.isFunction( value );
-
-	// We can't cloneNode fragments that contain checked, in WebKit
-	if ( isFunction ||
-			( l > 1 && typeof value === "string" &&
-				!support.checkClone && rchecked.test( value ) ) ) {
-		return collection.each( function( index ) {
-			var self = collection.eq( index );
-			if ( isFunction ) {
-				args[ 0 ] = value.call( this, index, self.html() );
-			}
-			domManip( self, args, callback, ignored );
-		} );
-	}
-
-	if ( l ) {
-		fragment = buildFragment( args, collection[ 0 ].ownerDocument, false, collection, ignored );
-		first = fragment.firstChild;
-
-		if ( fragment.childNodes.length === 1 ) {
-			fragment = first;
-		}
-
-		// Require either new content or an interest in ignored elements to invoke the callback
-		if ( first || ignored ) {
-			scripts = jQuery.map( getAll( fragment, "script" ), disableScript );
-			hasScripts = scripts.length;
-
-			// Use the original fragment for the last item
-			// instead of the first because it can end up
-			// being emptied incorrectly in certain situations (#8070).
-			for ( ; i < l; i++ ) {
-				node = fragment;
-
-				if ( i !== iNoClone ) {
-					node = jQuery.clone( node, true, true );
-
-					// Keep references to cloned scripts for later restoration
-					if ( hasScripts ) {
-
-						// Support: Android <=4.0 only, PhantomJS 1 only
-						// push.apply(_, arraylike) throws on ancient WebKit
-						jQuery.merge( scripts, getAll( node, "script" ) );
-					}
-				}
-
-				callback.call( collection[ i ], node, i );
-			}
-
-			if ( hasScripts ) {
-				doc = scripts[ scripts.length - 1 ].ownerDocument;
-
-				// Reenable scripts
-				jQuery.map( scripts, restoreScript );
-
-				// Evaluate executable scripts on first document insertion
-				for ( i = 0; i < hasScripts; i++ ) {
-					node = scripts[ i ];
-					if ( rscriptType.test( node.type || "" ) &&
-						!dataPriv.access( node, "globalEval" ) &&
-						jQuery.contains( doc, node ) ) {
-
-						if ( node.src ) {
-
-							// Optional AJAX dependency, but won't run scripts if not present
-							if ( jQuery._evalUrl ) {
-								jQuery._evalUrl( node.src );
-							}
-						} else {
-							DOMEval( node.textContent.replace( rcleanScript, "" ), doc );
-						}
-					}
-				}
-			}
-		}
-	}
-
-	return collection;
-}
-
-function remove( elem, selector, keepData ) {
-	var node,
-		nodes = selector ? jQuery.filter( selector, elem ) : elem,
-		i = 0;
-
-	for ( ; ( node = nodes[ i ] ) != null; i++ ) {
-		if ( !keepData && node.nodeType === 1 ) {
-			jQuery.cleanData( getAll( node ) );
-		}
-
-		if ( node.parentNode ) {
-			if ( keepData && jQuery.contains( node.ownerDocument, node ) ) {
-				setGlobalEval( getAll( node, "script" ) );
-			}
-			node.parentNode.removeChild( node );
-		}
-	}
-
-	return elem;
-}
-
-jQuery.extend( {
-	htmlPrefilter: function( html ) {
-		return html.replace( rxhtmlTag, "<$1></$2>" );
-	},
-
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	clone: function( elem, dataAndEvents, deepDataAndEvents ) {
 		var i, l, srcElements, destElements,
 			clone = elem.cloneNode( true ),
@@ -361,11 +154,7 @@ jQuery.extend( {
 		if ( !support.noCloneChecked && ( elem.nodeType === 1 || elem.nodeType === 11 ) &&
 				!jQuery.isXMLDoc( elem ) ) {
 
-<<<<<<< HEAD
 			// We eschew Sizzle here for performance reasons: http://jsperf.com/getall-vs-sizzle/2
-=======
-			// We eschew Sizzle here for performance reasons: https://jsperf.com/getall-vs-sizzle/2
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 			destElements = getAll( clone );
 			srcElements = getAll( elem );
 
@@ -398,7 +187,6 @@ jQuery.extend( {
 		return clone;
 	},
 
-<<<<<<< HEAD
 	buildFragment: function( elems, context, scripts, selection ) {
 		var elem, tmp, tag, wrap, contains, j,
 			fragment = context.createDocumentFragment(),
@@ -495,16 +283,6 @@ jQuery.extend( {
 				key = elem[ data_priv.expando ];
 
 				if ( key && (data = data_priv.cache[ key ]) ) {
-=======
-	cleanData: function( elems ) {
-		var data, elem, type,
-			special = jQuery.event.special,
-			i = 0;
-
-		for ( ; ( elem = elems[ i ] ) !== undefined; i++ ) {
-			if ( acceptData( elem ) ) {
-				if ( ( data = elem[ dataPriv.expando ] ) ) {
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 					if ( data.events ) {
 						for ( type in data.events ) {
 							if ( special[ type ] ) {
@@ -516,7 +294,6 @@ jQuery.extend( {
 							}
 						}
 					}
-<<<<<<< HEAD
 					if ( data_priv.cache[ key ] ) {
 						// Discard any remaining `private` data
 						delete data_priv.cache[ key ];
@@ -530,81 +307,33 @@ jQuery.extend( {
 });
 
 jQuery.fn.extend({
-=======
-
-					// Support: Chrome <=35 - 45+
-					// Assign undefined instead of using delete, see Data#remove
-					elem[ dataPriv.expando ] = undefined;
-				}
-				if ( elem[ dataUser.expando ] ) {
-
-					// Support: Chrome <=35 - 45+
-					// Assign undefined instead of using delete, see Data#remove
-					elem[ dataUser.expando ] = undefined;
-				}
-			}
-		}
-	}
-} );
-
-jQuery.fn.extend( {
-	detach: function( selector ) {
-		return remove( this, selector, true );
-	},
-
-	remove: function( selector ) {
-		return remove( this, selector );
-	},
-
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	text: function( value ) {
 		return access( this, function( value ) {
 			return value === undefined ?
 				jQuery.text( this ) :
-<<<<<<< HEAD
 				this.empty().each(function() {
 					if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
 						this.textContent = value;
 					}
 				});
-=======
-				this.empty().each( function() {
-					if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
-						this.textContent = value;
-					}
-				} );
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 		}, null, value, arguments.length );
 	},
 
 	append: function() {
-<<<<<<< HEAD
 		return this.domManip( arguments, function( elem ) {
-=======
-		return domManip( this, arguments, function( elem ) {
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
 				var target = manipulationTarget( this, elem );
 				target.appendChild( elem );
 			}
-<<<<<<< HEAD
 		});
 	},
 
 	prepend: function() {
 		return this.domManip( arguments, function( elem ) {
-=======
-		} );
-	},
-
-	prepend: function() {
-		return domManip( this, arguments, function( elem ) {
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
 				var target = manipulationTarget( this, elem );
 				target.insertBefore( elem, target.firstChild );
 			}
-<<<<<<< HEAD
 		});
 	},
 
@@ -643,36 +372,13 @@ jQuery.fn.extend( {
 		}
 
 		return this;
-=======
-		} );
-	},
-
-	before: function() {
-		return domManip( this, arguments, function( elem ) {
-			if ( this.parentNode ) {
-				this.parentNode.insertBefore( elem, this );
-			}
-		} );
-	},
-
-	after: function() {
-		return domManip( this, arguments, function( elem ) {
-			if ( this.parentNode ) {
-				this.parentNode.insertBefore( elem, this.nextSibling );
-			}
-		} );
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	},
 
 	empty: function() {
 		var elem,
 			i = 0;
 
-<<<<<<< HEAD
 		for ( ; (elem = this[i]) != null; i++ ) {
-=======
-		for ( ; ( elem = this[ i ] ) != null; i++ ) {
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 			if ( elem.nodeType === 1 ) {
 
 				// Prevent memory leaks
@@ -690,15 +396,9 @@ jQuery.fn.extend( {
 		dataAndEvents = dataAndEvents == null ? false : dataAndEvents;
 		deepDataAndEvents = deepDataAndEvents == null ? dataAndEvents : deepDataAndEvents;
 
-<<<<<<< HEAD
 		return this.map(function() {
 			return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
 		});
-=======
-		return this.map( function() {
-			return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
-		} );
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	},
 
 	html: function( value ) {
@@ -715,11 +415,7 @@ jQuery.fn.extend( {
 			if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
 				!wrapMap[ ( rtagName.exec( value ) || [ "", "" ] )[ 1 ].toLowerCase() ] ) {
 
-<<<<<<< HEAD
 				value = value.replace( rxhtmlTag, "<$1></$2>" );
-=======
-				value = jQuery.htmlPrefilter( value );
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 
 				try {
 					for ( ; i < l; i++ ) {
@@ -735,11 +431,7 @@ jQuery.fn.extend( {
 					elem = 0;
 
 				// If using innerHTML throws an exception, use the fallback method
-<<<<<<< HEAD
 				} catch( e ) {}
-=======
-				} catch ( e ) {}
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 			}
 
 			if ( elem ) {
@@ -749,7 +441,6 @@ jQuery.fn.extend( {
 	},
 
 	replaceWith: function() {
-<<<<<<< HEAD
 		var arg = arguments[ 0 ];
 
 		// Make the changes, replacing each context element with the new content
@@ -859,27 +550,6 @@ jQuery.fn.extend( {
 });
 
 jQuery.each({
-=======
-		var ignored = [];
-
-		// Make the changes, replacing each non-ignored context element with the new content
-		return domManip( this, arguments, function( elem ) {
-			var parent = this.parentNode;
-
-			if ( jQuery.inArray( this, ignored ) < 0 ) {
-				jQuery.cleanData( getAll( this ) );
-				if ( parent ) {
-					parent.replaceChild( elem, this );
-				}
-			}
-
-		// Force callback invocation
-		}, ignored );
-	}
-} );
-
-jQuery.each( {
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 	appendTo: "append",
 	prependTo: "prepend",
 	insertBefore: "before",
@@ -897,26 +567,14 @@ jQuery.each( {
 			elems = i === last ? this : this.clone( true );
 			jQuery( insert[ i ] )[ original ]( elems );
 
-<<<<<<< HEAD
 			// Support: QtWebKit
 			// .get() because push.apply(_, arraylike) throws
-=======
-			// Support: Android <=4.0 only, PhantomJS 1 only
-			// .get() because push.apply(_, arraylike) throws on ancient WebKit
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
 			push.apply( ret, elems.get() );
 		}
 
 		return this.pushStack( ret );
 	};
-<<<<<<< HEAD
 });
 
 return jQuery;
 });
-=======
-} );
-
-return jQuery;
-} );
->>>>>>> 5fa71e0e00466be5aac61fc6bef603839eaba19c
