@@ -310,7 +310,9 @@ $(document).ready(function() {
 
 	$('#myempjson').click( function(event) {
 		event.preventDefault();
-		getEmployee();   // defaults to employee 5500165
+		var myemp = $('#personcode').val(); 
+		myemp = myemp || 5500165;
+		getEmployee(myemp);   // defaults to employee 5500165
 	});
 
 

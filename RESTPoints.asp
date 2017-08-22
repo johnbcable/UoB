@@ -130,7 +130,19 @@ var mydebug = new String("N").toString();
       </tr>
       <tr>
         <td>Employee Data</td>
-        <td colspan="3"><a id="myempjson" href='#'>JSON</a></td>
+        <td colspan="2">
+
+          <form>
+            <div>
+              <div>
+                <label>UoB Person ID (from ID badge)</label>
+                <input type="text" name="personcode" id="personcode" placeholder="Person ID" />&nbsp;&nbsp;
+                <a id="myempjson" href='#'>Check &raquo;</a>
+              </div>
+            </div>
+          </form>
+          
+        </td>
       </tr>
     </tbody>
   </table>
