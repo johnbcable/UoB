@@ -32,7 +32,7 @@ function getGrades(filetype) {
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
-
+			
 			$('#jsonheader').html('<h1>All Grades</h1>');
 
 			$('#receivedjson').html(jsonstring);
