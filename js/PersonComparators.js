@@ -33,7 +33,7 @@ function paramSetup() {
 	curperson = curperson || 5500165;
 
 	// Blank out content of destination div's
-  $('#jsonheader').html('');
+  	$('#jsonheader').html('');
 	$('#receivedjson').html('');
 
 
@@ -42,10 +42,9 @@ function paramSetup() {
 //==================================================
 function getLegacyWorkerData() {
 
-	var url = baselegacyurl;
+	var url = baselegacyurl + "&p1=";
 	var myperson = curperson;
 
-	url += "&p1=";
 	url +=  myperson;
 
 	//  console.log(url);
@@ -62,9 +61,9 @@ function getLegacyWorkerData() {
 
 		var legacydata = eval("(" + jsonstring + ")");
 
-    $('#jsonheader').html('<h1>All Jobs</h1>');
+    	$('#jsonheader').html('<h1>All Jobs</h1>');
 
-    $('#receivedjson').html(jsonstring);
+    	$('#receivedjson').html(jsonstring);
 
 		// Set the boolean if we have data
 		// if (eventdata.length > 1)
@@ -132,82 +131,85 @@ function getLegacyWorkerData() {
 // ============================================================================
 function getFusionWorkerData() {
 
-	var url = new String(basefusionurl).toString();
+	var url = basefusionurl + "emps?onlyData&limit=10&q=PersonNumber=";
 	var myperson = curperson;
 
-	url += "emps?onlyData&limit=1000&&q=PersonNumber="+myperson;
-	console.log("Inside getFusionWorkerData:"+url);
+	url += myperson;
+	console.log(url);
 
-  $.ajax({
+	$('#jsonheader').html('');
+	$('#receivedjson').html('');
+
+  	$.ajax({
 		type: "GET",
 		url: url,
 		dataType: "json",
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
 
-      var jsonstring = JSON.stringify(data);
-      // console.log("Fusion data: "+data);
+      		var jsonstring = JSON.stringify(data);
+		      // console.log("Fusion data: "+data);
 
-      $('#jsonheader').html('<h1>Fusion Worker Data</h1>');
+		    $('#jsonheader').html('<h1>Fusion Worker Data</h1>');
 
 			$('#receivedjson').html(jsonstring);
 
-      // $("#comparisonresults").empty();
-  		// Append template filled with data
-  		// $("#comparisonresults").append (jsonstring);
+		      // $("#comparisonresults").empty();
+		  		// Append template filled with data
+		  		// $("#comparisonresults").append (jsonstring);
 
-  		// jsonstring = new String("{fusionperson:"+jsonstring+"}");
-      // console.log("Fusion jsonstring: "+jsonstring);
+		  		// jsonstring = new String("{fusionperson:"+jsonstring+"}");
+		      // console.log("Fusion jsonstring: "+jsonstring);
 
-  		var fusiondata = eval("(" + jsonstring + ")");
+		  	// var fusiondata = eval("(" + jsonstring + ")");
 
-      // console.log(fusiondata);
-  	  // console.log(fusiondata.fusiondata[0].Title);
+		      // console.log(fusiondata);
+		  	  // console.log(fusiondata.fusiondata[0].Title);
 
-      myfusion = JSON.parse(JSON.stringify(fusiondata));
+		     // myfusion = JSON.parse(JSON.stringify(fusiondata));
 
-  		// console.log("Global myfusion data structure now contains:");
-  		// console.log(myfusion);
+		  		// console.log("Global myfusion data structure now contains:");
+		  		// console.log(myfusion);
 
-  		// Now fill in return object with Fusion comparator data
-  		/*
-      myfusion.Title=data.items[0].Salutation;
-  		myfusion.Forename=data.items[0].FirstName;
-  		myfusion.Surname=data.items[0].LastName;
-  		myfusion.PreferredName=data.items[0].PreferredName;
-  		myfusion.PersonCode=data.items[0].PersonNumer;
-  		myfusion.HomeTelephone=data.items[0].HomePhoneNumber;
-  		myfusion.WorksEmailAddress=data.items[0].WorkEmail;
-  		myfusion.AddressLine1=data.items[0].AddressLine1;
-  		myfusion.AddressLine2=data.items[0].AddressLine2;
-  		myfusion.AddressLine3=data.items[0].AddressLine3;
-  		myfusion.Town=data.items[0].City;
-  		myfusion.Region=data.items[0].Region;
-  		myfusion.Country=data.items[0].Country;
-  		myfusion.Postcode=data.items[0].PostalCode;
-  		myfusion.DateOfBirth=data.items[0].DateOfBirth;
-  		myfusion.EthnicOriginDescription=data.items[0].Ethnicity;
-  		myfusion.Gender=data.items[0].Gender;
-  		myfusion.NINumber=data.items[0].NationalId;
-  		myfusion.UserName=data.items[0].UserName;
-      */
+		  		// Now fill in return object with Fusion comparator data
+		  		/*
+		      myfusion.Title=data.items[0].Salutation;
+		  		myfusion.Forename=data.items[0].FirstName;
+		  		myfusion.Surname=data.items[0].LastName;
+		  		myfusion.PreferredName=data.items[0].PreferredName;
+		  		myfusion.PersonCode=data.items[0].PersonNumer;
+		  		myfusion.HomeTelephone=data.items[0].HomePhoneNumber;
+		  		myfusion.WorksEmailAddress=data.items[0].WorkEmail;
+		  		myfusion.AddressLine1=data.items[0].AddressLine1;
+		  		myfusion.AddressLine2=data.items[0].AddressLine2;
+		  		myfusion.AddressLine3=data.items[0].AddressLine3;
+		  		myfusion.Town=data.items[0].City;
+		  		myfusion.Region=data.items[0].Region;
+		  		myfusion.Country=data.items[0].Country;
+		  		myfusion.Postcode=data.items[0].PostalCode;
+		  		myfusion.DateOfBirth=data.items[0].DateOfBirth;
+		  		myfusion.EthnicOriginDescription=data.items[0].Ethnicity;
+		  		myfusion.Gender=data.items[0].Gender;
+		  		myfusion.NINumber=data.items[0].NationalId;
+		  		myfusion.UserName=data.items[0].UserName;
+		      */
 
-      //Get the HTML from the template   in the script tag
-  	  // var theTemplateScript = $("#fusionlist-template").html();
+		      //Get the HTML from the template   in the script tag
+		  	  // var theTemplateScript = $("#fusionlist-template").html();
 
-  	  //Compile the template
-  	  // var theTemplate = Handlebars.compile (theTemplateScript);
-  		// Handlebars.registerPartial("description", $("#shoe-description").html());
-  		// Clear out detsination HTML element
-  		// $("#comparisonresults").empty();
-  		// Append template filled with data
-  		// $("#comparisonresults").append (theTemplate(fusiondata));
+		  	  //Compile the template
+		  	  // var theTemplate = Handlebars.compile (theTemplateScript);
+		  		// Handlebars.registerPartial("description", $("#shoe-description").html());
+		  		// Clear out detsination HTML element
+		  		// $("#comparisonresults").empty();
+		  		// Append template filled with data
+		  		// $("#comparisonresults").append (theTemplate(fusiondata));
 
-  		// return(fusiondata);
-		},
-		error: function(xhr, textStatus, errorThrown) {
-			$('#error').html(xhr.responseText);
-		}
+		  		// return(fusiondata);
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					$('#error').html(xhr.responseText);
+				}
 
 	});  // end of ajax call
 

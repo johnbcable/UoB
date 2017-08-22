@@ -128,6 +128,10 @@ var mydebug = new String("N").toString();
         <td><a id="allredat" href='#'>DAT file</td>
         <td><a id="allrecsv" href='#'>CSV file</td>
       </tr>
+      <tr>
+        <td>Employee Data</td>
+        <td colspan="3"><a id="myempjson" href='#'>JSON</a></td>
+      </tr>
     </tbody>
   </table>
 

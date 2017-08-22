@@ -268,8 +268,51 @@ function getOrganisations(orgtype, filetype) {
 
 }
 
+// ============================================================================
+function getEmployee(personcode) {
+
+	var myperson = personcode || '5500165';
+	var url = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=" + myperson;
+
+	console.log(url);
+
+	// var eventsfound = false;
+	$('#jsonheader').html('');
+	$('#receivedjson').html('');
+
+	$.ajax({
+		type: "GET",
+		url: url,
+		dataType: "json",
+		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
+		success: function(data) {
+			var jsonstring = JSON.stringify(data);
+
+			$('#jsonheader').html('<h1>Employee Details for '+myperson+'</h1>');
+
+			$('#receivedjson').html(jsonstring);
+
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			$('#error').html(xhr.responseText);
+		}
+
+	});  // end of ajax call
+
+}
+
+
 
 $(document).ready(function() {
+
+	// ===========================================
+	// Employee
+
+	$('#myempjson').click( function(event) {
+		event.preventDefault();
+		getEmployee();   // defaults to employee 5500165
+	});
+
 
 	// ===========================================
 	// Grades
