@@ -147,12 +147,12 @@ function getFusionWorkerData() {
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
 
-      		var jsonstring = JSON.stringify(data);
+      	var jsonstring = JSON.stringify(data);
 		      // console.log("Fusion data: "+data);
 
 		    $('#jsonheader').html('<h1>Fusion Worker Data</h1>');
 
-			$('#receivedjson').html(jsonstring);
+				$('#receivedjson').html(jsonstring);
 
 		      // $("#comparisonresults").empty();
 		  		// Append template filled with data
@@ -223,9 +223,10 @@ $(document).ready(function() {
 
   var result;
 
-  $('#personcomparator').click( function(event) {
+  /*
+	$('#personcomparator').click( function(event) {
 		event.preventDefault();
-
+		*/
 		/*
 		if (debugthis) {
 			console.log('Before paramSetup ........................');
@@ -236,7 +237,7 @@ $(document).ready(function() {
 		}
 		*/
 
-		paramSetup();
+		// paramSetup();
 
 		/*
 		if (debugthis) {
@@ -256,10 +257,10 @@ $(document).ready(function() {
 
 		// Get fusion data for this person
 
-		getFusionWorkerData();
+		// getFusionWorkerData();
     // console.log("myfusion after getFusionWorkerData: "+myfusion);
 
-	});
+	// });
 
 
 })  // end of document.ready

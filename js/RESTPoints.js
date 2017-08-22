@@ -32,7 +32,7 @@ function getGrades(filetype) {
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
-			
+
 			$('#jsonheader').html('<h1>All Grades</h1>');
 
 			$('#receivedjson').html(jsonstring);
@@ -308,9 +308,9 @@ $(document).ready(function() {
 	// ===========================================
 	// Employee
 
-	$('#myempjson').click( function(event) {
+	$('#personcomparator').click( function(event) {
 		event.preventDefault();
-		var myemp = $('#personcode').val(); 
+		var myemp = $('#personcode').val();
 		myemp = myemp || 5500165;
 		getEmployee(myemp);   // defaults to employee 5500165
 	});
