@@ -275,6 +275,7 @@ function getFusionEmployee(personcode) {
 	var myperson = personcode || '5500165';
 	var url = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=" + myperson;
 	var fusionemployee = {};
+	var myfusion = {};
 
 	console.log(url);
 
@@ -311,11 +312,17 @@ function getFusionEmployee(personcode) {
 			*/
 
 			console.log(data.items[0].Salutation, data.items[0].FirstName);
-			var myfusion = {
+
+ 			$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
+
+			$('#fusionreceivedjson').html(jsonstring);
+
+			return {
 				"title": data.items[0].Salutation,
 				"forename": data.items[0].FirstName,
 				"surname": data.items[0].Surname
 			};
+
 		/*
 				Title=data.items[0].Salutation;
 				Forename=data.items[0].FirstName;
@@ -340,18 +347,14 @@ function getFusionEmployee(personcode) {
 
 			*/
 
- 			$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
-
-			$('#fusionreceivedjson').html(jsonstring);
-
 		},
 		error: function(xhr, textStatus, errorThrown) {
 			$('#error').html(xhr.responseText);
+			return (null);
 		}
 
 	});  // end of ajax call
 
-	return(myfusion);
 }
 
 // ============================================================================
@@ -453,8 +456,8 @@ console.log(myobj.name, myobj.number); // logs "bob 1"
 		// console.log(fusionreturn);
 		var myfusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
 		var mylegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
-		console.log(myfusionemployee);
-		console.log(mylegacyemployee[0].Surname);
+		console.log(myfusionemployee.forename);
+		// console.log(mylegacyemployee[0].Surname);
 	});
 
 
