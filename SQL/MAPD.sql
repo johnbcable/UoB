@@ -1,2 +1,1 @@
-desc all_directories
-select * from all_directories
+select table_name from user_tables;

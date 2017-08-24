@@ -149,8 +149,13 @@ var mydebug = new String("N").toString();
 
   <hr />
 
-  <div id="jsonheader"></div>
-  <div id="receivedjson"></div>
+  <div id="fusionjsonheader"></div>
+  <div id="fusionreceivedjson"></div>
+
+  <hr />
+
+  <div id="legacyjsonheader"></div>
+  <div id="legacyreceivedjson"></div>
 <%
 
 // Custom ASP code

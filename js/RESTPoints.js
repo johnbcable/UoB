@@ -10,8 +10,9 @@
 //
 
 
-var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/"
-var baseSetupURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreSetupApi/resources/11.12.1.0/"
+var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
+var baseSetupURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreSetupApi/resources/11.12.1.0/";
+var legacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49";
 
 // ============================================================================
 function getGrades(filetype) {
@@ -22,8 +23,8 @@ function getGrades(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -33,9 +34,9 @@ function getGrades(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Grades</h1>');
+			$('#fusionjsonheader').html('<h1>All Grades</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
   		if (generatedfiletype == 'DAT') {
 				console.log("DAT file chosen");
@@ -64,8 +65,8 @@ function getJobs(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -75,9 +76,9 @@ function getJobs(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Jobs</h1>');
+			$('#fusionjsonheader').html('<h1>All Jobs</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
  				console.log("DAT file chosen");
@@ -106,8 +107,8 @@ function getPositions(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -117,9 +118,9 @@ function getPositions(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Positions</h1>');
+			$('#fusionjsonheader').html('<h1>All Positions</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
 				 console.log("DAT file chosen");
@@ -149,8 +150,8 @@ function getJobFamilies(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -160,9 +161,9 @@ function getJobFamilies(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Job Families</h1>');
+			$('#fusionjsonheader').html('<h1>All Job Families</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
 				 console.log("DAT file chosen");
@@ -192,8 +193,8 @@ function getLocations(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -203,9 +204,9 @@ function getLocations(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Locations</h1>');
+			$('#fusionjsonheader').html('<h1>All Locations</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
 				 console.log("DAT file chosen");
@@ -235,8 +236,8 @@ function getOrganisations(orgtype, filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -246,9 +247,9 @@ function getOrganisations(orgtype, filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Organisations of Classification '+myorgtype+'</h1>');
+			$('#fusionjsonheader').html('<h1>All Organisations of Classification '+myorgtype+'</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
 				 console.log("DAT file chosen");
@@ -269,7 +270,7 @@ function getOrganisations(orgtype, filetype) {
 }
 
 // ============================================================================
-function getEmployee(personcode) {
+function getFusionEmployee(personcode) {
 
 	var myperson = personcode || '5500165';
 	var url = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=" + myperson;
@@ -277,8 +278,8 @@ function getEmployee(personcode) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -288,9 +289,9 @@ function getEmployee(personcode) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>Employee Details for '+myperson+'</h1>');
+			$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 		},
 		error: function(xhr, textStatus, errorThrown) {
@@ -298,6 +299,39 @@ function getEmployee(personcode) {
 		}
 
 	});  // end of ajax call
+
+}
+
+// ============================================================================
+function getLegacyEmployee(personcode) {
+
+	var myperson = personcode || '5500165';
+	var url = legacyURL + "&p1=";
+
+	url += myperson;
+
+	console.log(url);
+
+	// var eventsfound = false;
+	$('#legacyjsonheader').html('');
+	$('#flegacyreceivedjson').html('');
+
+	$.getJSON(url, function (data) {
+
+		// console.log("Legacy url: "+url);
+
+		var jsonstring = JSON.stringify(data);
+
+		jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
+    // console.log("Legacy jsonstring: "+jsonstring);
+
+		// var legacydata = eval("(" + jsonstring + ")");
+
+			$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
+
+			$('#legacyreceivedjson').html(jsonstring);
+
+	});  // end of getJSON call
 
 }
 
@@ -312,7 +346,8 @@ $(document).ready(function() {
 		event.preventDefault();
 		var myemp = $('#personcode').val();
 		myemp = myemp || 5500165;
-		getEmployee(myemp);   // defaults to employee 5500165
+		getFusionEmployee(myemp);   // defaults to employee 5500165
+		getLegacyEmployee(myemp);   // defualts to employee 5500165
 	});
 
 
