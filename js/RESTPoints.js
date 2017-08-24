@@ -274,6 +274,7 @@ function getFusionEmployee(personcode) {
 
 	var myperson = personcode || '5500165';
 	var url = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=" + myperson;
+	var fusionemployee = {};
 
 	console.log(url);
 
@@ -287,9 +288,59 @@ function getFusionEmployee(personcode) {
 		dataType: "json",
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
-			var jsonstring = JSON.stringify(data);
+			var jsonstring = JSON.stringify(data.items);
 
-			$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
+			// fusionemployee = JSON.parse(jsonstring);
+			fusionemployee = new String(jsonstring).toString();
+
+			// jsonstring = new String('{"fusiondata:"' + jsonstring + '}').toString();
+	    // console.log("Legacy jsonstring: "+jsonstring);
+
+ 			// fusionemployee = eval("(" + jsonstring + ")");
+
+			// Now fill in return object with Fusion comparator data
+			/*
+
+			function myfunc() {
+			   return {"name": "bob", "number": 1};
+			}
+
+			var myobj = myfunc();
+			console.log(myobj.name, myobj.number); // logs "bob 1"
+
+			*/
+
+			console.log(data.items[0].Salutation, data.items[0].FirstName);
+			var myfusion = {
+				"title": data.items[0].Salutation,
+				"forename": data.items[0].FirstName,
+				"surname": data.items[0].Surname
+			};
+		/*
+				Title=data.items[0].Salutation;
+				Forename=data.items[0].FirstName;
+				Surname=data.items[0].LastName;
+				PreferredName=data.items[0].PreferredName;
+				PersonCode=data.items[0].PersonNumer;
+				HomeTelephone=data.items[0].HomePhoneNumber;
+				WorksEmailAddress=data.items[0].WorkEmail;
+				AddressLine1=data.items[0].AddressLine1;
+				AddressLine2=data.items[0].AddressLine2;
+				AddressLine3=data.items[0].AddressLine3;
+				Town=data.items[0].City;
+				Region=data.items[0].Region;
+				Country=data.items[0].Country;
+				Postcode=data.items[0].PostalCode;
+				DateOfBirth=data.items[0].DateOfBirth;
+				EthnicOriginDescription=data.items[0].Ethnicity;
+				Gender=data.items[0].Gender;
+				NINumber=data.items[0].NationalId;
+				UserName=data.items[0].UserName;
+		}
+
+			*/
+
+ 			$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
 
 			$('#fusionreceivedjson').html(jsonstring);
 
@@ -300,6 +351,7 @@ function getFusionEmployee(personcode) {
 
 	});  // end of ajax call
 
+	return(myfusion);
 }
 
 // ============================================================================
@@ -307,6 +359,7 @@ function getLegacyEmployee(personcode) {
 
 	var myperson = personcode || '5500165';
 	var url = legacyURL + "&p1=";
+	var legacyemployee = {};
 
 	url += myperson;
 
@@ -322,22 +375,71 @@ function getLegacyEmployee(personcode) {
 
 		var jsonstring = JSON.stringify(data);
 
-		jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
+		// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
     // console.log("Legacy jsonstring: "+jsonstring);
 
-		// var legacydata = eval("(" + jsonstring + ")");
+		legacyemployee = JSON.parse(jsonstring);
+		// legacyemployee = eval("(" + jsonstring + ")");
 
-			$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
+		$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
 
-			$('#legacyreceivedjson').html(jsonstring);
+		$('#legacyreceivedjson').html(jsonstring);
 
 	});  // end of getJSON call
+
+	/*
+
+	function myfunc() {
+	   return {"name": "bob", "number": 1};
+	}
+
+	var myobj = myfunc();
+	console.log(myobj.name, myobj.number); // logs "bob 1"
+
+	*/
+
+	/*
+	mylegacy = {
+		title: new String(legacydata.legacydata[0].Title).toString();
+		forename: new String(legacydata.legacydata[0].Forename).toString();
+		surname: new String(legacydata.legacydata[0].LastName).toString();
+		preferredName: new String(legacydata.legacydata[0].PreferredName).toString();
+		personCode: new String(legacydata.legacydata[0].PersonCode).toString();
+		homeTelephone: new String(legacydata.legacydata[0].HomeTelephone).toString();
+		worksEmailAddress: new String(legacydata.legacydata[0].AnonymisedWorkEmail).toString();
+		addressLine1: new String(legacydata.legacydata[0].AddressLine1).toString();
+		addressLine2: new String(legacydata.legacydata[0].AddressLine2).toString();
+		addressLine3: new String(legacydata.legacydata[0].AddressLine3).toString();
+		town: new String(legacydata.legacydata[0].Town).toString();
+		region: new String(legacydata.legacydata[0].Region).toString();
+		country: new String(legacydata.legacydata[0].Country).toString();
+		postcode: new String(legacydata.legacydata[0].Postcode).toString();
+		dateOfBirth: new String(legacydata.legacydata[0].DateOfBirth).toString();
+		ethnicOriginDescription: new String(legacydata.legacydata[0].EthnicOriginDescription).toString();
+		gender: new String(legacydata.legacydata[0].Gender).toString();
+		nINumber: new String(legacydata.legacydata[0].NINumber).toString();
+		userName: new String(legacydata.legacydata[0].UserName).toString();
+	};
+	*/
+
+	return(legacyemployee);
 
 }
 
 
 
 $(document).ready(function() {
+
+/*
+
+function myfunc() {
+   return {"name": "bob", "number": 1};
+}
+
+var myobj = myfunc();
+console.log(myobj.name, myobj.number); // logs "bob 1"
+
+*/
 
 	// ===========================================
 	// Employee
@@ -346,8 +448,13 @@ $(document).ready(function() {
 		event.preventDefault();
 		var myemp = $('#personcode').val();
 		myemp = myemp || 5500165;
-		getFusionEmployee(myemp);   // defaults to employee 5500165
-		getLegacyEmployee(myemp);   // defualts to employee 5500165
+		// fusionreturn = new String(getFusionEmployee(myemp)).toString();
+		// console.log("fusionreturn");
+		// console.log(fusionreturn);
+		var myfusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
+		var mylegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
+		console.log(myfusionemployee);
+		console.log(mylegacyemployee[0].Surname);
 	});
 
 
