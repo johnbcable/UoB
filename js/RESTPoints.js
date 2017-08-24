@@ -317,10 +317,10 @@ function getFusionEmployee(personcode) {
 
 			$('#fusionreceivedjson').html(jsonstring);
 
-			return {
-				"title": data.items[0].Salutation,
-				"forename": data.items[0].FirstName,
-				"surname": data.items[0].Surname
+			myfusion =  {
+				title: data.items[0].Salutation,
+				forename: data.items[0].FirstName,
+				surname: data.items[0].Surname
 			};
 
 		/*
@@ -355,6 +355,8 @@ function getFusionEmployee(personcode) {
 
 	});  // end of ajax call
 
+  return new Object(myfusion);
+	
 }
 
 // ============================================================================
