@@ -4,7 +4,7 @@
 //	All Javascript routines to generate all segments of a a Worker.dat
 //	as separate files
 //
-//	Normally called from RESTPoints.html
+//	Normally called from RESTPoints.asp
 //
 //  Global variables
 //
@@ -13,6 +13,18 @@
 var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
 var baseSetupURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreSetupApi/resources/11.12.1.0/";
 var legacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49";
+var jsonstring;
+
+// Utility functions
+
+// Register Handlebars helpers
+
+Handlebars.registerHelper('equalsTo', function(v1, v2, options) {
+    if(v1 == v2) { return options.fn(this); }
+    else { return options.inverse(this); }
+});
+
+
 
 // ============================================================================
 function getGrades(filetype) {
@@ -290,38 +302,29 @@ function getFusionEmployee(personcode) {
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
 			var jsonstring = JSON.stringify(data.items);
-
+			jsonstring = new String("{fusionemployees:"+jsonstring+"}");
 			// fusionemployee = JSON.parse(jsonstring);
-			fusionemployee = new String(jsonstring).toString();
 
 			// jsonstring = new String('{"fusiondata:"' + jsonstring + '}').toString();
 	    // console.log("Legacy jsonstring: "+jsonstring);
 
- 			// fusionemployee = eval("(" + jsonstring + ")");
+ 			fusionemployeedata = eval("(" + jsonstring + ")");
 
-			// Now fill in return object with Fusion comparator data
-			/*
+			// get HTML for the display template in the script tag
+			var theTemplateScript = $("#fusionlist-template").html();
 
-			function myfunc() {
-			   return {"name": "bob", "number": 1};
-			}
+			// Compile the Handlebars template
+			var theTemplate = Handlebars.compile(theTemplateScript);
 
-			var myobj = myfunc();
-			console.log(myobj.name, myobj.number); // logs "bob 1"
+			// Clear out the display area
+			$("#main").empty();
+			$("#main").append(theTemplate(fusionemployeedata));
 
-			*/
-
-			console.log(data.items[0].Salutation, data.items[0].FirstName);
+				console.log(data.items[0].Salutation, data.items[0].FirstName);
 
  			$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
 
 			$('#fusionreceivedjson').html(jsonstring);
-
-			myfusion =  {
-				title: data.items[0].Salutation,
-				forename: data.items[0].FirstName,
-				surname: data.items[0].Surname
-			};
 
 		/*
 				Title=data.items[0].Salutation;
@@ -356,7 +359,7 @@ function getFusionEmployee(personcode) {
 	});  // end of ajax call
 
   return new Object(myfusion);
-	
+
 }
 
 // ============================================================================
