@@ -4,14 +4,27 @@
 //	All Javascript routines to generate all segments of a a Worker.dat
 //	as separate files
 //
-//	Normally called from RESTPoints.html
+//	Normally called from RESTPoints.asp
 //
 //  Global variables
 //
 
 
-var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/"
-var baseSetupURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreSetupApi/resources/11.12.1.0/"
+var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
+var baseSetupURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreSetupApi/resources/11.12.1.0/";
+var legacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49";
+var jsonstring;
+
+// Utility functions
+
+// Register Handlebars helpers
+
+Handlebars.registerHelper('equalsTo', function(v1, v2, options) {
+    if(v1 == v2) { return options.fn(this); }
+    else { return options.inverse(this); }
+});
+
+
 
 // ============================================================================
 function getGrades(filetype) {
@@ -22,8 +35,8 @@ function getGrades(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -32,10 +45,10 @@ function getGrades(filetype) {
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
-			
-			$('#jsonheader').html('<h1>All Grades</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionjsonheader').html('<h1>All Grades</h1>');
+
+			$('#fusionreceivedjson').html(jsonstring);
 
   		if (generatedfiletype == 'DAT') {
 				console.log("DAT file chosen");
@@ -64,8 +77,8 @@ function getJobs(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -75,9 +88,9 @@ function getJobs(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Jobs</h1>');
+			$('#fusionjsonheader').html('<h1>All Jobs</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
  				console.log("DAT file chosen");
@@ -106,8 +119,8 @@ function getPositions(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -117,9 +130,9 @@ function getPositions(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Positions</h1>');
+			$('#fusionjsonheader').html('<h1>All Positions</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
 				 console.log("DAT file chosen");
@@ -149,8 +162,8 @@ function getJobFamilies(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -160,9 +173,9 @@ function getJobFamilies(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Job Families</h1>');
+			$('#fusionjsonheader').html('<h1>All Job Families</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
 				 console.log("DAT file chosen");
@@ -192,8 +205,8 @@ function getLocations(filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -203,9 +216,9 @@ function getLocations(filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Locations</h1>');
+			$('#fusionjsonheader').html('<h1>All Locations</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
 				 console.log("DAT file chosen");
@@ -235,8 +248,8 @@ function getOrganisations(orgtype, filetype) {
 	console.log(url);
 
 	// var eventsfound = false;
-	$('#jsonheader').html('');
-	$('#receivedjson').html('');
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
 
 	$.ajax({
 		type: "GET",
@@ -246,9 +259,9 @@ function getOrganisations(orgtype, filetype) {
 		success: function(data) {
 			var jsonstring = JSON.stringify(data);
 
-			$('#jsonheader').html('<h1>All Organisations of Classification '+myorgtype+'</h1>');
+			$('#fusionjsonheader').html('<h1>All Organisations of Classification '+myorgtype+'</h1>');
 
-			$('#receivedjson').html(jsonstring);
+			$('#fusionreceivedjson').html(jsonstring);
 
 			if (generatedfiletype == 'DAT') {
 				 console.log("DAT file chosen");
@@ -268,8 +281,190 @@ function getOrganisations(orgtype, filetype) {
 
 }
 
+// ============================================================================
+function getFusionEmployee(personcode) {
+
+	var myperson = personcode || '5500165';
+	var url = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=" + myperson;
+	var fusionemployee = {};
+	var myfusion = {};
+
+	console.log(url);
+
+	// var eventsfound = false;
+	$('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
+
+	$.ajax({
+		type: "GET",
+		url: url,
+		dataType: "json",
+		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
+		success: function(data) {
+			var jsonstring = JSON.stringify(data.items);
+			jsonstring = new String("{fusionemployees:"+jsonstring+"}");
+			// fusionemployee = JSON.parse(jsonstring);
+
+			// jsonstring = new String('{"fusiondata:"' + jsonstring + '}').toString();
+	    // console.log("Legacy jsonstring: "+jsonstring);
+
+ 			fusionemployeedata = eval("(" + jsonstring + ")");
+
+			// get HTML for the display template in the script tag
+			var theTemplateScript = $("#fusionlist-template").html();
+
+			// Compile the Handlebars template
+			var theTemplate = Handlebars.compile(theTemplateScript);
+
+			// Clear out the display area
+			$("#main").empty();
+			$("#main").append(theTemplate(fusionemployeedata));
+
+				console.log(data.items[0].Salutation, data.items[0].FirstName);
+
+ 			$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
+
+			$('#fusionreceivedjson').html(jsonstring);
+
+		/*
+				Title=data.items[0].Salutation;
+				Forename=data.items[0].FirstName;
+				Surname=data.items[0].LastName;
+				PreferredName=data.items[0].PreferredName;
+				PersonCode=data.items[0].PersonNumer;
+				HomeTelephone=data.items[0].HomePhoneNumber;
+				WorksEmailAddress=data.items[0].WorkEmail;
+				AddressLine1=data.items[0].AddressLine1;
+				AddressLine2=data.items[0].AddressLine2;
+				AddressLine3=data.items[0].AddressLine3;
+				Town=data.items[0].City;
+				Region=data.items[0].Region;
+				Country=data.items[0].Country;
+				Postcode=data.items[0].PostalCode;
+				DateOfBirth=data.items[0].DateOfBirth;
+				EthnicOriginDescription=data.items[0].Ethnicity;
+				Gender=data.items[0].Gender;
+				NINumber=data.items[0].NationalId;
+				UserName=data.items[0].UserName;
+		}
+
+			*/
+
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			$('#error').html(xhr.responseText);
+			return (null);
+		}
+
+	});  // end of ajax call
+
+  return new Object(myfusion);
+
+}
+
+// ============================================================================
+function getLegacyEmployee(personcode) {
+
+	var myperson = personcode || '5500165';
+	var url = legacyURL + "&p1=";
+	var legacyemployee = {};
+
+	url += myperson;
+
+	console.log(url);
+
+	// var eventsfound = false;
+	$('#legacyjsonheader').html('');
+	$('#flegacyreceivedjson').html('');
+
+	$.getJSON(url, function (data) {
+
+		// console.log("Legacy url: "+url);
+
+		var jsonstring = JSON.stringify(data);
+
+		// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
+    // console.log("Legacy jsonstring: "+jsonstring);
+
+		legacyemployee = JSON.parse(jsonstring);
+		// legacyemployee = eval("(" + jsonstring + ")");
+
+		$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
+
+		$('#legacyreceivedjson').html(jsonstring);
+
+	});  // end of getJSON call
+
+	/*
+
+	function myfunc() {
+	   return {"name": "bob", "number": 1};
+	}
+
+	var myobj = myfunc();
+	console.log(myobj.name, myobj.number); // logs "bob 1"
+
+	*/
+
+	/*
+	mylegacy = {
+		title: new String(legacydata.legacydata[0].Title).toString();
+		forename: new String(legacydata.legacydata[0].Forename).toString();
+		surname: new String(legacydata.legacydata[0].LastName).toString();
+		preferredName: new String(legacydata.legacydata[0].PreferredName).toString();
+		personCode: new String(legacydata.legacydata[0].PersonCode).toString();
+		homeTelephone: new String(legacydata.legacydata[0].HomeTelephone).toString();
+		worksEmailAddress: new String(legacydata.legacydata[0].AnonymisedWorkEmail).toString();
+		addressLine1: new String(legacydata.legacydata[0].AddressLine1).toString();
+		addressLine2: new String(legacydata.legacydata[0].AddressLine2).toString();
+		addressLine3: new String(legacydata.legacydata[0].AddressLine3).toString();
+		town: new String(legacydata.legacydata[0].Town).toString();
+		region: new String(legacydata.legacydata[0].Region).toString();
+		country: new String(legacydata.legacydata[0].Country).toString();
+		postcode: new String(legacydata.legacydata[0].Postcode).toString();
+		dateOfBirth: new String(legacydata.legacydata[0].DateOfBirth).toString();
+		ethnicOriginDescription: new String(legacydata.legacydata[0].EthnicOriginDescription).toString();
+		gender: new String(legacydata.legacydata[0].Gender).toString();
+		nINumber: new String(legacydata.legacydata[0].NINumber).toString();
+		userName: new String(legacydata.legacydata[0].UserName).toString();
+	};
+	*/
+
+	return(legacyemployee);
+
+}
+
+
 
 $(document).ready(function() {
+
+/*
+
+function myfunc() {
+   return {"name": "bob", "number": 1};
+}
+
+var myobj = myfunc();
+console.log(myobj.name, myobj.number); // logs "bob 1"
+
+*/
+
+	// ===========================================
+	// Employee
+
+	$('#personcomparator').click( function(event) {
+		event.preventDefault();
+		var myemp = $('#personcode').val();
+		myemp = myemp || 5500165;
+		// fusionreturn = new String(getFusionEmployee(myemp)).toString();
+		// console.log("fusionreturn");
+		// console.log(fusionreturn);
+		var myfusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
+		var mylegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
+		console.log(myfusionemployee.forename);
+		// console.log(mylegacyemployee[0].Surname);
+	});
+
 
 	// ===========================================
 	// Grades
