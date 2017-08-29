@@ -12,8 +12,7 @@
 
 var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
 var baseSetupURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreSetupApi/resources/11.12.1.0/";
-var legacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49";
-var jsonstring;
+var baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49";
 
 /*
 var thefusionemployee = {};
@@ -341,7 +340,7 @@ function getFusionEmployee(personcode) {
 function getLegacyEmployee(personcode) {
 
 	var myperson = personcode || '5500165';
-	var url = legacyURL + "&p1=";
+	var url = baseLegacyURL + "&p1=";
 
 	url += myperson;
 
@@ -371,9 +370,74 @@ function getLegacyEmployee(personcode) {
 
 	});  // end of getJSON call
 
-	return(jsonstring);
+	// return(jsonstring);
 
 }
+
+// ============================================================================
+function generateEmployeeComparisonTable(personcode) {
+
+  var myperson = personcode || '5500165';
+	var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
+	var legacyurl = baseLegacyURL + "&p1=";
+  var nullobjectstring = "{}";
+  var nullobject = {};
+
+	legacyurl += myperson;
+  fusionurl += myperson;
+
+	console.log(legacyurl);
+  console.log(fusionurl);
+
+	// blank out raw JSON divs
+	$('#legacyjsonheader').html('');
+	$('#legacyreceivedjson').html('');
+  $('#fusionjsonheader').html('');
+	$('#fusionreceivedjson').html('');
+
+  // Get legacy data first
+  var jsonstring;
+  var jsonstring2;
+
+	$.getJSON(legacyurl, function (data) {
+
+		// console.log("Legacy url: "+url);
+
+		jsonstring = JSON.stringify(data[0]);
+
+		// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
+    console.log("Legacy jsonstring: "+jsonstring);
+
+		thelegacyemployee =JSON.parse(jsonstring);
+    // console.log(thelegacyemployee);
+
+		// legacyemployee = eval("(" + jsonstring + ")");
+
+		$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
+    $('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
+
+		$('#legacyreceivedjson').html(jsonstring);
+    $('#fusionreceivedjson').html(nullobjectstring);
+
+    // Now try and fill out Handlebars template table
+    var context = {
+        model: nullobject,
+        other: thelegacyemployee
+    };
+
+    var theTemplateScript = $("#comparator-template").html();
+    // console.log(theTemplateScript);
+
+    var theTemplate = Handlebars.compile(theTemplateScript);
+    console.log("After compile");
+
+    // Clear out the display area
+    $("#main").empty();
+    $("#main").append(theTemplate(context));
+
+  });
+}
+
 
 $(document).ready(function() {
 
@@ -407,29 +471,15 @@ console.log(myobj.name, myobj.number); // logs "bob 1"
     console.log("The fusion employee string is: ");
     console.log(thefusionemployee);
     */
+    generateEmployeeComparisonTable(myemp);
 
-		thelegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
+		/*
+    thelegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
     console.log("The legacy employee string is: ");
     console.log(thelegacyemployee);
-
+    */
+    
     // Data now in globals - create local context
-    var context = {
-        model: thefusionemployee,
-        other: thelegacyemployee
-    };
-
-    // console.log(thefusionemployee);
-
-
-    var theTemplateScript = $("#comparator-template").html();
-    // console.log(theTemplateScript);
-
-    var theTemplate = Handlebars.compile(theTemplateScript);
-    console.log("After compile");
-
-    // Clear out the display area
-    $("#main").empty();
-    $("#main").append(theTemplate(context));
 	});
 
 

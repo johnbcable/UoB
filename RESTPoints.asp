@@ -165,6 +165,10 @@ var mydebug = new String("N").toString();
 
 %>
 
+<!--
+{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
+-->
+
 <!--       Handlebars templates    -->
 
 <script id="comparator-template" type="x-handlebars-template">
@@ -183,17 +187,17 @@ var mydebug = new String("N").toString();
           <tr>
             <td>Personal Title</td>
             <td id="fusiontitle">{{model.Salutation}}</td>
-            <td id="legacytitle"></td>
+            <td id="legacytitle">{{other.Title}}</td>
           </tr>
           <tr>
             <td>Forename</td>
             <td id="fusionforename">{{model.FirstName}}</td>
-            <td id="legacyforename"></td>
+            <td id="legacyforename">{{other.Forename}}</td>
           </tr>
           <tr>
             <td>Surname</td>
             <td id="fusionsurname">{{model.LastName}}</td>
-            <td id="legacysurname"></td>
+            <td id="legacysurname">{{other.Surname}}</td>
           </tr>
           <tr>
             <td>Preferred Name</td>
