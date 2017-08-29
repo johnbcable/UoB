@@ -15,16 +15,14 @@ var baseSetupURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreSetupApi/re
 var legacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49";
 var jsonstring;
 
+/*
+var thefusionemployee = {};
+var thelegacyemployee = {};
+*/
+
 // Utility functions
 
 // Register Handlebars helpers
-
-Handlebars.registerHelper('equalsTo', function(v1, v2, options) {
-    if(v1 == v2) { return options.fn(this); }
-    else { return options.inverse(this); }
-});
-
-
 
 // ============================================================================
 function getGrades(filetype) {
@@ -301,27 +299,28 @@ function getFusionEmployee(personcode) {
 		dataType: "json",
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
-			var jsonstring = JSON.stringify(data.items);
-			jsonstring = new String("{fusionemployees:"+jsonstring+"}");
+			var jsonstring = JSON.stringify(data.items[0]);
+			// jsonstring = new String("{fusionemployees:"+jsonstring+"}");
 			// fusionemployee = JSON.parse(jsonstring);
 
 			// jsonstring = new String('{"fusiondata:"' + jsonstring + '}').toString();
 	    // console.log("Legacy jsonstring: "+jsonstring);
 
- 			fusionemployeedata = eval("(" + jsonstring + ")");
+ 			// thefusionemployee = JSON.parse(jsonstring);
 
 			// get HTML for the display template in the script tag
-			var theTemplateScript = $("#fusionlist-template").html();
+			// var theTemplateScript = $("#fusionlist-template").html();
 
 			// Compile the Handlebars template
-			var theTemplate = Handlebars.compile(theTemplateScript);
+			// var theTemplate = Handlebars.compile(theTemplateScript);
 
 			// Clear out the display area
-			$("#main").empty();
+			/*
+      $("#main").empty();
 			$("#main").append(theTemplate(fusionemployeedata));
 
 				console.log(data.items[0].Salutation, data.items[0].FirstName);
-
+      */
  			$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
 
 			$('#fusionreceivedjson').html(jsonstring);
@@ -334,7 +333,7 @@ function getFusionEmployee(personcode) {
 
 	});  // end of ajax call
 
-  return new Object(myfusion);
+  return (jsonstring);
 
 }
 
@@ -343,7 +342,6 @@ function getLegacyEmployee(personcode) {
 
 	var myperson = personcode || '5500165';
 	var url = legacyURL + "&p1=";
-	var legacyemployee = {};
 
 	url += myperson;
 
@@ -357,12 +355,14 @@ function getLegacyEmployee(personcode) {
 
 		// console.log("Legacy url: "+url);
 
-		var jsonstring = JSON.stringify(data);
+		var jsonstring = JSON.stringify(data[0]);
 
 		// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
-    // console.log("Legacy jsonstring: "+jsonstring);
+    console.log("Legacy jsonstring: "+jsonstring);
 
-		legacyemployee = JSON.parse(jsonstring);
+		// thelegacyemployee =JSON.parse(jsonstring);
+    // console.log(thelegacyemployee);
+
 		// legacyemployee = eval("(" + jsonstring + ")");
 
 		$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
@@ -371,46 +371,9 @@ function getLegacyEmployee(personcode) {
 
 	});  // end of getJSON call
 
-	/*
-
-	function myfunc() {
-	   return {"name": "bob", "number": 1};
-	}
-
-	var myobj = myfunc();
-	console.log(myobj.name, myobj.number); // logs "bob 1"
-
-	*/
-
-	/*
-	mylegacy = {
-		title: new String(legacydata.legacydata[0].Title).toString();
-		forename: new String(legacydata.legacydata[0].Forename).toString();
-		surname: new String(legacydata.legacydata[0].LastName).toString();
-		preferredName: new String(legacydata.legacydata[0].PreferredName).toString();
-		personCode: new String(legacydata.legacydata[0].PersonCode).toString();
-		homeTelephone: new String(legacydata.legacydata[0].HomeTelephone).toString();
-		worksEmailAddress: new String(legacydata.legacydata[0].AnonymisedWorkEmail).toString();
-		addressLine1: new String(legacydata.legacydata[0].AddressLine1).toString();
-		addressLine2: new String(legacydata.legacydata[0].AddressLine2).toString();
-		addressLine3: new String(legacydata.legacydata[0].AddressLine3).toString();
-		town: new String(legacydata.legacydata[0].Town).toString();
-		region: new String(legacydata.legacydata[0].Region).toString();
-		country: new String(legacydata.legacydata[0].Country).toString();
-		postcode: new String(legacydata.legacydata[0].Postcode).toString();
-		dateOfBirth: new String(legacydata.legacydata[0].DateOfBirth).toString();
-		ethnicOriginDescription: new String(legacydata.legacydata[0].EthnicOriginDescription).toString();
-		gender: new String(legacydata.legacydata[0].Gender).toString();
-		nINumber: new String(legacydata.legacydata[0].NINumber).toString();
-		userName: new String(legacydata.legacydata[0].UserName).toString();
-	};
-	*/
-
-	return(legacyemployee);
+	return(jsonstring);
 
 }
-
-
 
 $(document).ready(function() {
 
@@ -431,14 +394,42 @@ console.log(myobj.name, myobj.number); // logs "bob 1"
 	$('#personcomparator').click( function(event) {
 		event.preventDefault();
 		var myemp = $('#personcode').val();
+    var thelegacyemployee = "";
+    var thefusionemployee = "";
+
 		myemp = myemp || 5500165;
 		// fusionreturn = new String(getFusionEmployee(myemp)).toString();
 		// console.log("fusionreturn");
 		// console.log(fusionreturn);
-		var myfusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
-		var mylegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
-		console.log(myfusionemployee.forename);
-		// console.log(mylegacyemployee[0].Surname);
+
+    /*
+    thefusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
+    console.log("The fusion employee string is: ");
+    console.log(thefusionemployee);
+    */
+
+		thelegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
+    console.log("The legacy employee string is: ");
+    console.log(thelegacyemployee);
+
+    // Data now in globals - create local context
+    var context = {
+        model: thefusionemployee,
+        other: thelegacyemployee
+    };
+
+    // console.log(thefusionemployee);
+
+
+    var theTemplateScript = $("#comparator-template").html();
+    // console.log(theTemplateScript);
+
+    var theTemplate = Handlebars.compile(theTemplateScript);
+    console.log("After compile");
+
+    // Clear out the display area
+    $("#main").empty();
+    $("#main").append(theTemplate(context));
 	});
 
 

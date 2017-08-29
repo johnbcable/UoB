@@ -167,8 +167,7 @@ var mydebug = new String("N").toString();
 
 <!--       Handlebars templates    -->
 
-<script id="fusionlist-template" type="x-handlebars-template">
-{{#if fusionemployees}}
+<script id="comparator-template" type="x-handlebars-template">
 <div class="row hide-for-small-only">
   <div class="large-10 medium-10 large-offset-1 medium-offset-1 fusionlist columns">
     <div class="row">
@@ -181,52 +180,51 @@ var mydebug = new String("N").toString();
           </tr>
         </thead>
         <tbody>
-        {{#each fusionemployees}}
           <tr>
             <td>Personal Title</td>
-            <td id="fusiontitle">{{Salutation}}</td>
+            <td id="fusiontitle">{{model.Salutation}}</td>
             <td id="legacytitle"></td>
           </tr>
           <tr>
             <td>Forename</td>
-            <td id="fusionforename">{{FirstName}}</td>
+            <td id="fusionforename">{{model.FirstName}}</td>
             <td id="legacyforename"></td>
           </tr>
           <tr>
             <td>Surname</td>
-            <td id="fusionsurname">{{LastName}}</td>
+            <td id="fusionsurname">{{model.LastName}}</td>
             <td id="legacysurname"></td>
           </tr>
           <tr>
             <td>Preferred Name</td>
-            <td id="fusionpreferredname">{{PreferredName}}</td>
+            <td id="fusionpreferredname">{{model.PreferredName}}</td>
             <td id="legacypreferredname"></td>
           </tr>
           <tr>
             <td>Person Code</td>
-            <td id="fusionpersoncode">{{PersonNumber}}</td>
+            <td id="fusionpersoncode">{{model.PersonNumber}}</td>
             <td id="legacypersoncode"></td>
           </tr>
           <tr>
             <td>Home Telephone</td>
-            <td id="fusionhometelephone">{{HomeTelephone}}</td>
+            <td id="fusionhometelephone">{{model.HomeTelephone}}</td>
             <td id="legacyhometelephone"></td>
           </tr>
           <tr>
             <td>Work Email</td>
-            <td id="fusionworkemail">{{WorkEmail}}</td>
+            <td id="fusionworkemail">{{model.WorkEmail}}</td>
             <td id="legacyworkemail"></td>
           </tr>
           <tr>
             <td>Address</td>
             <td id="fusionaddress">
-              {{AddressLine1}}<br />
-              {{AddressLine2}}<br />
-              {{AddressLine3}}<br />
-              {{Town}}<br />
-              {{Region}}<br />
-              {{Country}}<br />
-              {{Postcode}}<br />
+              {{model.AddressLine1}}<br />
+              {{model.AddressLine2}}<br />
+              {{model.AddressLine3}}<br />
+              {{model.Town}}<br />
+              {{model.Region}}<br />
+              {{model.Country}}<br />
+              {{model.Postcode}}<br />
             </td>
             <td id="legacyaddress">
 
@@ -234,42 +232,35 @@ var mydebug = new String("N").toString();
           </tr>
           <tr>
             <td>Date Of Birth</td>
-            <td id="fusiondob">{{DateOfBirth}}</td>
+            <td id="fusiondob">{{model.DateOfBirth}}</td>
             <td id="legacydob"></td>
           </tr>
           <tr>
             <td>Ethnicity</td>
-            <td id="fusionethnicity">{{Ethnicity}}</td>
+            <td id="fusionethnicity">{{model.Ethnicity}}</td>
             <td id="legacyethnicity"></td>
           </tr>
           <tr>
             <td>Gender</td>
-            <td id="fusiongender">{{Gender}}</td>
+            <td id="fusiongender">{{model.Gender}}</td>
             <td id="legacygender"></td>
           </tr>
           <tr>
             <td>NI Number</td>
-            <td id="fusionni">{{NationalId}}</td>
+            <td id="fusionni">{{model.NationalId}}</td>
             <td id="legacyni"></td>
           </tr>
           <tr>
             <td>User Name</td>
-            <td id="fusionusername">{{UserName}}</td>
+            <td id="fusionusername">{{model.UserName}}</td>
             <td id="legacyusername"></td>
           </tr>
         </tbody>
       </table>
-  {{/each}}
-  {{else}}
-  <div class="row">
-    <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 columns">
-      <p>
-        No fusion data found
-      </p>
     </div>
   </div>
-  {{/if}}
-  </script>
+</div>
+</script>
 
 
 <!--    End of Handlebars templates    -->
