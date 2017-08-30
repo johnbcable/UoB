@@ -258,7 +258,7 @@ Legacy
           <tr>
             <td>Date Of Birth</td>
             <td id="fusiondob">{{model.DateOfBirth}}</td>
-            <td id="legacydob"></td>
+            <td id="legacydob">{{other.DateOfBirth}}</td>
             <td id="comparisondob">{{comparison.DateOfBirth}}</td>
           </tr>
           <tr>
