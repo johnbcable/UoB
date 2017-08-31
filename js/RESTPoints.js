@@ -12,12 +12,6 @@
 
 var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
 var baseSetupURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreSetupApi/resources/11.12.1.0/";
-var baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49";
-
-/*
-var thefusionemployee = {};
-var thelegacyemployee = {};
-*/
 
 // Utility functions
 
@@ -300,7 +294,7 @@ function getFusionEmployee(personcode) {
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
 			jsonstring2 = JSON.stringify(data.items[0]);
-				
+
 	    	console.log("Fusion jsonstring2: "+jsonstring2);
 
 			thefusionemployee =JSON.parse(jsonstring2);
@@ -355,173 +349,8 @@ function getLegacyEmployee(personcode) {
 
 }
 
-// ============================================================================
-function generateEmployeeComparisonTable(personcode) {
-
-  	var myperson = personcode || '5500165';
-	var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
-	var legacyurl = baseLegacyURL + "&p1=";
-  	var nullobjectstring = "{}";
-  	var nullobject = {};
-
-	legacyurl += myperson;
-  	fusionurl += myperson;
-
-	console.log(legacyurl);
-  	console.log(fusionurl);
-
-	// blank out raw JSON divs
-	$('#legacyjsonheader').html('');
-	$('#legacyreceivedjson').html('');
-  	$('#fusionjsonheader').html('');
-	$('#fusionreceivedjson').html('');
-
-	// Get legacy data first
-	var jsonstring;			// Used for legacy employee data
-	var jsonstring2;		// Used for Fusion employee data
-
-	$.getJSON(legacyurl, function (data) {
-
-		// console.log("Legacy url: "+url);
-
-		jsonstring = JSON.stringify(data[0]);
-
-		// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
-    	console.log("Legacy jsonstring: "+jsonstring);
-
-		thelegacyemployee =JSON.parse(jsonstring);
-
-		// Now issue AJAX call to get fusion employee details
-		$.ajax({
-			type: "GET",
-			url: fusionurl,
-			dataType: "json",
-			headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
-			success: function(data) {
-				jsonstring2 = JSON.stringify(data.items[0]);
-					
-		    	console.log("Fusion jsonstring2: "+jsonstring2);
-
-				thefusionemployee =JSON.parse(jsonstring2);
-
-			},
-			error: function(xhr, textStatus, errorThrown) {
-				$('#error').html(xhr.responseText);
-				return (null);
-			}
-
-		});  // end of ajax call
-
-		// Now reinitialise comparator object
-		var comparator = {};
-
-		// Look through legacy and fusion data filling in differences
-		// in comparator object
-
-/* 
-            <td id="comparisontitle">{{comparison.Title}}</td>
-            <td id="comparisonforename">{{comparison.Forename}}</td>
-            <td id="comparisonsurname">{{comparison.Surname}}</td>
-            <td id="comparisonpreferredname">{{comparison.Preferredname}}</td>
-            <td id="comparisonpersoncode">{{comparison.PersonCode}}</td>
-            <td id="comparisonhometelephone">{{comparison.HomeTelephone}}</td>
-            <td id="comparisonemail">{{comparison.WorkEmail}}</td>
-            <td id="comparisonaddress">{{comparison.Address}}</td>
-            <td id="comparisondob">{{comparison.DateOfBirth}}</td>
-            <td id="comparisonethnicity">{{comparison.Ethnicity}}</td>
-            <td id="comparisongender">{{comparison.Gender}}</td>
-            <td id="comparisonni">{{comparison.NINumber}}</td>
-            <td id="comparisonusername">{{comparison.UserName}}</td>
-*/		
-
-		comparison.Title = model.Title == other.Title ? "OK" : "Titles differ";
-		comparison.Forename = model.FirstName == other.Forename ? "OK" : "Forenames differ";
-		comparison.Surname = model.LastName == other.Surname ? "OK" : "Surnames differ";
-		comparison.Preferredname = model.PreferredName == other.PreferredName ? "OK" : "Preferred names differ";
-		comparison.PersonCode = model.PersonNumber == other.PersonCode ? "OK" : "Person ID's differ";
-		comparison.HomeTelephone = model.HomeTelephone == other.HomeTelephone ? "OK" : "Home telephone numbers differ";
-		comparison.WorkEmail = model.WorkEmail == other.WorksEmailAddress ? "OK" : "Titles differ";
-		var dummy1 = new String(model.AddressLine1+model.AddressLine2+model.AddressLine3+model.Town+model.Region+model.Country+model.Postcode);
-		var dummy2 = new String(other.AddressLine1+other.AddressLine2+other.AddressLine3+other.Town+other.Region+other.Country+other.Postcode);
-		comparison.Address = dummy1 == dummy2 ? "OK" : "Addresses differ";
-		comparison.DateOfBirth = model.DateOfBirth == other.DOB ? "OK" : "Dates of birth differ";
-		comparison.Ethnicity = model.Ethnicity == other.EthnicOriginDescription ? "OK" : "Ethnicities differ";
-		comparison.Gender = model.Gender == other.Gender ? "OK" : "Genders differ";
-		comparison.NINumber = model.NationalID == other.NINumber ? "OK" : "National Insurance numbers differ";
-		comparison.UserName = model.UserName == other.Username ? "OK" : "Usernames differ";
-
-		// End of creating comparator object 
-
-		$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
-   		$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
-
-		$('#legacyreceivedjson').html(jsonstring);
-    	$('#fusionreceivedjson').html(jsonstring2);
-
-    	// Now try and fill out Handlebars template table
-    	var context = {
-        	model: thefusionemployee,
-        	other: thelegacyemployee,
-        	comparison: comparator
-    	};
-
-	    var theTemplateScript = $("#comparator-template").html();
-	    // console.log(theTemplateScript);
-
-	    var theTemplate = Handlebars.compile(theTemplateScript);
-	    console.log("After compile");
-
-	    // Clear out the display area
-	    $("#main").empty();
-	    $("#main").append(theTemplate(context));
-
-  });
-}
-
 
 $(document).ready(function() {
-
-/*
-
-function myfunc() {
-   return {"name": "bob", "number": 1};
-}
-
-var myobj = myfunc();
-console.log(myobj.name, myobj.number); // logs "bob 1"
-
-*/
-
-	// ===========================================
-	// Employee
-
-	$('#personcomparator').click( function(event) {
-		event.preventDefault();
-		var myemp = $('#personcode').val();
-	    var thelegacyemployee = "";
-	    var thefusionemployee = "";
-
-		myemp = myemp || 5500165;
-		// fusionreturn = new String(getFusionEmployee(myemp)).toString();
-		// console.log("fusionreturn");
-		// console.log(fusionreturn);
-
-	    /*
-	    thefusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
-	    console.log("The fusion employee string is: ");
-	    console.log(thefusionemployee);
-	    */
-	    generateEmployeeComparisonTable(myemp);
-
-			/*
-	    thelegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
-	    console.log("The legacy employee string is: ");
-	    console.log(thelegacyemployee);
-	    */
-	    
-	    // Data now in globals - create local context
-	});
-
 
 	// ===========================================
 	// Grades

@@ -127,22 +127,6 @@ var mydebug = new String("N").toString();
         <td><a id="allredat" href='#'>DAT file</td>
         <td><a id="allrecsv" href='#'>CSV file</td>
       </tr>
-      <tr>
-        <td>Employee Data</td>
-        <td colspan="3">
-
-          <form>
-            <div>
-              <div>
-                <label>UoB Person ID (from ID badge)</label>
-                <input type="text" name="personcode" id="personcode" placeholder="Person ID" />&nbsp;&nbsp;
-                <a id="personcomparator" href='#'>Check &raquo;</a>
-              </div>
-            </div>
-          </form>
-
-        </td>
-      </tr>
     </tbody>
   </table>
 
@@ -172,6 +156,7 @@ var mydebug = new String("N").toString();
 
 Legacy
 
+{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
 
 -->
 
@@ -218,19 +203,19 @@ Legacy
           <tr>
             <td>Person Code</td>
             <td id="fusionpersoncode">{{model.PersonNumber}}</td>
-            <td id="legacypersoncode">{{other.PersonCode}}</td>
+            <td id="legacypersoncode">{{other.PersonNumber}}</td>
             <td id="comparisonpersoncode">{{comparison.PersonCode}}</td>
           </tr>
           <tr>
             <td>Home Telephone</td>
             <td id="fusionhometelephone">{{model.HomeTelephone}}</td>
-            <td id="legacyhometelephone">{{other.HomeTelephone}}</td>
+            <td id="legacyhometelephone">{{other.HomePhoneNumber}}</td>
             <td id="comparisonhometelephone">{{comparison.HomeTelephone}}</td>
           </tr>
           <tr>
             <td>Work Email</td>
             <td id="fusionworkemail">{{model.WorkEmail}}</td>
-            <td id="legacyworkemail">{{other.AdminEmail}}</td>
+            <td id="legacyworkemail">{{other.WorkEmail}}</td>
             <td id="comparisonemail">{{comparison.WorkEmail}}</td>
           </tr>
           <tr>
@@ -242,7 +227,7 @@ Legacy
               {{model.Town}}<br />
               {{model.Region}}<br />
               {{model.Country}}<br />
-              {{model.Postcode}}<br />
+              {{model.PostalCode}}<br />
             </td>
             <td id="legacyaddress">
               {{other.AddressLine1}}<br />
@@ -251,7 +236,7 @@ Legacy
               {{other.Town}}<br />
               {{other.Region}}<br />
               {{other.Country}}<br />
-              {{other.Postcode}}<br />
+              {{other.PostalCode}}<br />
             </td>
             <td id="comparisonaddress">{{comparison.Address}}</td>
           </tr>
@@ -264,7 +249,7 @@ Legacy
           <tr>
             <td>Ethnicity</td>
             <td id="fusionethnicity">{{model.Ethnicity}}</td>
-            <td id="legacyethnicity">{{other.EthnicOriginDescription}}</td>
+            <td id="legacyethnicity">{{other.Ethnicity}}</td>
             <td id="comparisonethnicity">{{comparison.Ethnicity}}</td>
           </tr>
           <tr>
@@ -276,13 +261,13 @@ Legacy
           <tr>
             <td>NI Number</td>
             <td id="fusionni">{{model.NationalId}}</td>
-            <td id="legacyni">{{other.NINumber}}</td>
+            <td id="legacyni">{{other.NationalId}}</td>
             <td id="comparisonni">{{comparison.NINumber}}</td>
           </tr>
           <tr>
             <td>User Name</td>
             <td id="fusionusername">{{model.UserName}}</td>
-            <td id="legacyusername">{{other.Username}}</td>
+            <td id="legacyusername">{{other.UserName}}</td>
             <td id="comparisonusername">{{comparison.UserName}}</td>
           </tr>
         </tbody>
