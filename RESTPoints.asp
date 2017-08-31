@@ -127,22 +127,6 @@ var mydebug = new String("N").toString();
         <td><a id="allredat" href='#'>DAT file</td>
         <td><a id="allrecsv" href='#'>CSV file</td>
       </tr>
-      <tr>
-        <td>Employee Data</td>
-        <td colspan="3">
-
-          <form>
-            <div>
-              <div>
-                <label>UoB Person ID (from ID badge)</label>
-                <input type="text" name="personcode" id="personcode" placeholder="Person ID" />&nbsp;&nbsp;
-                <a id="personcomparator" href='#'>Check &raquo;</a>
-              </div>
-            </div>
-          </form>
-
-        </td>
-      </tr>
     </tbody>
   </table>
 
