@@ -38,7 +38,6 @@ var mydebug = new String("N").toString();
     <meta name="Description" lang="en" content="Fusion HCM RESTPoints">
     <style type="text/css">
       table tr td {
-        text-align: center;
         padding: 10px;
       }
     </style>
@@ -166,117 +165,141 @@ var mydebug = new String("N").toString();
 
 %>
 
+<!--
+  Fusion
+
+{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
+
+Legacy
+
+{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
+
+-->
+
 <!--       Handlebars templates    -->
 
-<script id="fusionlist-template" type="x-handlebars-template">
-{{#if fusionemployees}}
+<script id="comparator-template" type="x-handlebars-template">
 <div class="row hide-for-small-only">
   <div class="large-10 medium-10 large-offset-1 medium-offset-1 fusionlist columns">
     <div class="row">
-      <table>
+      <table border="1" cellspacing="5">
         <thead>
           <tr>
             <th>Description</th>
             <th>Fusion Data</th>
             <th>Legacy Data</th>
+            <th>Comparison</th>
           </tr>
         </thead>
         <tbody>
-        {{#each fusionemployees}}
           <tr>
             <td>Personal Title</td>
-            <td id="fusiontitle">{{Salutation}}</td>
-            <td id="legacytitle"></td>
+            <td id="fusiontitle">{{model.Salutation}}</td>
+            <td id="legacytitle">{{other.Title}}</td>
+            <td id="comparisontitle">{{comparison.Title}}</td>
           </tr>
           <tr>
             <td>Forename</td>
-            <td id="fusionforename">{{FirstName}}</td>
-            <td id="legacyforename"></td>
+            <td id="fusionforename">{{model.FirstName}}</td>
+            <td id="legacyforename">{{other.Forename}}</td>
+            <td id="comparisonforename">{{comparison.Forename}}</td>
           </tr>
           <tr>
             <td>Surname</td>
-            <td id="fusionsurname">{{LastName}}</td>
-            <td id="legacysurname"></td>
+            <td id="fusionsurname">{{model.LastName}}</td>
+            <td id="legacysurname">{{other.Surname}}</td>
+            <td id="comparisonsurname">{{comparison.Surname}}</td>
           </tr>
           <tr>
             <td>Preferred Name</td>
-            <td id="fusionpreferredname">{{PreferredName}}</td>
-            <td id="legacypreferredname"></td>
+            <td id="fusionpreferredname">{{model.PreferredName}}</td>
+            <td id="legacypreferredname">{{other.PreferredName}}</td>
+            <td id="comparisonpreferredname">{{comparison.Preferredname}}</td>
           </tr>
           <tr>
             <td>Person Code</td>
-            <td id="fusionpersoncode">{{PersonNumber}}</td>
-            <td id="legacypersoncode"></td>
+            <td id="fusionpersoncode">{{model.PersonNumber}}</td>
+            <td id="legacypersoncode">{{other.PersonNumber}}</td>
+            <td id="comparisonpersoncode">{{comparison.PersonCode}}</td>
           </tr>
           <tr>
             <td>Home Telephone</td>
-            <td id="fusionhometelephone">{{HomeTelephone}}</td>
-            <td id="legacyhometelephone"></td>
+            <td id="fusionhometelephone">{{model.HomeTelephone}}</td>
+            <td id="legacyhometelephone">{{other.HomePhoneNumber}}</td>
+            <td id="comparisonhometelephone">{{comparison.HomeTelephone}}</td>
           </tr>
           <tr>
             <td>Work Email</td>
-            <td id="fusionworkemail">{{WorkEmail}}</td>
-            <td id="legacyworkemail"></td>
+            <td id="fusionworkemail">{{model.WorkEmail}}</td>
+            <td id="legacyworkemail">{{other.WorkEmail}}</td>
+            <td id="comparisonemail">{{comparison.WorkEmail}}</td>
           </tr>
           <tr>
             <td>Address</td>
             <td id="fusionaddress">
-              {{AddressLine1}}<br />
-              {{AddressLine2}}<br />
-              {{AddressLine3}}<br />
-              {{Town}}<br />
-              {{Region}}<br />
-              {{Country}}<br />
-              {{Postcode}}<br />
+              {{model.AddressLine1}}<br />
+              {{model.AddressLine2}}<br />
+              {{model.AddressLine3}}<br />
+              {{model.Town}}<br />
+              {{model.Region}}<br />
+              {{model.Country}}<br />
+              {{model.PostalCode}}<br />
             </td>
             <td id="legacyaddress">
-
+              {{other.AddressLine1}}<br />
+              {{other.AddressLine2}}<br />
+              {{other.AddressLine3}}<br />
+              {{other.Town}}<br />
+              {{other.Region}}<br />
+              {{other.Country}}<br />
+              {{other.PostalCode}}<br />
             </td>
+            <td id="comparisonaddress">{{comparison.Address}}</td>
           </tr>
           <tr>
             <td>Date Of Birth</td>
-            <td id="fusiondob">{{DateOfBirth}}</td>
-            <td id="legacydob"></td>
+            <td id="fusiondob">{{model.DateOfBirth}}</td>
+            <td id="legacydob">{{other.DateOfBirth}}</td>
+            <td id="comparisondob">{{comparison.DateOfBirth}}</td>
           </tr>
           <tr>
             <td>Ethnicity</td>
-            <td id="fusionethnicity">{{Ethnicity}}</td>
-            <td id="legacyethnicity"></td>
+            <td id="fusionethnicity">{{model.Ethnicity}}</td>
+            <td id="legacyethnicity">{{other.Ethnicity}}</td>
+            <td id="comparisonethnicity">{{comparison.Ethnicity}}</td>
           </tr>
           <tr>
             <td>Gender</td>
-            <td id="fusiongender">{{Gender}}</td>
-            <td id="legacygender"></td>
+            <td id="fusiongender">{{model.Gender}}</td>
+            <td id="legacygender">{{other.Gender}}</td>
+            <td id="comparisongender">{{comparison.Gender}}</td>
           </tr>
           <tr>
             <td>NI Number</td>
-            <td id="fusionni">{{NationalId}}</td>
-            <td id="legacyni"></td>
+            <td id="fusionni">{{model.NationalId}}</td>
+            <td id="legacyni">{{other.NationalId}}</td>
+            <td id="comparisonni">{{comparison.NINumber}}</td>
           </tr>
           <tr>
             <td>User Name</td>
-            <td id="fusionusername">{{UserName}}</td>
-            <td id="legacyusername"></td>
+            <td id="fusionusername">{{model.UserName}}</td>
+            <td id="legacyusername">{{other.UserName}}</td>
+            <td id="comparisonusername">{{comparison.UserName}}</td>
           </tr>
         </tbody>
       </table>
-  {{/each}}
-  {{else}}
-  <div class="row">
-    <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 columns">
-      <p>
-        No fusion data found
-      </p>
     </div>
   </div>
-  {{/if}}
-  </script>
+</div>
+</script>
 
 
 <!--    End of Handlebars templates    -->
 
 	<script src="/UoB/bower_components/jquery/dist/jquery.js"></script>
   <script src="/UoB/bower_components/handlebars/handlebars.js"></script>
+  <script src="/UoB/js/swag.js"></script>
+  <script>Swag.registerHelpers(window.Handlebars);</script>
   <script src="/UoB/js/fusionextractdatawriter.js"></script>
   <script src="/UoB/js/RESTPoints.js"></script>
 
