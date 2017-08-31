@@ -300,7 +300,7 @@ function getFusionEmployee(personcode) {
 		headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 		success: function(data) {
 			jsonstring2 = JSON.stringify(data.items[0]);
-				
+
 	    	console.log("Fusion jsonstring2: "+jsonstring2);
 
 			thefusionemployee =JSON.parse(jsonstring2);
@@ -359,10 +359,12 @@ function getLegacyEmployee(personcode) {
 function generateEmployeeComparisonTable(personcode) {
 
   	var myperson = personcode || '5500165';
-	var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
-	var legacyurl = baseLegacyURL + "&p1=";
+	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
+	  var legacyurl = baseLegacyURL + "&p1=";
   	var nullobjectstring = "{}";
   	var nullobject = {};
+		var thefusionemployee = {};
+		var thelegacyemployee = {};
 
 	legacyurl += myperson;
   	fusionurl += myperson;
@@ -399,10 +401,66 @@ function generateEmployeeComparisonTable(personcode) {
 			headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
 			success: function(data) {
 				jsonstring2 = JSON.stringify(data.items[0]);
-					
-		    	console.log("Fusion jsonstring2: "+jsonstring2);
+
+		    console.log("Fusion jsonstring2: "+jsonstring2);
 
 				thefusionemployee =JSON.parse(jsonstring2);
+
+				// Now reinitialise comparator object
+				// Look through legacy and fusion data filling in differences
+				// in comparator object
+				var comparison = {};
+
+/*
+Fusion
+
+{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
+
+Legacy
+
+{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
+
+*/
+				comparison.Title = thefusionemployee.Salutation == thelegacyemployee.Title ? "OK" : "Titles differ";
+				comparison.Forename = thefusionemployee.FirstName == thelegacyemployee.Forename ? "OK" : "Forenames differ";
+				comparison.Surname = thefusionemployee.LastName == thelegacyemployee.Surname ? "OK" : "Surnames differ";
+				comparison.Preferredname = thefusionemployee.PreferredName == thelegacyemployee.PreferredName ? "OK" : "Preferred names differ";
+				comparison.PersonCode = thefusionemployee.PersonNumber == thelegacyemployee.PersonNumber ? "OK" : "Person ID's differ";
+				comparison.HomeTelephone = thefusionemployee.HomeTelephone == thelegacyemployee.HomePhoneNumber ? "OK" : "Home telephone numbers differ";
+				comparison.WorkEmail = thefusionemployee.WorkEmail == thelegacyemployee.WorkEmail ? "OK" : "Titles differ";
+				var dummy1 = new String(thefusionemployee.AddressLine1+thefusionemployee.AddressLine2+thefusionemployee.AddressLine3+thefusionemployee.Town+thefusionemployee.Region+thefusionemployee.Country+thefusionemployee.PostalCode);
+				var dummy2 = new String(thelegacyemployee.AddressLine1+thelegacyemployee.AddressLine2+thelegacyemployee.AddressLine3+thelegacyemployee.Town+thelegacyemployee.Region+thelegacyemployee.Country+thelegacyemployee.PostalCode);
+				comparison.Address = dummy1 == dummy2 ? "OK" : "Addresses differ";
+				comparison.DateOfBirth = thefusionemployee.DateOfBirth == thelegacyemployee.DateOfBirth ? "OK" : "Dates of birth differ";
+				comparison.Ethnicity = thefusionemployee.Ethnicity == thelegacyemployee.Ethnicity ? "OK" : "Ethnicities differ";
+				comparison.Gender = thefusionemployee.Gender == thelegacyemployee.Gender ? "OK" : "Genders differ";
+				comparison.NINumber = thefusionemployee.NationalID == thelegacyemployee.NationalID ? "OK" : "National Insurance numbers differ";
+				comparison.UserName = thefusionemployee.UserName == thelegacyemployee.UserName ? "OK" : "Usernames differ";
+
+				// End of creating comparator object
+
+				$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
+				$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
+
+				$('#legacyreceivedjson').html(jsonstring);
+				$('#fusionreceivedjson').html(jsonstring2);
+
+					// Now try and fill out Handlebars template table
+					var context = {
+							model: thefusionemployee,
+							other: thelegacyemployee,
+							comparison: comparison
+					};
+
+					var theTemplateScript = $("#comparator-template").html();
+					// console.log(theTemplateScript);
+
+					var theTemplate = Handlebars.compile(theTemplateScript);
+					console.log("After compile");
+
+					// Clear out the display area
+					$("#main").empty();
+					$("#main").append(theTemplate(context));
 
 			},
 			error: function(xhr, textStatus, errorThrown) {
@@ -412,68 +470,6 @@ function generateEmployeeComparisonTable(personcode) {
 
 		});  // end of ajax call
 
-		// Now reinitialise comparator object
-		var comparator = {};
-
-		// Look through legacy and fusion data filling in differences
-		// in comparator object
-
-/* 
-            <td id="comparisontitle">{{comparison.Title}}</td>
-            <td id="comparisonforename">{{comparison.Forename}}</td>
-            <td id="comparisonsurname">{{comparison.Surname}}</td>
-            <td id="comparisonpreferredname">{{comparison.Preferredname}}</td>
-            <td id="comparisonpersoncode">{{comparison.PersonCode}}</td>
-            <td id="comparisonhometelephone">{{comparison.HomeTelephone}}</td>
-            <td id="comparisonemail">{{comparison.WorkEmail}}</td>
-            <td id="comparisonaddress">{{comparison.Address}}</td>
-            <td id="comparisondob">{{comparison.DateOfBirth}}</td>
-            <td id="comparisonethnicity">{{comparison.Ethnicity}}</td>
-            <td id="comparisongender">{{comparison.Gender}}</td>
-            <td id="comparisonni">{{comparison.NINumber}}</td>
-            <td id="comparisonusername">{{comparison.UserName}}</td>
-*/		
-
-		comparison.Title = model.Title == other.Title ? "OK" : "Titles differ";
-		comparison.Forename = model.FirstName == other.Forename ? "OK" : "Forenames differ";
-		comparison.Surname = model.LastName == other.Surname ? "OK" : "Surnames differ";
-		comparison.Preferredname = model.PreferredName == other.PreferredName ? "OK" : "Preferred names differ";
-		comparison.PersonCode = model.PersonNumber == other.PersonCode ? "OK" : "Person ID's differ";
-		comparison.HomeTelephone = model.HomeTelephone == other.HomeTelephone ? "OK" : "Home telephone numbers differ";
-		comparison.WorkEmail = model.WorkEmail == other.WorksEmailAddress ? "OK" : "Titles differ";
-		var dummy1 = new String(model.AddressLine1+model.AddressLine2+model.AddressLine3+model.Town+model.Region+model.Country+model.Postcode);
-		var dummy2 = new String(other.AddressLine1+other.AddressLine2+other.AddressLine3+other.Town+other.Region+other.Country+other.Postcode);
-		comparison.Address = dummy1 == dummy2 ? "OK" : "Addresses differ";
-		comparison.DateOfBirth = model.DateOfBirth == other.DOB ? "OK" : "Dates of birth differ";
-		comparison.Ethnicity = model.Ethnicity == other.EthnicOriginDescription ? "OK" : "Ethnicities differ";
-		comparison.Gender = model.Gender == other.Gender ? "OK" : "Genders differ";
-		comparison.NINumber = model.NationalID == other.NINumber ? "OK" : "National Insurance numbers differ";
-		comparison.UserName = model.UserName == other.Username ? "OK" : "Usernames differ";
-
-		// End of creating comparator object 
-
-		$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
-   		$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
-
-		$('#legacyreceivedjson').html(jsonstring);
-    	$('#fusionreceivedjson').html(jsonstring2);
-
-    	// Now try and fill out Handlebars template table
-    	var context = {
-        	model: thefusionemployee,
-        	other: thelegacyemployee,
-        	comparison: comparator
-    	};
-
-	    var theTemplateScript = $("#comparator-template").html();
-	    // console.log(theTemplateScript);
-
-	    var theTemplate = Handlebars.compile(theTemplateScript);
-	    console.log("After compile");
-
-	    // Clear out the display area
-	    $("#main").empty();
-	    $("#main").append(theTemplate(context));
 
   });
 }
@@ -518,7 +514,7 @@ console.log(myobj.name, myobj.number); // logs "bob 1"
 	    console.log("The legacy employee string is: ");
 	    console.log(thelegacyemployee);
 	    */
-	    
+
 	    // Data now in globals - create local context
 	});
 
