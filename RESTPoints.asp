@@ -166,7 +166,13 @@ var mydebug = new String("N").toString();
 %>
 
 <!--
+  Fusion
+
 {"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
+
+Legacy
+
+
 -->
 
 <!--       Handlebars templates    -->
@@ -175,12 +181,13 @@ var mydebug = new String("N").toString();
 <div class="row hide-for-small-only">
   <div class="large-10 medium-10 large-offset-1 medium-offset-1 fusionlist columns">
     <div class="row">
-      <table>
+      <table border="1" cellspacing="5">
         <thead>
           <tr>
             <th>Description</th>
             <th>Fusion Data</th>
             <th>Legacy Data</th>
+            <th>Comparison</th>
           </tr>
         </thead>
         <tbody>
@@ -188,36 +195,43 @@ var mydebug = new String("N").toString();
             <td>Personal Title</td>
             <td id="fusiontitle">{{model.Salutation}}</td>
             <td id="legacytitle">{{other.Title}}</td>
+            <td id="comparisontitle">{{comparison.Title}}</td>
           </tr>
           <tr>
             <td>Forename</td>
             <td id="fusionforename">{{model.FirstName}}</td>
             <td id="legacyforename">{{other.Forename}}</td>
+            <td id="comparisonforename">{{comparison.Forename}}</td>
           </tr>
           <tr>
             <td>Surname</td>
             <td id="fusionsurname">{{model.LastName}}</td>
             <td id="legacysurname">{{other.Surname}}</td>
+            <td id="comparisonsurname">{{comparison.Surname}}</td>
           </tr>
           <tr>
             <td>Preferred Name</td>
             <td id="fusionpreferredname">{{model.PreferredName}}</td>
-            <td id="legacypreferredname"></td>
+            <td id="legacypreferredname">{{other.PreferredName}}</td>
+            <td id="comparisonpreferredname">{{comparison.Preferredname}}</td>
           </tr>
           <tr>
             <td>Person Code</td>
             <td id="fusionpersoncode">{{model.PersonNumber}}</td>
-            <td id="legacypersoncode"></td>
+            <td id="legacypersoncode">{{other.PersonCode}}</td>
+            <td id="comparisonpersoncode">{{comparison.PersonCode}}</td>
           </tr>
           <tr>
             <td>Home Telephone</td>
             <td id="fusionhometelephone">{{model.HomeTelephone}}</td>
-            <td id="legacyhometelephone"></td>
+            <td id="legacyhometelephone">{{other.HomeTelephone}}</td>
+            <td id="comparisonhometelephone">{{comparison.HomeTelephone}}</td>
           </tr>
           <tr>
             <td>Work Email</td>
             <td id="fusionworkemail">{{model.WorkEmail}}</td>
-            <td id="legacyworkemail"></td>
+            <td id="legacyworkemail">{{other.AdminEmail}}</td>
+            <td id="comparisonemail">{{comparison.WorkEmail}}</td>
           </tr>
           <tr>
             <td>Address</td>
@@ -231,33 +245,45 @@ var mydebug = new String("N").toString();
               {{model.Postcode}}<br />
             </td>
             <td id="legacyaddress">
-
+              {{other.AddressLine1}}<br />
+              {{other.AddressLine2}}<br />
+              {{other.AddressLine3}}<br />
+              {{other.Town}}<br />
+              {{other.Region}}<br />
+              {{other.Country}}<br />
+              {{other.Postcode}}<br />
             </td>
+            <td id="comparisonaddress">{{comparison.Address}}</td>
           </tr>
           <tr>
             <td>Date Of Birth</td>
             <td id="fusiondob">{{model.DateOfBirth}}</td>
-            <td id="legacydob"></td>
+            <td id="legacydob">{{other.DateOfBirth}}</td>
+            <td id="comparisondob">{{comparison.DateOfBirth}}</td>
           </tr>
           <tr>
             <td>Ethnicity</td>
             <td id="fusionethnicity">{{model.Ethnicity}}</td>
-            <td id="legacyethnicity"></td>
+            <td id="legacyethnicity">{{other.EthnicOriginDescription}}</td>
+            <td id="comparisonethnicity">{{comparison.Ethnicity}}</td>
           </tr>
           <tr>
             <td>Gender</td>
             <td id="fusiongender">{{model.Gender}}</td>
-            <td id="legacygender"></td>
+            <td id="legacygender">{{other.Gender}}</td>
+            <td id="comparisongender">{{comparison.Gender}}</td>
           </tr>
           <tr>
             <td>NI Number</td>
             <td id="fusionni">{{model.NationalId}}</td>
-            <td id="legacyni"></td>
+            <td id="legacyni">{{other.NINumber}}</td>
+            <td id="comparisonni">{{comparison.NINumber}}</td>
           </tr>
           <tr>
             <td>User Name</td>
             <td id="fusionusername">{{model.UserName}}</td>
-            <td id="legacyusername"></td>
+            <td id="legacyusername">{{other.Username}}</td>
+            <td id="comparisonusername">{{comparison.UserName}}</td>
           </tr>
         </tbody>
       </table>
