@@ -73,11 +73,19 @@ var mydebug = new String("N").toString();
                 <label>UoB Person ID (from ID badge)</label>
                 <input type="text" name="personcode" id="personcode" placeholder="Person ID" /><br />
                 <label>Debug mode?</label>
-                <input type="text" name="debugmode" id="debugmode" placeholder="Debug Mode" /><br />
-                <label>Which legacy system</label>
-                <input type="text" name="legacysystem" id="legacysystem" placeholder="Access" /><br />
+                <select id="debugmode">
+                  <option  selected value="N">No</option>
+                  <option  value="Y">Yes</option>
+                </select><br />
+                <label>Which legacy system?</label>
+                <select id="legacysystem">
+                  <option  selected value="ACCESS">Anonymised Access MDB</option>
+                  <option  value="ALTAHRN">Alta HR (copy)</option>
+                </select><br />
                 <label>Which target Fusion environment</label>
-                <input type="text" name="targetsystem" id="targetsystem" placeholder="DEV" /><br />
+                <select id="targetsystem">
+                  <option  selected value="edzz-test">Fusion Dev Environment</option>
+                </select><br />
                 &nbsp;&nbsp;<a id="personcomparator" href='#'>Check &raquo;</a>
               </div>
             </div>
@@ -137,7 +145,7 @@ Legacy
           <tr>
             <td>Personal Title</td>
             <td id="fusiontitle">{{model.Salutation}}</td>
-            <td id="legacytitle">{{other.Title}}</td>
+            <td id="legacytitle">{{other.TITLE}}</td>
             {{#is comparison.Title "OK"}}
             <td class="ok" id="comparisontitle">{{comparison.Title}} &#10004;</td>
             {{else}}
@@ -147,7 +155,7 @@ Legacy
           <tr>
             <td>Forename</td>
             <td id="fusionforename">{{model.FirstName}}</td>
-            <td id="legacyforename">{{other.Forename}}</td>
+            <td id="legacyforename">{{other.FORENAME}}</td>
             {{#is comparison.Forename "OK"}}
             <td class="ok" id="comparisonforename">{{comparison.Forename}} &#10004;</td>
             {{else}}
@@ -157,7 +165,7 @@ Legacy
           <tr>
             <td>Surname</td>
             <td id="fusionsurname">{{model.LastName}}</td>
-            <td id="legacysurname">{{other.Surname}}</td>
+            <td id="legacysurname">{{other.SURNAME}}</td>
             {{#is comparison.Surname "OK"}}
             <td class="ok" id="comparisonsurname">{{comparison.Surname}} &#10004;</td>
             {{else}}
@@ -167,7 +175,7 @@ Legacy
           <tr>
             <td>Preferred Name</td>
             <td id="fusionpreferredname">{{model.PreferredName}}</td>
-            <td id="legacypreferredname">{{other.PreferredName}}</td>
+            <td id="legacypreferredname">{{other.PREFERREDNAME}}</td>
             {{#is comparison.Preferredname "OK"}}
             <td class="ok" id="comparisonpreferredname">{{comparison.Preferredname}} &#10004;</td>
             {{else}}
@@ -177,7 +185,7 @@ Legacy
           <tr>
             <td>Person Code</td>
             <td id="fusionpersoncode">{{model.PersonNumber}}</td>
-            <td id="legacypersoncode">{{other.PersonNumber}}</td>
+            <td id="legacypersoncode">{{other.PERSONNUMBER}}</td>
             {{#is comparison.PersonCode "OK"}}
             <td class="ok" id="comparisonpersoncode">{{comparison.PersonCode}} &#10004;</td>
             {{else}}
@@ -187,7 +195,7 @@ Legacy
           <tr>
             <td>Home Telephone</td>
             <td id="fusionhometelephone">{{model.HomeTelephone}}</td>
-            <td id="legacyhometelephone">{{other.HomePhoneNumber}}</td>
+            <td id="legacyhometelephone">{{other.HOMEPHONENUMBER}}</td>
             {{#is comparison.HomeTelephone "OK"}}
             <td class="ok" id="comparisonhometelephone">{{comparison.HomeTelephone}} &#10004;</td>
             {{else}}
@@ -197,7 +205,7 @@ Legacy
           <tr>
             <td>Work Email</td>
             <td id="fusionworkemail">{{model.WorkEmail}}</td>
-            <td id="legacyworkemail">{{other.WorkEmail}}</td>
+            <td id="legacyworkemail">{{other.WORKEMAIL}}</td>
             {{#is comparison.WorkEmail "OK"}}
             <td class="ok" id="comparisonemail">{{comparison.WorkEmail}} &#10004;</td>
             {{else}}
@@ -210,19 +218,19 @@ Legacy
               {{model.AddressLine1}}<br />
               {{model.AddressLine2}}<br />
               {{model.AddressLine3}}<br />
-              {{model.Town}}<br />
+              {{model.City}}<br />
               {{model.Region}}<br />
               {{model.Country}}<br />
               {{model.PostalCode}}<br />
             </td>
             <td id="legacyaddress">
-              {{other.AddressLine1}}<br />
-              {{other.AddressLine2}}<br />
-              {{other.AddressLine3}}<br />
-              {{other.Town}}<br />
-              {{other.Region}}<br />
-              {{other.Country}}<br />
-              {{other.PostalCode}}<br />
+              {{other.ADDRESSLINE1}}<br />
+              {{other.ADDRESSLINE2}}<br />
+              {{other.ADDRESSLINE3}}<br />
+              {{other.CITY}}<br />
+              {{other.REGION}}<br />
+              {{other.COUNTRY}}<br />
+              {{other.POSTALCODE}}<br />
             </td>
             {{#is comparison.Address "OK"}}
             <td class="ok" id="comparisonaddress">{{comparison.Address}} &#10004;</td>
@@ -233,7 +241,7 @@ Legacy
           <tr>
             <td>Date Of Birth</td>
             <td id="fusiondob">{{model.DateOfBirth}}</td>
-            <td id="legacydob">{{other.DateOfBirth}}</td>
+            <td id="legacydob">{{other.DATEOFBIRTH}}</td>
             {{#is comparison.DateOfBirth "OK"}}
             <td class="ok" id="comparisondob">{{comparison.DateOfBirth}} &#10004;</td>
             {{else}}
@@ -243,7 +251,7 @@ Legacy
           <tr>
             <td>Ethnicity</td>
             <td id="fusionethnicity">{{model.Ethnicity}}</td>
-            <td id="legacyethnicity">{{other.Ethnicity}}</td>
+            <td id="legacyethnicity">{{other.ETHNICITY}}</td>
             {{#is comparison.Ethnicity "OK"}}
             <td class="ok" id="comparisonethnicity">{{comparison.Ethnicity}} &#10004;</td>
             {{else}}
@@ -253,7 +261,7 @@ Legacy
           <tr>
             <td>Gender</td>
             <td id="fusiongender">{{model.Gender}}</td>
-            <td id="legacygender">{{other.Gender}}</td>
+            <td id="legacygender">{{other.GENDER}}</td>
             {{#is comparison.Gender "OK"}}
             <td class="ok" id="comparisongender">{{comparison.Gender}} &#10004;</td>
             {{else}}
@@ -263,7 +271,7 @@ Legacy
           <tr>
             <td>NI Number</td>
             <td id="fusionni">{{model.NationalId}}</td>
-            <td id="legacyni">{{other.NationalId}}</td>
+            <td id="legacyni">{{other.NATIONALID}}</td>
             {{#is comparison.NINumber "OK"}}
             <td class="ok" id="comparisonni">{{comparison.NINumber}} &#10004;</td>
             {{else}}
@@ -273,7 +281,7 @@ Legacy
           <tr>
             <td>User Name</td>
             <td id="fusionusername">{{model.UserName}}</td>
-            <td id="legacyusername">{{other.UserName}}</td>
+            <td id="legacyusername">{{other.USERNAME}}</td>
             {{#is comparison.UserName "OK"}}
             <td class="ok" id="comparisonusername">{{comparison.UserName}} &#10004;</td>
             {{else}}
