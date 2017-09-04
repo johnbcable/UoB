@@ -70,6 +70,7 @@
 
         data = args.data || null;
         if (data == null || !data.length) {
+          console.log("no data sent to convertArrayOfObjectsToCSV");
             return null;
         }
 
@@ -100,10 +101,14 @@
         var data, filename, link;
 
         sourcedata = args.data || noData;
+        console.log(sourcedata);
         var csv = convertArrayOfObjectsToCSV({
             data: sourcedata
         });
-        if (csv == null) return;
+        if (csv == null) {
+          console.log("null returned from convertArrayOfObjectsToCSV "+args);
+          return;
+        };
 
         filename = args.filename || 'export.csv';
 
