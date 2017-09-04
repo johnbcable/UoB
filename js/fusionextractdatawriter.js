@@ -101,6 +101,7 @@
         var data, filename, link;
 
         sourcedata = args.data || noData;
+        console.log("Source data as sent to downloadCSV is ");
         console.log(sourcedata);
         var csv = convertArrayOfObjectsToCSV({
             data: sourcedata
