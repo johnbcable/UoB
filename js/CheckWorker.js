@@ -363,6 +363,14 @@ console.log(myobj.name, myobj.number); // logs "bob 1"
 		if ( debugging ) {
 				console.log(comparisonSummary);
 				console.log("About to call downloadCSV");
+				if ( debugging ) {
+				$('#legacyjsonheader').html('<h1>Comparison matrix</h1>');
+
+				$('#legacyreceivedjson').html();
+				$('#legacyreceivedjson').html(JSON.stringify(comparisonSummary));
+				}
+
+
 		}
 		// Write out summary spreadsheet
 	  downloadCSV({ data: comparisonSummary, filename: "ComparisonSummary.csv" });
