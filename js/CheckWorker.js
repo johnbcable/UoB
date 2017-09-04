@@ -18,6 +18,8 @@ var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resource
 var baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
 var curperson = 5500165;
 var debugging = true;
+var comparisonSummary = new Array();
+// var singleComparison = {};
 
 baseLegacyURL += defaultlegacyqueryid;
 
@@ -74,6 +76,7 @@ function debugwrite(text) {
 		console.log(text);
 	}
 }
+
 // ============================================================================
 function generateEmployeeComparisonTable(personcode) {
 
@@ -134,16 +137,6 @@ function generateEmployeeComparisonTable(personcode) {
 				// in comparator object
 				var comparison = {};
 
-/*
-Fusion
-
-{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
-
-Legacy
-
-{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
-
-*/
 				comparison.Title = thefusionemployee.Salutation == thelegacyemployee.TITLE ? "OK" : "Titles differ";
 				comparison.Forename = thefusionemployee.FirstName == thelegacyemployee.FORENAME ? "OK" : "Forenames differ";
 				comparison.Surname = thefusionemployee.LastName == thelegacyemployee.SURNAME ? "OK" : "Surnames differ";
@@ -161,11 +154,6 @@ Legacy
 				addressmessage += thefusionemployee.Region == thelegacyemployee.REGION ? "" : " region different,";
 				addressmessage += thefusionemployee.Country == thelegacyemployee.COUNTRY ? "" : " country different,";
 				addressmessage += thefusionemployee.PostalCode == thelegacyemployee.POSTALCODE ? "" : " postcode different,";
-
-				/*
-				var dummy1 = new String(thefusionemployee.AddressLine1+thefusionemployee.AddressLine2+thefusionemployee.AddressLine3+thefusionemployee.Town+thefusionemployee.Region+thefusionemployee.Country+thefusionemployee.PostalCode);
-				var dummy2 = new String(thelegacyemployee.AddressLine1+thelegacyemployee.AddressLine2+thelegacyemployee.AddressLine3+thelegacyemployee.Town+thelegacyemployee.Region+thelegacyemployee.Country+thelegacyemployee.PostalCode);
-				*/
 
 				comparison.Address = addressmessage == "" ? "OK" : "Addresses differ:"+addressmessage;
 				// End of address components checks
@@ -202,6 +190,104 @@ Legacy
 					// Clear out the display area
 					$("#main").empty();
 					$("#main").append(theTemplate(context));
+
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				$('#error').html(xhr.responseText);
+				return (null);
+			}
+
+		});  // end of ajax call
+
+
+  });
+}
+
+// ============================================================================
+function compareEmployee(personcode) {
+
+  	var myperson = personcode || '5500165';
+	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
+	  var legacyurl = baseLegacyURL + "&p1=";
+  	var nullobjectstring = "{}";
+  	var nullobject = {};
+		var summarylength = 0;
+		var fusion = {};
+		var legacy = {};
+
+		// debugwrite("Inside compareEmployee at setup time");
+
+		legacyurl += myperson;
+  	fusionurl += myperson;
+
+	// Get legacy data first
+	var jsonstring;			// Used for legacy employee data
+	var jsonstring2;		// Used for Fusion employee data
+
+	$.getJSON(legacyurl, function (data) {
+
+		// console.log("Legacy url: "+url);
+
+		jsonstring = JSON.stringify(data[0]);
+
+		// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
+    // debugwrite("Legacy jsonstring: "+jsonstring);
+
+		legacy = JSON.parse(jsonstring);
+
+		// Now issue AJAX call to get fusion employee details
+		$.ajax({
+			type: "GET",
+			url: fusionurl,
+			dataType: "json",
+			headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
+			success: function(data) {
+				jsonstring2 = JSON.stringify(data.items[0]);
+
+		    // debugwrite("Fusion jsonstring2: "+jsonstring2);
+
+				fusion = JSON.parse(jsonstring2);
+
+				// Now reinitialise comparator object
+				// Look through legacy and fusion data filling in differences
+				// in comparator object
+				var comparison = {};
+
+				comparison.PersonID = legacy.PERSONNUMBER;
+
+				comparison.Title = fusion.Salutation == legacy.TITLE ? "Y" : "N";
+				comparison.Forename = fusion.FirstName == legacy.FORENAME ? "Y" : "N";
+				comparison.Surname = fusion.LastName == legacy.SURNAME ? "Y" : "N";
+				comparison.Preferredname = fusion.PreferredName == legacy.PREFERREDNAME ? "Y" : "N";
+				comparison.PersonCode = fusion.PersonNumber == legacy.PERSONNUMBER ? "Y" : "N";
+				comparison.HomeTelephone = fusion.HomeTelephone == legacy.HOMEPHONENUMBER ? "Y" : "N";
+				comparison.WorkEmail = fusion.WorkEmail == legacy.WORKEMAIL ? "Y" : "N";
+
+				//  Now do checks on address components
+				var addressmessage = "";
+				addressmessage += fusion.AddressLine1 == legacy.ADDRESSLINE1 ? "" : " line 1 different,";
+				addressmessage += fusion.AddressLine2 == legacy.ADDRESSLINE2 ? "" : " line 2 different,";
+				addressmessage += fusion.AddressLine3 == legacy.ADDRESSLINE3 ? "" : " line 3 different,";
+				addressmessage += fusion.City == legacy.CITY ? "" : " town different,";
+				addressmessage += fusion.Region == legacy.REGION ? "" : " region different,";
+				addressmessage += fusion.Country == legacy.COUNTRY ? "" : " country different,";
+				addressmessage += fusion.PostalCode == legacy.POSTALCODE ? "" : " postcode different,";
+
+				comparison.Address = addressmessage == "" ? "Y" : "N";
+				// End of address components checks
+
+				comparison.DateOfBirth = fusion.DateOfBirth == legacy.DATEOFBIRTH ? "Y" : "N";
+				comparison.Ethnicity = fusion.Ethnicity == legacy.ETHNICITY ? "Y" : "N";
+				comparison.Gender = fusion.Gender == legacy.GENDER ? "Y" : "N";
+				comparison.NINumber = fusion.NationalId == legacy.NATIONALID ? "Y" : "N";
+				comparison.UserName = fusion.UserName == legacy.USERNAME ? "Y" : "N";
+
+				// debugwrite(comparison);
+
+				// Add this comparison as an new item to the compariusonSummary array?
+				// Or do in calling function?
+
+				summarylength = comparisonSummary.push(comparison);
 
 			},
 			error: function(xhr, textStatus, errorThrown) {
@@ -257,6 +343,30 @@ console.log(myobj.name, myobj.number); // logs "bob 1"
 	    */
 
 	    // Data now in globals - create local context
+	});
+
+	$('#comparisonspreadsheet').click( function(event) {
+		event.preventDefault();
+
+		// Set up parameters for this run.
+		// N.B.  This will need to be replaced via loop based
+		// on legacy data
+
+		var peoplelist = [5500018, 5500165, 5500215, 6704306];
+
+		// Call compareEmployee for each member of peoplelist
+		//
+		for (var i=0; i < 4; i++) {
+			compareEmployee(peoplelist[i]);  // Adds assessment to global comparisonSummary array
+		}
+
+		if ( debugging ) {
+				console.log(comparisonSummary);
+				console.log("About to call downloadCSV");
+		}
+		// Write out summary spreadsheet
+	  downloadCSV({ data: comparisonSummary, filename: "ComparisonSummary.csv" });
+
 	});
 
 

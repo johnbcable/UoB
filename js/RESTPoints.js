@@ -47,6 +47,7 @@ function getGrades(filetype) {
 			}
 			if (generatedfiletype == 'CSV') {
 				console.log("CSV file chosen");
+				console.log(data.items);
 				downloadCSV({ data: data.items, filename: "Grade.csv" });
 			}
 

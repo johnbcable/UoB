@@ -93,6 +93,12 @@ var mydebug = new String("N").toString();
 
         </td>
       </tr>
+      <!--    test out creating comparison spreadsheet  -->
+      <tr>
+        <td>
+          <a id="comparisonspreadsheet" name="comparisonspreadsheet" href="#">Comparison spreadsheet</a>
+        </td>
+      </tr>
     </tbody>
   </table>
 
