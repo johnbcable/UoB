@@ -45,18 +45,26 @@ var mydebug = new String("N").toString();
         text-align: left;
       }
       .notok {
-      background-color: red;
-      color: white;
+        background-color: red;
+        font-weight: bold;
+        color: white;
+      }
+      td.notok p::before {
+        content: &#10060; &nbsp;&nbsp;&nbsp;
       }
       .ok {
-      color: green;
+        font-weight: bold;
+        color: green;
+      }
+      td.ok p::after {
+         &nbsp;&nbsp;&nbsp;&#10004;
       }
     </style>
 	</head>
 
 	<body>
 
-  <table border="1" cellspacing="5">
+  <table border="1" cellspacing="5" width="90%" align="center">
     <thead>
       <tr>
         <th>Subject</th>
@@ -138,7 +146,7 @@ Legacy
 <div class="row hide-for-small-only">
   <div class="large-10 medium-10 large-offset-1 medium-offset-1 fusionlist columns">
     <div class="row">
-      <table border="1" cellspacing="5">
+      <table border="1" cellspacing="5" width="100%" align="center">
         <thead>
           <tr>
             <th>Description</th>
@@ -155,7 +163,7 @@ Legacy
             {{#is comparison.Title "OK"}}
             <td class="ok" id="comparisontitle">{{comparison.Title}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisontitle">{{comparison.Title}}</td>
+            <td class="notok" id="comparisontitle">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Title}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -165,7 +173,7 @@ Legacy
             {{#is comparison.Forename "OK"}}
             <td class="ok" id="comparisonforename">{{comparison.Forename}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonforename">{{comparison.Forename}}</td>
+            <td class="notok" id="comparisonforename">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Forename}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -175,7 +183,7 @@ Legacy
             {{#is comparison.Surname "OK"}}
             <td class="ok" id="comparisonsurname">{{comparison.Surname}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonsurname">{{comparison.Surname}}</td>
+            <td class="notok" id="comparisonsurname">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Surname}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -185,7 +193,7 @@ Legacy
             {{#is comparison.Preferredname "OK"}}
             <td class="ok" id="comparisonpreferredname">{{comparison.Preferredname}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonpreferredname">{{comparison.Preferredname}}</td>
+            <td class="notok" id="comparisonpreferredname">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Preferredname}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -195,7 +203,7 @@ Legacy
             {{#is comparison.PersonCode "OK"}}
             <td class="ok" id="comparisonpersoncode">{{comparison.PersonCode}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonpersoncode">{{comparison.PersonCode}}</td>
+            <td class="notok" id="comparisonpersoncode">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.PersonCode}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -205,7 +213,7 @@ Legacy
             {{#is comparison.HomeTelephone "OK"}}
             <td class="ok" id="comparisonhometelephone">{{comparison.HomeTelephone}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonhometelephone">{{comparison.HomeTelephone}}</td>
+            <td class="notok" id="comparisonhometelephone">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.HomeTelephone}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -215,7 +223,7 @@ Legacy
             {{#is comparison.WorkEmail "OK"}}
             <td class="ok" id="comparisonemail">{{comparison.WorkEmail}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonemail">{{comparison.WorkEmail}}</td>
+            <td class="notok" id="comparisonemail">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.WorkEmail}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -241,7 +249,7 @@ Legacy
             {{#is comparison.Address "OK"}}
             <td class="ok" id="comparisonaddress">{{comparison.Address}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonaddress">{{comparison.Address}}</td>
+            <td class="notok" id="comparisonaddress">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Address}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -251,7 +259,7 @@ Legacy
             {{#is comparison.DateOfBirth "OK"}}
             <td class="ok" id="comparisondob">{{comparison.DateOfBirth}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisondob">{{comparison.DateOfBirth}}</td>
+            <td class="notok" id="comparisondob">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.DateOfBirth}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -261,7 +269,7 @@ Legacy
             {{#is comparison.Ethnicity "OK"}}
             <td class="ok" id="comparisonethnicity">{{comparison.Ethnicity}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonethnicity">{{comparison.Ethnicity}}</td>
+            <td class="notok" id="comparisonethnicity">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Ethnicity}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -271,7 +279,7 @@ Legacy
             {{#is comparison.Gender "OK"}}
             <td class="ok" id="comparisongender">{{comparison.Gender}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisongender">{{comparison.Gender}}</td>
+            <td class="notok" id="comparisongender">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Gender}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -281,7 +289,7 @@ Legacy
             {{#is comparison.NINumber "OK"}}
             <td class="ok" id="comparisonni">{{comparison.NINumber}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonni">{{comparison.NINumber}}</td>
+            <td class="notok" id="comparisonni">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.NINumber}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -291,7 +299,7 @@ Legacy
             {{#is comparison.UserName "OK"}}
             <td class="ok" id="comparisonusername">{{comparison.UserName}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonusername">{{comparison.UserName}}</td>
+            <td class="notok" id="comparisonusername">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.UserName}}</td>
             {{/is}}
           </tr>
         </tbody>

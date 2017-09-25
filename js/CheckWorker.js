@@ -21,7 +21,7 @@ var debugging = true;
 var comparisonSummary = new Array();
 // var singleComparison = {};
 
-baseLegacyURL += defaultlegacyqueryid;
+// baseLegacyURL += defaultlegacyqueryid;
 
 // ============================================================================
 function debugwrite(text) {
@@ -68,7 +68,7 @@ function paramSetup(personcode) {
 
 	// Construct appropriate starting legacy URL
 	if ( whichlegacy == "ACCESS") {
-		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp?id=49";
+		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
 	}
 	if ( whichlegacy == "ALTAHRN") {
 		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchALTA.asp?id=1";
@@ -83,7 +83,7 @@ function generateEmployeeComparisonTable(personcode) {
 
   	var myperson = personcode || '5500165';
 	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
-	  var legacyurl = baseLegacyURL + "&p1=";
+	  var legacyurl = baseLegacyURL + "?id=49&p1=";
   	var nullobjectstring = "{}";
   	var nullobject = {};
 		var thefusionemployee = {};
@@ -209,7 +209,7 @@ function compareEmployee(personcode) {
 
   	var myperson = personcode || '5500165';
 	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
-	  var legacyurl = baseLegacyURL + "&p1=";
+	  var legacyurl = baseLegacyURL + "?id=49&p1=";
   	var nullobjectstring = "{}";
   	var nullobject = {};
 		var summarylength = 0;
@@ -350,28 +350,35 @@ console.log(myobj.name, myobj.number); // logs "bob 1"
 		event.preventDefault();
 
 		// Set up parameters for this run.
-		// N.B.  This will need to be replaced via loop based
-		// on legacy data
-
-		var peoplelist = [5500018, 5500165, 5500215, 6704306];
-
-		// Call compareEmployee for each member of peoplelist
+		// Pick up list of people to look at
 		//
-		for (var i=0; i < 4; i++) {
-			compareEmployee(peoplelist[i]);  // Adds assessment to global comparisonSummary array
+		var peopleList = new Array();
+		var legacyurl = baseLegacyURL + "?id=48";
+		console.log(legacyurl);
+		$.getJSON(legacyurl, function (data) {
+			// console.log("Data returned from getJSON call to legacy URL");
+			// console.log(data);
+			$.each(data, function() {
+			  $.each(this, function() {
+			    peopleList.push(this.PersonCode);
+			  });
+			});
+		});
+
+		for (var i=0; i < peopleList.length; i++) {
+			console.log("Comparing employee "+peopleList[i]);
+			compareEmployee(peopleList[i]);
 		}
 
 		if ( debugging ) {
 				console.log(comparisonSummary);
 				console.log("About to call downloadCSV");
 				if ( debugging ) {
-				$('#legacyjsonheader').html('<h1>Comparison matrix</h1>');
+					$('#legacyjsonheader').html('<h1>Comparison matrix</h1>');
 
-				$('#legacyreceivedjson').html();
-				$('#legacyreceivedjson').html(JSON.stringify(comparisonSummary));
+					$('#legacyreceivedjson').html();
+					$('#legacyreceivedjson').html(JSON.stringify(comparisonSummary));
 				}
-
-
 		}
 		// Write out summary spreadsheet
 	  downloadCSV({ data: comparisonSummary, filename: "ComparisonSummary.csv" });
