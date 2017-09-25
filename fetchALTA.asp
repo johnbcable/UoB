@@ -77,7 +77,7 @@ End If
 
 On Error Resume Next
 'Retrieve the datSource name from the Application object in Global.asa
-dataSource = Application("ALTAHRN")
+dataSource = "dsn=ALTAHRN;uid=cablej_rw;pwd=Mc3GtqS8RvoFyOT7PS0j;"
 If Err.Number <> 0 Then
   Response.Write "Error in setting dataSource: " & Err.Description
   Err.Clear
@@ -99,7 +99,7 @@ End If
 If queryref > -1 Then
 
 	'Initialise querylist with queries
-	querylist(0) = "SELECT count(*) AS kount FROM MAC4.HES_PEOPLE";
+	querylist(0) = "SELECT count(*) AS kount FROM HES_PEOPLE"
 
 	querylist(1) = "SELECT P.TITLE as Title, P.FORENAME as Forename, P.SURNAME as Surname, KNOWN_AS AS PreferredName, P.PERSON_CODE as PersonNumber, A.TELEPHONE as HomePhoneNumber, TRUNC(P.EMAIL_ADDRESS) as WorkEmail, A.ADDRESS_LINE_1 AS AddressLine1, A.ADDRESS_LINE_2 AS AddressLine2, A.ADDRESS_LINE_3 AS AddressLine3, A.TOWN AS City, A.REGION AS Region, A.COUNTRY AS Country, A.UK_POST_CODE_PT1||' '||A.UK_POST_CODE_PT2 AS PostalCode, TO_CHAR(P.DATE_OF_BIRTH,'YYYY-MM-DD') as DateOfBirth, TRUNC(P.ETHNIC_ORIGIN) as Ethnicity, P.SEX AS Gender, P.NI_NUMBER as NationalId, P.USERNAME AS UserName FROM MAC4.HES_PEOPLE P, MAC4.HES_ADDRESSES A WHERE P.PERSON_CODE = {{p1}} AND  A.OWNER_TYPE = 'P' AND (TRUNC(TO_CHAR(P.PERSON_CODE)) = TRUNC(A.OWNER_REF))"
 
@@ -130,8 +130,12 @@ Else
 End If
 
 If debugging Then
-	Response.Write "dataSource = " & dataSource & "<br />"
+	Response.Write "Debugging: ON" & vbCrLf
+	Response.Write "Query ID: " & queryref & vbCrLf
+	Response.Write "dataSource: " & dataSource & vbCrLf
 	Response.Write "strSQL = [" & strSQL & "]<br />"
+
+	Response.End
 End If
 
 'Create an ADO connection object

@@ -24,6 +24,13 @@ var comparisonSummary = new Array();
 baseLegacyURL += defaultlegacyqueryid;
 
 // ============================================================================
+function debugwrite(text) {
+	if ( debugging ) {
+		console.log(text);
+	}
+}
+
+// ============================================================================
 function paramSetup(personcode) {
 
 	var whichlegacy;
@@ -69,12 +76,6 @@ function paramSetup(personcode) {
 
 	// Adjust URLs to reflect submitted person code (in curperson)
 
-}
-// ============================================================================
-function debugwrite(text) {
-	if ( debugging ) {
-		console.log(text);
-	}
 }
 
 // ============================================================================
