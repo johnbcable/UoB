@@ -129,6 +129,10 @@ var mydebug = new String("N").toString();
       </tr>
     </tbody>
   </table>
+  
+    <br />
+    <a href="index.asp">Home page &raquo;</a>
+    <br />
 
   <hr />
 

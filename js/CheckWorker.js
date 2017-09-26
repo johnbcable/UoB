@@ -71,7 +71,7 @@ function paramSetup(personcode) {
 		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
 	}
 	if ( whichlegacy == "ALTAHRN") {
-		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchALTA.asp?id=1";
+		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchALTA.asp";
 	}
 
 	// Adjust URLs to reflect submitted person code (in curperson)
@@ -175,7 +175,7 @@ function generateEmployeeComparisonTable(personcode) {
 					$('#fusionreceivedjson').html(jsonstring2);
 				}
 
-					// Now try and fill out Handlebars template table
+					// Now fill out Handlebars template table
 					var context = {
 							model: thefusionemployee,
 							other: thelegacyemployee,
@@ -305,19 +305,8 @@ function compareEmployee(personcode) {
 
 $(document).ready(function() {
 
-/*
-
-function myfunc() {
-   return {"name": "bob", "number": 1};
-}
-
-var myobj = myfunc();
-console.log(myobj.name, myobj.number); // logs "bob 1"
-
-*/
-
 	// ===========================================
-	// Employee
+	// Single Employee Comparison
 
 	$('#personcomparator').click( function(event) {
 		event.preventDefault();
@@ -330,41 +319,76 @@ console.log(myobj.name, myobj.number); // logs "bob 1"
 		// console.log("fusionreturn");
 		// console.log(fusionreturn);
 
-	    /*
-	    thefusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
-	    console.log("The fusion employee string is: ");
-	    console.log(thefusionemployee);
-	    */
-	    generateEmployeeComparisonTable(curperson);
+    /*
+    thefusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
+    console.log("The fusion employee string is: ");
+    console.log(thefusionemployee);
+    */
+    generateEmployeeComparisonTable(curperson);
 
-			/*
-	    thelegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
-	    console.log("The legacy employee string is: ");
-	    console.log(thelegacyemployee);
-	    */
+		/*
+    thelegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
+    console.log("The legacy employee string is: ");
+    console.log(thelegacyemployee);
+    */
 
-	    // Data now in globals - create local context
+    // Data now in globals - create local context
 	});
+
+	// ===========================================
+	// Comparison Spreadsheet
 
 	$('#comparisonspreadsheet').click( function(event) {
 		event.preventDefault();
 
 		// Set up parameters for this run.
+
+		paramSetup();
+
+		comparisonSummary = [];
+
+		var summarylength = 0;
+		var peopleList = new Array();
+
+		console.log(debugging ?  "We are in debug mode" : "We are in live mode");
+
 		// Pick up list of people to look at
 		//
-		var peopleList = new Array();
-		var legacyurl = baseLegacyURL + "?id=48";
-		console.log(legacyurl);
-		$.getJSON(legacyurl, function (data) {
-			// console.log("Data returned from getJSON call to legacy URL");
-			// console.log(data);
-			$.each(data, function() {
-			  $.each(this, function() {
-			    peopleList.push(this.PersonCode);
-			  });
-			});
-		});
 
+		var peopleList = new Array();
+
+		if (!debugging)
+		{
+			var legacyurl = baseLegacyURL + "?id=48";
+			console.log(legacyurl);
+			$.getJSON(legacyurl, function (legacydata) {
+				// console.log("Data returned from getJSON call to legacy URL");
+				// console.log(data);
+
+				var jsonstring = JSON.stringify(legacydata);
+
+				jsonstring = new String("{allPeople:"+jsonstring+"}");
+
+				var peopledata = eval("("+jsonstring+")");
+
+				// Set up array with list of person IDs
+
+				$.each(peopledata, function() {
+				  $.each(this, function() {
+				    summarylength = peopleList.push(this.PersonCode);
+				  });
+				});
+			});
+		}
+		else
+		{
+			 peopleList = [5500018, 5500215, 5500165, 6704306];
+		}
+
+		console.log("List of people");
+		console.log(peopleList);
+
+		// Now loop through the set of people comparing each one and adding to resultset
 		for (var i=0; i < peopleList.length; i++) {
 			console.log("Comparing employee "+peopleList[i]);
 			compareEmployee(peopleList[i]);

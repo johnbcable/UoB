@@ -68,9 +68,20 @@
     function convertArrayOfObjectsToCSV(args) {
         var result, ctr, keys, columnDelimiter, lineDelimiter, data;
 
+        console.log("args.data as received by convertArrayOfObjectsToCSV");
+        console.log(args.data);
+
         data = args.data || null;
-        if (data == null || !data.length) {
-          console.log("no data sent to convertArrayOfObjectsToCSV");
+
+        console.log("data after copying from args.data");
+        console.log(data);
+
+        if (args.data == null) {
+          console.log("null data sent to convertArrayOfObjectsToCSV");
+            return null;
+        }
+        if (!args.data.length) {
+          console.log("array sent to convertArrayOfObjectsToCSV has no length");
             return null;
         }
 
@@ -98,7 +109,7 @@
     }
 
     function downloadCSV(args) {
-        var data, filename, link;
+        var data, filename, link, sourcedata;
 
         sourcedata = args.data || noData;
         console.log("Source data as sent to downloadCSV is ");

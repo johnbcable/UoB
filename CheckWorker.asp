@@ -110,6 +110,10 @@ var mydebug = new String("N").toString();
     </tbody>
   </table>
 
+  <br />
+  <a href="index.asp">Home page &raquo;</a>
+  <br />
+
   <hr />
 
   <div id="main"></div>
