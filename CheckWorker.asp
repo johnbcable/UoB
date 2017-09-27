@@ -64,6 +64,7 @@ var mydebug = new String("N").toString();
 
 	<body>
 
+  <form>
   <table border="1" cellspacing="5" width="90%" align="center">
     <thead>
       <tr>
@@ -73,42 +74,53 @@ var mydebug = new String("N").toString();
     </thead>
     <tbody>
       <tr>
-        <td>Employee Data</td>
+        <td>Run Parameters</td>
         <td>
-          <form>
+        <div>
+          <div>
+            <label>Debug mode?</label>
+            <select id="debugmode">
+              <option  selected value="N">No</option>
+              <option  value="Y">Yes</option>
+            </select><br />
+            <label>Which legacy system?</label>
+            <select id="legacysystem">
+              <option  selected value="ACCESS">Anonymised Access MDB</option>
+              <option  value="ALTAHRN">Alta HR (copy)</option>
+            </select><br />
+            <label>Which target Fusion environment</label>
+            <select id="targetsystem">
+              <option  selected value="edzz-test">Fusion Dev Environment</option>
+            </select>
+          </div>
+        </div>
+      </tr>
+      <tr>
+        </td>
+        <td>Single Employee Comparison</td>
+        <td>
             <div>
               <div>
                 <label>UoB Person ID (from ID badge)</label>
                 <input type="text" name="personcode" id="personcode" placeholder="Person ID" /><br />
-                <label>Debug mode?</label>
-                <select id="debugmode">
-                  <option  selected value="N">No</option>
-                  <option  value="Y">Yes</option>
-                </select><br />
-                <label>Which legacy system?</label>
-                <select id="legacysystem">
-                  <option  selected value="ACCESS">Anonymised Access MDB</option>
-                  <option  value="ALTAHRN">Alta HR (copy)</option>
-                </select><br />
-                <label>Which target Fusion environment</label>
-                <select id="targetsystem">
-                  <option  selected value="edzz-test">Fusion Dev Environment</option>
-                </select><br />
-                &nbsp;&nbsp;<a id="personcomparator" href='#'>Check &raquo;</a>
+                <a id="personcomparator" href='#'>Check &raquo;</a>
               </div>
             </div>
-          </form>
 
         </td>
       </tr>
       <!--    test out creating comparison spreadsheet  -->
       <tr>
         <td>
-          <a id="comparisonspreadsheet" name="comparisonspreadsheet" href="#">Comparison spreadsheet</a>
+          Cohort Summary Comparison
+        </td>
+        <td>
+          <a id="comparisonspreadsheet" name="comparisonspreadsheet" href="#">Generate comparison spreadsheet</a>
         </td>
       </tr>
     </tbody>
   </table>
+  </form>
 
   <br />
   <a href="index.asp">Home page &raquo;</a>
