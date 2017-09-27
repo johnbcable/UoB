@@ -18,7 +18,6 @@ var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resource
 var baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
 var curperson = 5500165;
 var debugging = true;
-var comparisonSummary = new Array();
 
 // ============================================================================
 function debugwrite(text) {
@@ -214,6 +213,7 @@ function compareEmployee(personcode) {
 		var summarylength = 0;
 		var fusion = {};
 		var legacy = {};
+		var returnobject = {};
 
 		// debugwrite("Inside compareEmployee at setup time");
 
@@ -289,7 +289,11 @@ function compareEmployee(personcode) {
 					// Add this comparison as an new item to the compariusonSummary array?
 					// Or do in calling function?
 
-					summarylength = comparisonSummary.push(comparison);
+					// summarylength = comparisonSummary.push(comparison);
+					returnobject = {comparisons: comparison, messages: {}};
+					console.log("Return from compareEmployee = ");
+					console.log(returnobject);
+					return (  returnobject );
 
 				},
 				error: function(xhr, textStatus, errorThrown) {
@@ -347,8 +351,8 @@ $(document).ready(function() {
 		paramSetup();
 
 		// Reinitialise comparisonSummary Array
-		comparisonSummary = [];
-
+		var comparisonSummary = new Array();
+		var mycomparison = {};
 		var summarylength = 0;
 		var peopleList = new Array();
 
@@ -411,12 +415,15 @@ $(document).ready(function() {
 		// Now loop through the set of people comparing each one and adding to resultset
 		for (var i=0; i < summarylength; i++) {
 			console.log("Comparing employee "+peopleList[i]);
-			compareEmployee(peopleList[i]);
+			var mycomparison = compareEmployee(peopleList[i]);
+			// console.log("Results from comparing "+peopleList[i]);
+			// console.log(mycomparison);
+			comparisonSummary.push(mycomparison);
 		}
 
 		if ( debugging ) {
-				console.log(comparisonSummary);
-				console.log("About to call downloadCSV");
+				// console.log(comparisonSummary);
+				// console.log("About to call downloadCSV");
 				if ( debugging ) {
 					$('#legacyjsonheader').html('<h1>Comparison matrix</h1>');
 
