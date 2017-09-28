@@ -68,13 +68,13 @@
     function convertArrayOfObjectsToCSV(args) {
         var result, ctr, keys, columnDelimiter, lineDelimiter, data;
 
-        console.log("args.data as received by convertArrayOfObjectsToCSV");
-        console.log(args.data);
+        // console.log("args.data as received by convertArrayOfObjectsToCSV");
+        // console.log(args.data);
 
         data = args.data || null;
 
-        console.log("data after copying from args.data");
-        console.log(data);
+        // console.log("data after copying from args.data");
+        // console.log(data);
 
         if (args.data == null) {
           console.log("null data sent to convertArrayOfObjectsToCSV");
