@@ -321,42 +321,63 @@ $(document).ready(function() {
 
 		// Outer getJSON call for legacy store
 		var legacyurl = baseLegacyURL + "?id=48";
+		var legacylist = new Array();
+		var theperson;													// Tne current person we are dealing with
+		var index = 0;
+
 		// console.log(legacyurl);
 
-		$.getJSON(legacyurl, function (legacylist) {
+		$.ajax({
+		  url: legacyurl,
+		  dataType: 'json',
+			error: function(xhr, textStatus, errorThrown) {
+				$('#error').html(xhr.responseText);
+				return (null);
+			},
+			success: function(data) {
+				$.each(data, function(item) {
+					theperson = this.PersonCode;
+					console.log(theperson+" - "+typeof theperson);
+					legacylist[index] = new Number(theperson).valueOf();
+					index++;
+				});
+			}
+		});
 
-			var comparisonSummary = new Array();    // Holds all results of comparisons for all people
-		  var mycomparison = {};									// Holds return of comparison for current person
-		  var summarylength = 0;									// Length of the summary array
-			var theperson;													// Tne current person we are dealing with
+		// End 1st JSON loop
+		console.log("End of legacy JSON loop - legacylist = ");
+		console.log(legacylist);
+		console.log(legacylist.length);
 
-			// Set up loop to iterate over returned legacy list
-			$.each(legacylist, function(item) {
+		var comparisonSummary = new Array();    // Holds all results of comparisons for all people
+	  var mycomparison = {};									// Holds return of comparison for current person
+	  var summarylength = 0;									// Length of the summary array
 
-				// Get person code
+		// Set up loop to iterate over returned legacy list
+		$.each(legacylist, function(key, value) {
 
-				theperson = this.PersonCode;
+			// Get person code
 
-				// Call compareEmployee for this person
+			theperson = this.value;
+			console.log(theperson);
 
-				mycomparison = compareEmployee(theperson);
-				setTimeout(1000);
+			// Call compareEmployee for this person
 
-				// Add comparisons object from the compareEmployee return to
-				// the summary array (comparisonSummary)
+			// mycomparison = compareEmployee(theperson);
 
-				summarylength = comparisonSummary.push(mycomparison);
+			// Add comparisons object from the compareEmployee return to
+			// the summary array (comparisonSummary)
 
-			});
-
-			// Send summary array to file (.csv)
-
-			console.log("comparisonSummary");
-			console.log(comparisonSummary);
-
-			downloadCSV({ data: comparisonSummary, filename: "ComparisonSummary.csv" });
+			// summarylength = comparisonSummary.push(mycomparison);
 
 		});
+
+		// Send summary array to file (.csv)
+
+		console.log("comparisonSummary");
+		// console.log(comparisonSummary);
+
+		// downloadCSV({ data: comparisonSummary, filename: "ComparisonSummary.csv" });
 
 	});     // end of click event for #comparisonspreadsheet
 
