@@ -326,7 +326,8 @@ $(document).ready(function() {
 		var index = 0;
 
 		// console.log(legacyurl);
-
+		console.log(typeof legacylist);
+		
 		$.ajax({
 		  url: legacyurl,
 		  dataType: 'json',
@@ -346,7 +347,7 @@ $(document).ready(function() {
 
 		// End 1st JSON loop
 		console.log("End of legacy JSON loop - legacylist = ");
-		console.log(legacylist);
+		console.log(typeof legacylist);
 		console.log(legacylist.length);
 
 		var comparisonSummary = new Array();    // Holds all results of comparisons for all people
