@@ -45,18 +45,27 @@ var mydebug = new String("N").toString();
         text-align: left;
       }
       .notok {
-      background-color: red;
-      color: white;
+        background-color: red;
+        font-weight: bold;
+        color: white;
+      }
+      td.notok p::before {
+        content: &#10060; &nbsp;&nbsp;&nbsp;
       }
       .ok {
-      color: green;
+        font-weight: bold;
+        color: green;
+      }
+      td.ok p::after {
+         &nbsp;&nbsp;&nbsp;&#10004;
       }
     </style>
 	</head>
 
 	<body>
 
-  <table border="1" cellspacing="5">
+  <form>
+  <table border="1" cellspacing="5" width="90%" align="center">
     <thead>
       <tr>
         <th>Subject</th>
@@ -65,28 +74,57 @@ var mydebug = new String("N").toString();
     </thead>
     <tbody>
       <tr>
-        <td>Employee Data</td>
+        <td>Run Parameters</td>
         <td>
-          <form>
+        <div>
+          <div>
+            <label>Debug mode?</label>
+            <select id="debugmode">
+              <option  selected value="N">No</option>
+              <option  value="Y">Yes</option>
+            </select><br />
+            <label>Which legacy system?</label>
+            <select id="legacysystem">
+              <option  selected value="ACCESS">Anonymised Access MDB</option>
+              <option  value="ALTAHRN">Alta HR (copy)</option>
+            </select><br />
+            <label>Which target Fusion environment</label>
+            <select id="targetsystem">
+              <option  selected value="edzz-test">Fusion Dev Environment</option>
+            </select>
+          </div>
+        </div>
+      </tr>
+      <tr>
+        </td>
+        <td>Single Employee Comparison</td>
+        <td>
             <div>
               <div>
                 <label>UoB Person ID (from ID badge)</label>
                 <input type="text" name="personcode" id="personcode" placeholder="Person ID" /><br />
-                <label>Debug mode?</label>
-                <input type="text" name="debugmode" id="debugmode" placeholder="Debug Mode" /><br />
-                <label>Which legacy system</label>
-                <input type="text" name="legacysystem" id="legacysystem" placeholder="Access" /><br />
-                <label>Which target Fusion environment</label>
-                <input type="text" name="targetsystem" id="targetsystem" placeholder="DEV" /><br />
-                &nbsp;&nbsp;<a id="personcomparator" href='#'>Check &raquo;</a>
+                <a id="personcomparator" href='#'>Check &raquo;</a>
               </div>
             </div>
-          </form>
 
+        </td>
+      </tr>
+      <!--    test out creating comparison spreadsheet  -->
+      <tr>
+        <td>
+          Cohort Summary Comparison
+        </td>
+        <td>
+          <a id="comparisonspreadsheet" name="comparisonspreadsheet" href="#">Generate comparison spreadsheet</a>
         </td>
       </tr>
     </tbody>
   </table>
+  </form>
+
+  <br />
+  <a href="index.asp">Home page &raquo;</a>
+  <br />
 
   <hr />
 
@@ -124,7 +162,7 @@ Legacy
 <div class="row hide-for-small-only">
   <div class="large-10 medium-10 large-offset-1 medium-offset-1 fusionlist columns">
     <div class="row">
-      <table border="1" cellspacing="5">
+      <table border="1" cellspacing="5" width="100%" align="center">
         <thead>
           <tr>
             <th>Description</th>
@@ -137,71 +175,71 @@ Legacy
           <tr>
             <td>Personal Title</td>
             <td id="fusiontitle">{{model.Salutation}}</td>
-            <td id="legacytitle">{{other.Title}}</td>
+            <td id="legacytitle">{{other.TITLE}}</td>
             {{#is comparison.Title "OK"}}
             <td class="ok" id="comparisontitle">{{comparison.Title}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisontitle">{{comparison.Title}}</td>
+            <td class="notok" id="comparisontitle">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Title}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>Forename</td>
             <td id="fusionforename">{{model.FirstName}}</td>
-            <td id="legacyforename">{{other.Forename}}</td>
+            <td id="legacyforename">{{other.FORENAME}}</td>
             {{#is comparison.Forename "OK"}}
             <td class="ok" id="comparisonforename">{{comparison.Forename}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonforename">{{comparison.Forename}}</td>
+            <td class="notok" id="comparisonforename">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Forename}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>Surname</td>
             <td id="fusionsurname">{{model.LastName}}</td>
-            <td id="legacysurname">{{other.Surname}}</td>
+            <td id="legacysurname">{{other.SURNAME}}</td>
             {{#is comparison.Surname "OK"}}
             <td class="ok" id="comparisonsurname">{{comparison.Surname}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonsurname">{{comparison.Surname}}</td>
+            <td class="notok" id="comparisonsurname">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Surname}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>Preferred Name</td>
             <td id="fusionpreferredname">{{model.PreferredName}}</td>
-            <td id="legacypreferredname">{{other.PreferredName}}</td>
+            <td id="legacypreferredname">{{other.PREFERREDNAME}}</td>
             {{#is comparison.Preferredname "OK"}}
             <td class="ok" id="comparisonpreferredname">{{comparison.Preferredname}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonpreferredname">{{comparison.Preferredname}}</td>
+            <td class="notok" id="comparisonpreferredname">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Preferredname}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>Person Code</td>
             <td id="fusionpersoncode">{{model.PersonNumber}}</td>
-            <td id="legacypersoncode">{{other.PersonNumber}}</td>
+            <td id="legacypersoncode">{{other.PERSONNUMBER}}</td>
             {{#is comparison.PersonCode "OK"}}
             <td class="ok" id="comparisonpersoncode">{{comparison.PersonCode}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonpersoncode">{{comparison.PersonCode}}</td>
+            <td class="notok" id="comparisonpersoncode">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.PersonCode}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>Home Telephone</td>
             <td id="fusionhometelephone">{{model.HomeTelephone}}</td>
-            <td id="legacyhometelephone">{{other.HomePhoneNumber}}</td>
+            <td id="legacyhometelephone">{{other.HOMEPHONENUMBER}}</td>
             {{#is comparison.HomeTelephone "OK"}}
             <td class="ok" id="comparisonhometelephone">{{comparison.HomeTelephone}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonhometelephone">{{comparison.HomeTelephone}}</td>
+            <td class="notok" id="comparisonhometelephone">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.HomeTelephone}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>Work Email</td>
             <td id="fusionworkemail">{{model.WorkEmail}}</td>
-            <td id="legacyworkemail">{{other.WorkEmail}}</td>
+            <td id="legacyworkemail">{{other.WORKEMAIL}}</td>
             {{#is comparison.WorkEmail "OK"}}
             <td class="ok" id="comparisonemail">{{comparison.WorkEmail}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonemail">{{comparison.WorkEmail}}</td>
+            <td class="notok" id="comparisonemail">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.WorkEmail}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -210,74 +248,74 @@ Legacy
               {{model.AddressLine1}}<br />
               {{model.AddressLine2}}<br />
               {{model.AddressLine3}}<br />
-              {{model.Town}}<br />
+              {{model.City}}<br />
               {{model.Region}}<br />
               {{model.Country}}<br />
               {{model.PostalCode}}<br />
             </td>
             <td id="legacyaddress">
-              {{other.AddressLine1}}<br />
-              {{other.AddressLine2}}<br />
-              {{other.AddressLine3}}<br />
-              {{other.Town}}<br />
-              {{other.Region}}<br />
-              {{other.Country}}<br />
-              {{other.PostalCode}}<br />
+              {{other.ADDRESSLINE1}}<br />
+              {{other.ADDRESSLINE2}}<br />
+              {{other.ADDRESSLINE3}}<br />
+              {{other.CITY}}<br />
+              {{other.REGION}}<br />
+              {{other.COUNTRY}}<br />
+              {{other.POSTALCODE}}<br />
             </td>
             {{#is comparison.Address "OK"}}
             <td class="ok" id="comparisonaddress">{{comparison.Address}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonaddress">{{comparison.Address}}</td>
+            <td class="notok" id="comparisonaddress">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Address}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>Date Of Birth</td>
             <td id="fusiondob">{{model.DateOfBirth}}</td>
-            <td id="legacydob">{{other.DateOfBirth}}</td>
+            <td id="legacydob">{{other.DATEOFBIRTH}}</td>
             {{#is comparison.DateOfBirth "OK"}}
             <td class="ok" id="comparisondob">{{comparison.DateOfBirth}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisondob">{{comparison.DateOfBirth}}</td>
+            <td class="notok" id="comparisondob">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.DateOfBirth}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>Ethnicity</td>
             <td id="fusionethnicity">{{model.Ethnicity}}</td>
-            <td id="legacyethnicity">{{other.Ethnicity}}</td>
+            <td id="legacyethnicity">{{other.ETHNICITY}}</td>
             {{#is comparison.Ethnicity "OK"}}
             <td class="ok" id="comparisonethnicity">{{comparison.Ethnicity}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonethnicity">{{comparison.Ethnicity}}</td>
+            <td class="notok" id="comparisonethnicity">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Ethnicity}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>Gender</td>
             <td id="fusiongender">{{model.Gender}}</td>
-            <td id="legacygender">{{other.Gender}}</td>
+            <td id="legacygender">{{other.GENDER}}</td>
             {{#is comparison.Gender "OK"}}
             <td class="ok" id="comparisongender">{{comparison.Gender}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisongender">{{comparison.Gender}}</td>
+            <td class="notok" id="comparisongender">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.Gender}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>NI Number</td>
             <td id="fusionni">{{model.NationalId}}</td>
-            <td id="legacyni">{{other.NationalId}}</td>
+            <td id="legacyni">{{other.NATIONALID}}</td>
             {{#is comparison.NINumber "OK"}}
             <td class="ok" id="comparisonni">{{comparison.NINumber}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonni">{{comparison.NINumber}}</td>
+            <td class="notok" id="comparisonni">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.NINumber}}</td>
             {{/is}}
           </tr>
           <tr>
             <td>User Name</td>
             <td id="fusionusername">{{model.UserName}}</td>
-            <td id="legacyusername">{{other.UserName}}</td>
+            <td id="legacyusername">{{other.USERNAME}}</td>
             {{#is comparison.UserName "OK"}}
             <td class="ok" id="comparisonusername">{{comparison.UserName}} &#10004;</td>
             {{else}}
-            <td class="notok" id="comparisonusername">{{comparison.UserName}}</td>
+            <td class="notok" id="comparisonusername">&#10060 &nbsp;&nbsp;&nbsp;{{comparison.UserName}}</td>
             {{/is}}
           </tr>
         </tbody>

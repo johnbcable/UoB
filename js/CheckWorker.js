@@ -13,45 +13,89 @@
 //         legacyqueryid:   for selecting which query to run. Dependent on legacysource.
 //
 
-var fusionCoreSuffix = "/hcmCoreApi/resources/11.12.1.0/";
 var defaultlegacyqueryid = "?id=49";
-var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com" + fusionCoreSuffix;
+var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
 var baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
-var fusionBaseURL = "https://edzz-test.hcm.em3.oraclecloud.com" + fusionCoreSuffix;
-var legacyBaseURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
-
-baseLegacyURL += defaultlegacyqueryid;
+var curperson = 5500165;
+var debugging = true;
 
 // ============================================================================
-function paramSetup(personcode) {
-	// Construct base Fusion url
-	baseCoreURL = fusionBaseURL + fusionCoreSuffix;
-	baseLegacyURL = legacyBaseURL + defaultlegacyqueryid;
+function debugwrite(text) {
+	if ( debugging ) {
+		console.log(text);
+	}
 }
 
 // ============================================================================
-function generateEmployeeComparisonTable(personcode) {
+function paramSetup() {
 
-  	var myperson = personcode || '5500165';
-	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
-	  var legacyurl = baseLegacyURL + "&p1=";
+	var whichlegacy;
+	var whichfusion;
+	var debugchoice;
+
+		// Fetch parameters from CheckWorker.asp form
+	curperson = $('#personcode').val();
+	whichlegacy = $('#legacysystem').val();
+	whichfusion = $('#targetsystem').val();
+	debugchoice = $('#debugmode').val();
+
+	// Establish debugging mode
+	if ( debugchoice == "Y" ) {
+		debugging = true;
+	} else {
+		debugging=false;
+	}
+	debugwrite("Values from CheckWorker form before any checks or defaults applied:");
+	debugwrite(curperson);
+	debugwrite(whichlegacy);
+	debugwrite(whichfusion);
+	debugwrite(debugchoice);
+
+	var thelegacyemployee = "";
+	var thefusionemployee = "";
+
+	curperson = curperson || 5500165;
+
+	// Construct appropriate starting Fusion url
+	baseCoreURL = "https://"+whichfusion+".hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
+
+	// Construct appropriate starting legacy URL
+	if ( whichlegacy == "ACCESS") {
+		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
+	}
+	if ( whichlegacy == "ALTAHRN") {
+		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchALTA.asp";
+	}
+
+	// Adjust URLs to reflect submitted person code (in curperson)
+
+}
+
+// ============================================================================
+function generateEmployeeComparisonTable() {
+
+  	var myperson = curperson || '5500165';
+	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10000&q=PersonNumber=";
+	  var legacyurl = baseLegacyURL + "?id=49&p1=";
   	var nullobjectstring = "{}";
   	var nullobject = {};
 		var thefusionemployee = {};
 		var thelegacyemployee = {};
 
-		paramSetup(myperson);
+		debugwrite("Calling paramSetup");
+		paramSetup();
+		debugwrite("After paramSetup");
 
-	legacyurl += myperson;
+		legacyurl += myperson;
   	fusionurl += myperson;
 
-	console.log(legacyurl);
-  	console.log(fusionurl);
+	// debugwrite(legacyurl);
+  // debugwrite(fusionurl);
 
-	// blank out raw JSON divs
+	// blank out raw JSON divs even if not in debug mode to clear screen
 	$('#legacyjsonheader').html('');
 	$('#legacyreceivedjson').html('');
-  	$('#fusionjsonheader').html('');
+  $('#fusionjsonheader').html('');
 	$('#fusionreceivedjson').html('');
 
 	// Get legacy data first
@@ -65,7 +109,7 @@ function generateEmployeeComparisonTable(personcode) {
 		jsonstring = JSON.stringify(data[0]);
 
 		// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
-    	console.log("Legacy jsonstring: "+jsonstring);
+    // debugwrite("Legacy jsonstring: "+jsonstring);
 
 		thelegacyemployee =JSON.parse(jsonstring);
 
@@ -78,7 +122,7 @@ function generateEmployeeComparisonTable(personcode) {
 			success: function(data) {
 				jsonstring2 = JSON.stringify(data.items[0]);
 
-		    console.log("Fusion jsonstring2: "+jsonstring2);
+		    // debugwrite("Fusion jsonstring2: "+jsonstring2);
 
 				thefusionemployee =JSON.parse(jsonstring2);
 
@@ -87,57 +131,46 @@ function generateEmployeeComparisonTable(personcode) {
 				// in comparator object
 				var comparison = {};
 
-/*
-Fusion
+				// Must apply developed transforms before doing Y/N comparison
 
-{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
-
-Legacy
-
-{"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"}
-
-*/
-				comparison.Title = thefusionemployee.Salutation == thelegacyemployee.Title ? "OK" : "Titles differ";
-				comparison.Forename = thefusionemployee.FirstName == thelegacyemployee.Forename ? "OK" : "Forenames differ";
-				comparison.Surname = thefusionemployee.LastName == thelegacyemployee.Surname ? "OK" : "Surnames differ";
-				comparison.Preferredname = thefusionemployee.PreferredName == thelegacyemployee.PreferredName ? "OK" : "Preferred names differ";
-				comparison.PersonCode = thefusionemployee.PersonNumber == thelegacyemployee.PersonNumber ? "OK" : "Person ID's differ";
-				comparison.HomeTelephone = thefusionemployee.HomeTelephone == thelegacyemployee.HomePhoneNumber ? "OK" : "Home telephone numbers differ";
-				comparison.WorkEmail = thefusionemployee.WorkEmail == thelegacyemployee.WorkEmail ? "OK" : "Titles differ";
+				comparison.Title = thefusionemployee.Salutation == thelegacyemployee.TITLE ? "OK" : "Titles differ";
+				comparison.Forename = thefusionemployee.FirstName == thelegacyemployee.FORENAME ? "OK" : "Forenames differ";
+				comparison.Surname = thefusionemployee.LastName == thelegacyemployee.SURNAME ? "OK" : "Surnames differ";
+				comparison.Preferredname = thefusionemployee.PreferredName == thelegacyemployee.PREFERREDNAME ? "OK" : "Preferred names differ";
+				comparison.PersonCode = thefusionemployee.PersonNumber == thelegacyemployee.PERSONNUMBER ? "OK" : "Person ID's differ";
+				comparison.HomeTelephone = thefusionemployee.HomeTelephone == thelegacyemployee.HOMEPHONENUMBER ? "OK" : "Home telephone numbers differ";
+				comparison.WorkEmail = thefusionemployee.WorkEmail == thelegacyemployee.WORKEMAIL ? "OK" : "Titles differ";
 
 				//  Now do checks on address components
 				var addressmessage = "";
-				addressmessage += thefusionemployee.AddressLine1 == thelegacyemployee.AddressLine1 ? "" : " line 1 different,";
-				addressmessage += thefusionemployee.AddressLine2 == thelegacyemployee.AddressLine2 ? "" : " line 2 different,";
-				addressmessage += thefusionemployee.AddressLine3 == thelegacyemployee.AddressLine3 ? "" : " line 3 different,";
-				addressmessage += thefusionemployee.Town == thelegacyemployee.Town ? "" : " town different,";
-				addressmessage += thefusionemployee.Region == thelegacyemployee.Region ? "" : " region different,";
-				addressmessage += thefusionemployee.Country == thelegacyemployee.Country ? "" : " country different,";
-				addressmessage += thefusionemployee.PostalCode == thelegacyemployee.PostalCode ? "" : " postcode different,";
-
-				/*
-				var dummy1 = new String(thefusionemployee.AddressLine1+thefusionemployee.AddressLine2+thefusionemployee.AddressLine3+thefusionemployee.Town+thefusionemployee.Region+thefusionemployee.Country+thefusionemployee.PostalCode);
-				var dummy2 = new String(thelegacyemployee.AddressLine1+thelegacyemployee.AddressLine2+thelegacyemployee.AddressLine3+thelegacyemployee.Town+thelegacyemployee.Region+thelegacyemployee.Country+thelegacyemployee.PostalCode);
-				*/
+				addressmessage += thefusionemployee.AddressLine1 == thelegacyemployee.ADDRESSLINE1 ? "" : " line 1 different,";
+				addressmessage += thefusionemployee.AddressLine2 == thelegacyemployee.ADDRESSLINE2 ? "" : " line 2 different,";
+				addressmessage += thefusionemployee.AddressLine3 == thelegacyemployee.ADDRESSLINE3 ? "" : " line 3 different,";
+				addressmessage += thefusionemployee.City == thelegacyemployee.CITY ? "" : " town different,";
+				addressmessage += thefusionemployee.Region == thelegacyemployee.REGION ? "" : " region different,";
+				addressmessage += thefusionemployee.Country == thelegacyemployee.COUNTRY ? "" : " country different,";
+				addressmessage += thefusionemployee.PostalCode == thelegacyemployee.POSTALCODE ? "" : " postcode different,";
 
 				comparison.Address = addressmessage == "" ? "OK" : "Addresses differ:"+addressmessage;
 				// End of address components checks
 
-				comparison.DateOfBirth = thefusionemployee.DateOfBirth == thelegacyemployee.DateOfBirth ? "OK" : "Dates of birth differ";
-				comparison.Ethnicity = thefusionemployee.Ethnicity == thelegacyemployee.Ethnicity ? "OK" : "Ethnicities differ";
-				comparison.Gender = thefusionemployee.Gender == thelegacyemployee.Gender ? "OK" : "Genders differ";
-				comparison.NINumber = thefusionemployee.NationalID == thelegacyemployee.NationalID ? "OK" : "National Insurance numbers differ";
-				comparison.UserName = thefusionemployee.UserName == thelegacyemployee.UserName ? "OK" : "Usernames differ";
+				comparison.DateOfBirth = thefusionemployee.DateOfBirth == thelegacyemployee.DATEOFBIRTH ? "OK" : "Dates of birth differ";
+				comparison.Ethnicity = thefusionemployee.Ethnicity == thelegacyemployee.ETHNICITY ? "OK" : "Ethnicities differ";
+				comparison.Gender = thefusionemployee.Gender == thelegacyemployee.GENDER ? "OK" : "Genders differ";
+				comparison.NINumber = thefusionemployee.NationalId == thelegacyemployee.NATIONALID ? "OK" : "National Insurance numbers differ";
+				comparison.UserName = thefusionemployee.UserName == thelegacyemployee.USERNAME ? "OK" : "Usernames differ";
 
 				// End of creating comparator object
 
-				$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
-				$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
+				if ( debugging ) {
+					$('#legacyjsonheader').html('<h1>Legacy Employee Details for '+myperson+'</h1>');
+					$('#fusionjsonheader').html('<h1>Fusion Employee Details for '+myperson+'</h1>');
 
-				$('#legacyreceivedjson').html(jsonstring);
-				$('#fusionreceivedjson').html(jsonstring2);
+					$('#legacyreceivedjson').html(jsonstring);
+					$('#fusionreceivedjson').html(jsonstring2);
+				}
 
-					// Now try and fill out Handlebars template table
+					// Now fill out Handlebars template table
 					var context = {
 							model: thefusionemployee,
 							other: thelegacyemployee,
@@ -148,7 +181,7 @@ Legacy
 					// console.log(theTemplateScript);
 
 					var theTemplate = Handlebars.compile(theTemplateScript);
-					console.log("After compile");
+					debugwrite("After compile");
 
 					// Clear out the display area
 					$("#main").empty();
@@ -166,251 +199,187 @@ Legacy
   });
 }
 
+// ============================================================================
+function compareEmployee(personcode) {
+
+  	var myperson = personcode || '5500165';
+	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10000&q=PersonNumber=";
+	  var legacyurl = baseLegacyURL + "?id=49&p1=";
+  	var nullobjectstring = "{}";
+  	var nullobject = {};
+		var summarylength = 0;
+		var fusion = {};
+		var legacy = {};
+
+		legacyurl += myperson;
+  	fusionurl += myperson;
+
+		// Get legacy data first
+		var jsonstring;			// Used for legacy employee data
+		var jsonstring2;		// Used for Fusion employee data
+
+		$.getJSON(legacyurl, function (data) {
+
+			// console.log("Legacy url: "+url);
+
+			jsonstring = JSON.stringify(data[0]);
+
+			// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
+	    // debugwrite("Legacy jsonstring: "+jsonstring);
+
+			legacy = JSON.parse(jsonstring);
+
+			// Now issue AJAX call to get fusion employee details
+			$.ajax({
+				type: "GET",
+				url: fusionurl,
+				dataType: "json",
+				headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
+				success: function(data) {
+					jsonstring2 = JSON.stringify(data.items[0]);
+
+			    // debugwrite("Fusion jsonstring2: "+jsonstring2);
+
+					fusion = JSON.parse(jsonstring2);
+
+					// Now reinitialise comparator object
+					// Look through legacy and fusion data filling in differences
+					// in comparator object
+					var comparison = {};
+
+					comparison.PersonID = legacy.PERSONNUMBER;
+
+					// Must apply developed transforms before doing Y/N comparison
+
+					comparison.Title = fusion.Salutation == legacy.TITLE ? "Y" : "N";
+					comparison.Forename = fusion.FirstName == legacy.FORENAME ? "Y" : "N";
+					comparison.Surname = fusion.LastName == legacy.SURNAME ? "Y" : "N";
+					comparison.Preferredname = fusion.PreferredName == legacy.PREFERREDNAME ? "Y" : "N";
+					comparison.PersonCode = fusion.PersonNumber == legacy.PERSONNUMBER ? "Y" : "N";
+					comparison.HomeTelephone = fusion.HomeTelephone == legacy.HOMEPHONENUMBER ? "Y" : "N";
+					comparison.WorkEmail = fusion.WorkEmail == legacy.WORKEMAIL ? "Y" : "N";
+
+					//  Now do checks on address components
+					var addressmessage = "";
+					addressmessage += fusion.AddressLine1 == legacy.ADDRESSLINE1 ? "" : " line 1 different,";
+					addressmessage += fusion.AddressLine2 == legacy.ADDRESSLINE2 ? "" : " line 2 different,";
+					addressmessage += fusion.AddressLine3 == legacy.ADDRESSLINE3 ? "" : " line 3 different,";
+					addressmessage += fusion.City == legacy.CITY ? "" : " town different,";
+					addressmessage += fusion.Region == legacy.REGION ? "" : " region different,";
+					addressmessage += fusion.Country == legacy.COUNTRY ? "" : " country different,";
+					addressmessage += fusion.PostalCode == legacy.POSTALCODE ? "" : " postcode different,";
+
+					comparison.Address = addressmessage == "" ? "Y" : "N";
+					// End of address components checks
+
+					comparison.DateOfBirth = fusion.DateOfBirth == legacy.DATEOFBIRTH ? "Y" : "N";
+					comparison.Ethnicity = fusion.Ethnicity == legacy.ETHNICITY ? "Y" : "N";
+					comparison.Gender = fusion.Gender == legacy.GENDER ? "Y" : "N";
+					comparison.NINumber = fusion.NationalId == legacy.NATIONALID ? "Y" : "N";
+					comparison.UserName = fusion.UserName == legacy.USERNAME ? "Y" : "N";
+
+					return (  comparison );
+
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					$('#error').html(xhr.responseText);
+					return (null);
+				}
+
+			});  // end of ajax call
+
+
+	  });
+}
+
 
 $(document).ready(function() {
 
-/*
-
-function myfunc() {
-   return {"name": "bob", "number": 1};
-}
-
-var myobj = myfunc();
-console.log(myobj.name, myobj.number); // logs "bob 1"
-
-*/
-
 	// ===========================================
-	// Employee
+	// Single Employee Comparison
 
 	$('#personcomparator').click( function(event) {
 		event.preventDefault();
-		var myemp = $('#personcode').val();
-	    var thelegacyemployee = "";
-	    var thefusionemployee = "";
 
-		myemp = myemp || 5500165;
-		// fusionreturn = new String(getFusionEmployee(myemp)).toString();
-		// console.log("fusionreturn");
-		// console.log(fusionreturn);
+		paramSetup();
 
-	    /*
-	    thefusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
-	    console.log("The fusion employee string is: ");
-	    console.log(thefusionemployee);
-	    */
-	    generateEmployeeComparisonTable(myemp);
+    generateEmployeeComparisonTable();
 
-			/*
-	    thelegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
-	    console.log("The legacy employee string is: ");
-	    console.log(thelegacyemployee);
-	    */
-
-	    // Data now in globals - create local context
-	});
-
-
-	// ===========================================
-	// Grades
-
-	$('#allgradeslink').click( function(event) {
-		event.preventDefault();
-		getGrades();
-	});
-
-	$('#allgradesdat').click( function(event) {
-		event.preventDefault();
-		getGrades('DAT');
-	});
-
-	$('#allgradescsv').click( function(event) {
-		event.preventDefault();
-		getGrades('CSV');
 	});
 
 	// ===========================================
-	// Job Families
+	// Comparison Spreadsheet
 
-	$('#alljobfamilieslink').click( function(event) {
-		event.preventDefault();
-		getJobFamilies();
-	});
+	$('#comparisonspreadsheet').click( function(event) {
+	  event.preventDefault();
 
-	$('#alljobfamiliesdat').click( function(event) {
-		event.preventDefault();
-		getJobFamilies('DAT');
-	});
+		// Reinitialise comparisonSummary Array
 
-	$('#alljobfamiliescsv').click( function(event) {
-		event.preventDefault('CSV');
-		getJobFamilies();
-	});
+	  // Set up parameters for this run.
 
-	// ===========================================
-	// Jobs
+	  paramSetup();														// Pull in run parameters from submission form
 
-	$('#alljobslink').click( function(event) {
-		event.preventDefault();
-		getJobs();
-	});
+		// Outer getJSON call for legacy store
+		var legacyurl = baseLegacyURL + "?id=48";
+		var legacylist = new Array();
+		var theperson;													// Tne current person we are dealing with
+		var index = 0;
 
-	$('#alljobsdat').click( function(event) {
-		event.preventDefault();
-		getJobs('DAT');
-	});
+		// console.log(legacyurl);
+		console.log(typeof legacylist);
+		
+		$.ajax({
+		  url: legacyurl,
+		  dataType: 'json',
+			error: function(xhr, textStatus, errorThrown) {
+				$('#error').html(xhr.responseText);
+				return (null);
+			},
+			success: function(data) {
+				$.each(data, function(item) {
+					theperson = this.PersonCode;
+					console.log(theperson+" - "+typeof theperson);
+					legacylist[index] = new Number(theperson).valueOf();
+					index++;
+				});
+			}
+		});
 
-	$('#alljobscsv').click( function(event) {
-		event.preventDefault();
-		getJobs('CSV');
-	});
+		// End 1st JSON loop
+		console.log("End of legacy JSON loop - legacylist = ");
+		console.log(typeof legacylist);
+		console.log(legacylist.length);
 
-	// ===========================================
-	// Positions
-	$('#allpositionslink').click( function(event) {
-		event.preventDefault();
-		getPositions();
-	});
+		var comparisonSummary = new Array();    // Holds all results of comparisons for all people
+	  var mycomparison = {};									// Holds return of comparison for current person
+	  var summarylength = 0;									// Length of the summary array
 
-	$('#allpositionsdat').click( function(event) {
-		event.preventDefault();
-		getPositions('DAT');
-	});
+		// Set up loop to iterate over returned legacy list
+		$.each(legacylist, function(key, value) {
 
-	$('#allpositionscsv').click( function(event) {
-		event.preventDefault();
-		getPositions('CSV');
-	});
+			// Get person code
 
-	// ===========================================
-	// Locations
-	$('#alllocationslink').click( function(event) {
-		event.preventDefault();
-		getLocations();
-	});
+			theperson = this.value;
+			console.log(theperson);
 
-	$('#alllocationsdat').click( function(event) {
-		event.preventDefault();
-		getLocations('DAT');
-	});
+			// Call compareEmployee for this person
 
-	$('#alllocationscsv').click( function(event) {
-		event.preventDefault();
-		getLocations('CSV');
-	});
+			// mycomparison = compareEmployee(theperson);
 
-	// ===========================================
-	// Organizations
-	// 1. Departments
-	$('#allorganizationslink').click( function(event) {
-		event.preventDefault();
-		getOrganisations('DEPARTMENT');
-	});
+			// Add comparisons object from the compareEmployee return to
+			// the summary array (comparisonSummary)
 
-	$('#allorganizationsdat').click( function(event) {
-		event.preventDefault();
-		getOrganisations('DEPARTMENT','DAT');
-	});
+			// summarylength = comparisonSummary.push(mycomparison);
 
-	$('#allorganizationscsv').click( function(event) {
-		event.preventDefault();
-		getOrganisations('DEPARTMENT','CSV');
-	});
+		});
 
-	// 2. Divisions
-	$('#alldivisionslink').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_DIVISION');
-	});
+		// Send summary array to file (.csv)
 
-	$('#alldivisionsdat').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_DIVISION','DAT');
-	});
+		console.log("comparisonSummary");
+		// console.log(comparisonSummary);
 
-	$('#alldivisionscsv').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_DIVISION','CSV');
-	});
+		// downloadCSV({ data: comparisonSummary, filename: "ComparisonSummary.csv" });
 
-	// 3. Payroll Statutory Units
-	$('#allpsulink').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_PSU');
-	});
-
-	$('#allpsudat').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_PSU','DAT');
-	});
-
-	$('#allpsucsv').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_PSU','CSV');
-	});
-
-	// 4. Tax Reporting Unit
-	$('#alltrulink').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_TRU');
-	});
-
-	$('#alltrudat').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_TRU','DAT');
-	});
-
-	$('#alltrucsv').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_TRU','CSV');
-	});
-
-	// 5. Legal Reporting Unit
-	$('#alllrulink').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_LRU');
-	});
-
-	$('#alllrudat').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_LRU','DAT');
-	});
-
-	$('#alllrucsv').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_LRU','CSV');
-	});
-
-	// 6. Legal Employer
-	$('#alllemplink').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_LEMP');
-	});
-
-	$('#alllempdat').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_LEMP','DAT');
-	});
-
-	$('#alllempcsv').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_LEMP','CSV');
-	});
-
-	// 7. Reporting Establishment
-	$('#allrelink').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_REPORTING_ESTABLISHMENT');
-	});
-
-	$('#allredat').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_REPORTING_ESTABLISHMENT','DAT');
-	});
-
-	$('#allrecsv').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_REPORTING_ESTABLISHMENT','CSV');
-	});
+	});     // end of click event for #comparisonspreadsheet
 
 })  // end of document.ready

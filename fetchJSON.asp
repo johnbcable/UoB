@@ -202,9 +202,9 @@ querylist(21) = "SELECT 'MERGE' as METADATA, 'ContactRelationship' as ContactRel
 
 
 
+querylist(48) = "SELECT DISTINCT(PersonCode) from AnonPersonFeed ORDER BY PersonCode"
 
-
-querylist(49) = "SELECT FusionTitle as Title, AnonymisedForename as Forename, AnonymisedSurname as Surname, PreferredName, PersonCode as PersonNumber, HomeTelephone as HomePhoneNumber, AnonymisedWorkEmail as WorkEmail, AddressLine1, AddressLine2, AddressLine3, Town as City, Region, Country, Postcode as PostalCode, Format(DOB,'YYYY-MM-DD') as DateOfBirth, EthnicOriginDescription as Ethnicity, Gender, NINumber as NationalId, UserName from AnonPersonFeed WHERE PersonCode = {{p1}}"
+querylist(49) = "SELECT FusionTitle as TITLE, AnonymisedForename as FORENAME, AnonymisedSurname as SURNAME, PreferredName AS PREFERREDNAME, PersonCode as PERSONNUMBER, HomeTelephone as HOMEPHONENUMBER, AnonymisedWorkEmail as WORKEMAIL, AddressLine1 AS ADDRESSLINE1, AddressLine2 AS ADDRESSLINE2, AddressLine3 AS ADDRESSLINE3, Town as CITY, Region AS REGION, Country AS COUNTRY, Postcode as POSTALCODE, Format(DOB,'YYYY-MM-DD') as DATEOFBIRTH, EthnicOriginDescription as ETHNICITY, Gender AS GENDER, NINumber as NATIONALID, UserName AS USERNAME from AnonPersonFeed WHERE PersonCode = {{p1}}"
 
 ' METADATA|PersonDisability|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|PersonId(SourceSystemId)|Category|DisabilityCode|LegislationCode|Status
 ' N.B.  Try with out specing a DisabilityCode (below)
