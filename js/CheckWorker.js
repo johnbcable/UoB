@@ -18,10 +18,6 @@ var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resource
 var baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
 var curperson = 5500165;
 var debugging = true;
-var comparisonSummary = new Array();
-// var singleComparison = {};
-
-// baseLegacyURL += defaultlegacyqueryid;
 
 // ============================================================================
 function debugwrite(text) {
@@ -31,16 +27,13 @@ function debugwrite(text) {
 }
 
 // ============================================================================
-function paramSetup(personcode) {
+function paramSetup() {
 
 	var whichlegacy;
 	var whichfusion;
 	var debugchoice;
 
-	// Re-initialise globals
-	curperson = 0;
-
-	// Fetch parameters from CheckWorker.asp form
+		// Fetch parameters from CheckWorker.asp form
 	curperson = $('#personcode').val();
 	whichlegacy = $('#legacysystem').val();
 	whichfusion = $('#targetsystem').val();
@@ -79,10 +72,10 @@ function paramSetup(personcode) {
 }
 
 // ============================================================================
-function generateEmployeeComparisonTable(personcode) {
+function generateEmployeeComparisonTable() {
 
-  	var myperson = personcode || '5500165';
-	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
+  	var myperson = curperson || '5500165';
+	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10000&q=PersonNumber=";
 	  var legacyurl = baseLegacyURL + "?id=49&p1=";
   	var nullobjectstring = "{}";
   	var nullobject = {};
@@ -90,7 +83,7 @@ function generateEmployeeComparisonTable(personcode) {
 		var thelegacyemployee = {};
 
 		debugwrite("Calling paramSetup");
-		paramSetup(myperson);
+		paramSetup();
 		debugwrite("After paramSetup");
 
 		legacyurl += myperson;
@@ -137,6 +130,8 @@ function generateEmployeeComparisonTable(personcode) {
 				// Look through legacy and fusion data filling in differences
 				// in comparator object
 				var comparison = {};
+
+				// Must apply developed transforms before doing Y/N comparison
 
 				comparison.Title = thefusionemployee.Salutation == thelegacyemployee.TITLE ? "OK" : "Titles differ";
 				comparison.Forename = thefusionemployee.FirstName == thelegacyemployee.FORENAME ? "OK" : "Forenames differ";
@@ -208,7 +203,7 @@ function generateEmployeeComparisonTable(personcode) {
 function compareEmployee(personcode) {
 
   	var myperson = personcode || '5500165';
-	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10&q=PersonNumber=";
+	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10000&q=PersonNumber=";
 	  var legacyurl = baseLegacyURL + "?id=49&p1=";
   	var nullobjectstring = "{}";
   	var nullobject = {};
@@ -216,90 +211,85 @@ function compareEmployee(personcode) {
 		var fusion = {};
 		var legacy = {};
 
-		// debugwrite("Inside compareEmployee at setup time");
-
 		legacyurl += myperson;
   	fusionurl += myperson;
 
-	// Get legacy data first
-	var jsonstring;			// Used for legacy employee data
-	var jsonstring2;		// Used for Fusion employee data
+		// Get legacy data first
+		var jsonstring;			// Used for legacy employee data
+		var jsonstring2;		// Used for Fusion employee data
 
-	$.getJSON(legacyurl, function (data) {
+		$.getJSON(legacyurl, function (data) {
 
-		// console.log("Legacy url: "+url);
+			// console.log("Legacy url: "+url);
 
-		jsonstring = JSON.stringify(data[0]);
+			jsonstring = JSON.stringify(data[0]);
 
-		// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
-    // debugwrite("Legacy jsonstring: "+jsonstring);
+			// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
+	    // debugwrite("Legacy jsonstring: "+jsonstring);
 
-		legacy = JSON.parse(jsonstring);
+			legacy = JSON.parse(jsonstring);
 
-		// Now issue AJAX call to get fusion employee details
-		$.ajax({
-			type: "GET",
-			url: fusionurl,
-			dataType: "json",
-			headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
-			success: function(data) {
-				jsonstring2 = JSON.stringify(data.items[0]);
+			// Now issue AJAX call to get fusion employee details
+			$.ajax({
+				type: "GET",
+				url: fusionurl,
+				dataType: "json",
+				headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
+				success: function(data) {
+					jsonstring2 = JSON.stringify(data.items[0]);
 
-		    // debugwrite("Fusion jsonstring2: "+jsonstring2);
+			    // debugwrite("Fusion jsonstring2: "+jsonstring2);
 
-				fusion = JSON.parse(jsonstring2);
+					fusion = JSON.parse(jsonstring2);
 
-				// Now reinitialise comparator object
-				// Look through legacy and fusion data filling in differences
-				// in comparator object
-				var comparison = {};
+					// Now reinitialise comparator object
+					// Look through legacy and fusion data filling in differences
+					// in comparator object
+					var comparison = {};
 
-				comparison.PersonID = legacy.PERSONNUMBER;
+					comparison.PersonID = legacy.PERSONNUMBER;
 
-				comparison.Title = fusion.Salutation == legacy.TITLE ? "Y" : "N";
-				comparison.Forename = fusion.FirstName == legacy.FORENAME ? "Y" : "N";
-				comparison.Surname = fusion.LastName == legacy.SURNAME ? "Y" : "N";
-				comparison.Preferredname = fusion.PreferredName == legacy.PREFERREDNAME ? "Y" : "N";
-				comparison.PersonCode = fusion.PersonNumber == legacy.PERSONNUMBER ? "Y" : "N";
-				comparison.HomeTelephone = fusion.HomeTelephone == legacy.HOMEPHONENUMBER ? "Y" : "N";
-				comparison.WorkEmail = fusion.WorkEmail == legacy.WORKEMAIL ? "Y" : "N";
+					// Must apply developed transforms before doing Y/N comparison
 
-				//  Now do checks on address components
-				var addressmessage = "";
-				addressmessage += fusion.AddressLine1 == legacy.ADDRESSLINE1 ? "" : " line 1 different,";
-				addressmessage += fusion.AddressLine2 == legacy.ADDRESSLINE2 ? "" : " line 2 different,";
-				addressmessage += fusion.AddressLine3 == legacy.ADDRESSLINE3 ? "" : " line 3 different,";
-				addressmessage += fusion.City == legacy.CITY ? "" : " town different,";
-				addressmessage += fusion.Region == legacy.REGION ? "" : " region different,";
-				addressmessage += fusion.Country == legacy.COUNTRY ? "" : " country different,";
-				addressmessage += fusion.PostalCode == legacy.POSTALCODE ? "" : " postcode different,";
+					comparison.Title = fusion.Salutation == legacy.TITLE ? "Y" : "N";
+					comparison.Forename = fusion.FirstName == legacy.FORENAME ? "Y" : "N";
+					comparison.Surname = fusion.LastName == legacy.SURNAME ? "Y" : "N";
+					comparison.Preferredname = fusion.PreferredName == legacy.PREFERREDNAME ? "Y" : "N";
+					comparison.PersonCode = fusion.PersonNumber == legacy.PERSONNUMBER ? "Y" : "N";
+					comparison.HomeTelephone = fusion.HomeTelephone == legacy.HOMEPHONENUMBER ? "Y" : "N";
+					comparison.WorkEmail = fusion.WorkEmail == legacy.WORKEMAIL ? "Y" : "N";
 
-				comparison.Address = addressmessage == "" ? "Y" : "N";
-				// End of address components checks
+					//  Now do checks on address components
+					var addressmessage = "";
+					addressmessage += fusion.AddressLine1 == legacy.ADDRESSLINE1 ? "" : " line 1 different,";
+					addressmessage += fusion.AddressLine2 == legacy.ADDRESSLINE2 ? "" : " line 2 different,";
+					addressmessage += fusion.AddressLine3 == legacy.ADDRESSLINE3 ? "" : " line 3 different,";
+					addressmessage += fusion.City == legacy.CITY ? "" : " town different,";
+					addressmessage += fusion.Region == legacy.REGION ? "" : " region different,";
+					addressmessage += fusion.Country == legacy.COUNTRY ? "" : " country different,";
+					addressmessage += fusion.PostalCode == legacy.POSTALCODE ? "" : " postcode different,";
 
-				comparison.DateOfBirth = fusion.DateOfBirth == legacy.DATEOFBIRTH ? "Y" : "N";
-				comparison.Ethnicity = fusion.Ethnicity == legacy.ETHNICITY ? "Y" : "N";
-				comparison.Gender = fusion.Gender == legacy.GENDER ? "Y" : "N";
-				comparison.NINumber = fusion.NationalId == legacy.NATIONALID ? "Y" : "N";
-				comparison.UserName = fusion.UserName == legacy.USERNAME ? "Y" : "N";
+					comparison.Address = addressmessage == "" ? "Y" : "N";
+					// End of address components checks
 
-				// debugwrite(comparison);
+					comparison.DateOfBirth = fusion.DateOfBirth == legacy.DATEOFBIRTH ? "Y" : "N";
+					comparison.Ethnicity = fusion.Ethnicity == legacy.ETHNICITY ? "Y" : "N";
+					comparison.Gender = fusion.Gender == legacy.GENDER ? "Y" : "N";
+					comparison.NINumber = fusion.NationalId == legacy.NATIONALID ? "Y" : "N";
+					comparison.UserName = fusion.UserName == legacy.USERNAME ? "Y" : "N";
 
-				// Add this comparison as an new item to the compariusonSummary array?
-				// Or do in calling function?
+					return (  comparison );
 
-				summarylength = comparisonSummary.push(comparison);
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					$('#error').html(xhr.responseText);
+					return (null);
+				}
 
-			},
-			error: function(xhr, textStatus, errorThrown) {
-				$('#error').html(xhr.responseText);
-				return (null);
-			}
-
-		});  // end of ajax call
+			});  // end of ajax call
 
 
-  });
+	  });
 }
 
 
@@ -311,103 +301,85 @@ $(document).ready(function() {
 	$('#personcomparator').click( function(event) {
 		event.preventDefault();
 
-		// Set up parameters for the two queries
-
 		paramSetup();
 
-		// fusionreturn = new String(getFusionEmployee(myemp)).toString();
-		// console.log("fusionreturn");
-		// console.log(fusionreturn);
+    generateEmployeeComparisonTable();
 
-    /*
-    thefusionemployee = getFusionEmployee(myemp);   // defaults to employee 5500165
-    console.log("The fusion employee string is: ");
-    console.log(thefusionemployee);
-    */
-    generateEmployeeComparisonTable(curperson);
-
-		/*
-    thelegacyemployee = getLegacyEmployee(myemp);   // defualts to employee 5500165
-    console.log("The legacy employee string is: ");
-    console.log(thelegacyemployee);
-    */
-
-    // Data now in globals - create local context
 	});
 
 	// ===========================================
 	// Comparison Spreadsheet
 
 	$('#comparisonspreadsheet').click( function(event) {
-		event.preventDefault();
+	  event.preventDefault();
 
-		// Set up parameters for this run.
+		// Reinitialise comparisonSummary Array
 
-		paramSetup();
+	  // Set up parameters for this run.
 
-		comparisonSummary = [];
+	  paramSetup();														// Pull in run parameters from submission form
 
-		var summarylength = 0;
-		var peopleList = new Array();
+		// Outer getJSON call for legacy store
+		var legacyurl = baseLegacyURL + "?id=48";
+		var legacylist = new Array();
+		var theperson;													// Tne current person we are dealing with
+		var index = 0;
 
-		console.log(debugging ?  "We are in debug mode" : "We are in live mode");
-
-		// Pick up list of people to look at
-		//
-
-		var peopleList = new Array();
-
-		if (!debugging)
-		{
-			var legacyurl = baseLegacyURL + "?id=48";
-			console.log(legacyurl);
-			$.getJSON(legacyurl, function (legacydata) {
-				// console.log("Data returned from getJSON call to legacy URL");
-				// console.log(data);
-
-				var jsonstring = JSON.stringify(legacydata);
-
-				jsonstring = new String("{allPeople:"+jsonstring+"}");
-
-				var peopledata = eval("("+jsonstring+")");
-
-				// Set up array with list of person IDs
-
-				$.each(peopledata, function() {
-				  $.each(this, function() {
-				    summarylength = peopleList.push(this.PersonCode);
-				  });
+		// console.log(legacyurl);
+		console.log(typeof legacylist);
+		
+		$.ajax({
+		  url: legacyurl,
+		  dataType: 'json',
+			error: function(xhr, textStatus, errorThrown) {
+				$('#error').html(xhr.responseText);
+				return (null);
+			},
+			success: function(data) {
+				$.each(data, function(item) {
+					theperson = this.PersonCode;
+					console.log(theperson+" - "+typeof theperson);
+					legacylist[index] = new Number(theperson).valueOf();
+					index++;
 				});
-			});
-		}
-		else
-		{
-			 peopleList = [5500018, 5500215, 5500165, 6704306];
-		}
+			}
+		});
 
-		console.log("List of people");
-		console.log(peopleList);
+		// End 1st JSON loop
+		console.log("End of legacy JSON loop - legacylist = ");
+		console.log(typeof legacylist);
+		console.log(legacylist.length);
 
-		// Now loop through the set of people comparing each one and adding to resultset
-		for (var i=0; i < peopleList.length; i++) {
-			console.log("Comparing employee "+peopleList[i]);
-			compareEmployee(peopleList[i]);
-		}
+		var comparisonSummary = new Array();    // Holds all results of comparisons for all people
+	  var mycomparison = {};									// Holds return of comparison for current person
+	  var summarylength = 0;									// Length of the summary array
 
-		if ( debugging ) {
-				console.log(comparisonSummary);
-				console.log("About to call downloadCSV");
-				if ( debugging ) {
-					$('#legacyjsonheader').html('<h1>Comparison matrix</h1>');
+		// Set up loop to iterate over returned legacy list
+		$.each(legacylist, function(key, value) {
 
-					$('#legacyreceivedjson').html();
-					$('#legacyreceivedjson').html(JSON.stringify(comparisonSummary));
-				}
-		}
-		// Write out summary spreadsheet
-	  downloadCSV({ data: comparisonSummary, filename: "ComparisonSummary.csv" });
+			// Get person code
 
-	});
+			theperson = this.value;
+			console.log(theperson);
 
+			// Call compareEmployee for this person
+
+			// mycomparison = compareEmployee(theperson);
+
+			// Add comparisons object from the compareEmployee return to
+			// the summary array (comparisonSummary)
+
+			// summarylength = comparisonSummary.push(mycomparison);
+
+		});
+
+		// Send summary array to file (.csv)
+
+		console.log("comparisonSummary");
+		// console.log(comparisonSummary);
+
+		// downloadCSV({ data: comparisonSummary, filename: "ComparisonSummary.csv" });
+
+	});     // end of click event for #comparisonspreadsheet
 
 })  // end of document.ready
