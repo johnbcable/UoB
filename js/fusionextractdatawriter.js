@@ -17,7 +17,7 @@
         }
 
         columnDelimiter = args.columnDelimiter || '|';
-        lineDelimiter = args.lineDelimiter || '\n';
+        lineDelimiter = args.lineDelimiter || '\r\n';
 
         keys = Object.keys(data[0]);
 
@@ -66,33 +66,40 @@
     //  Now as .csv
     // ============================================
     function convertArrayOfObjectsToCSV(args) {
-        var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+        var result, ctr, keys, columnDelimiter, lineDelimiter, data, dummy;
 
-        // console.log("args.data as received by convertArrayOfObjectsToCSV");
-        // console.log(args.data);
+        console.log("args.data as received by convertArrayOfObjectsToCSV");
+        console.log(args.data);
 
         data = args.data || null;
 
-        // console.log("data after copying from args.data");
-        // console.log(data);
+        console.log("data after copying from args.data");
+        console.log(data);
 
-        if (args.data == null) {
+        if (data == null) {
           console.log("null data sent to convertArrayOfObjectsToCSV");
             return null;
         }
-        if (!args.data.length) {
+        if (!data.length) {
           console.log("array sent to convertArrayOfObjectsToCSV has no length");
             return null;
         }
 
         columnDelimiter = args.columnDelimiter || ',';
-        lineDelimiter = args.lineDelimiter || '\n';
+        lineDelimiter = args.lineDelimiter || '\r\n';
 
+        console.log(data[0]);
+        dummy = data[0];
+        console.log(dummy);
         keys = Object.keys(data[0]);
+        // console.log(Object.getOwnPropertyNames(data[0]));
+       console.log(keys);
 
         result = '';
         result += keys.join(columnDelimiter);
         result += lineDelimiter;
+
+        console.log(result);
 
         data.forEach(function(item) {
             ctr = 0;
