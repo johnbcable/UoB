@@ -103,6 +103,12 @@ If queryref > -1 Then
 
 	querylist(1) = "SELECT P.TITLE as Title, P.FORENAME as Forename, P.SURNAME as Surname, KNOWN_AS AS PreferredName, P.PERSON_CODE as PersonNumber, A.TELEPHONE as HomePhoneNumber, TRUNC(P.EMAIL_ADDRESS) as WorkEmail, A.ADDRESS_LINE_1 AS AddressLine1, A.ADDRESS_LINE_2 AS AddressLine2, A.ADDRESS_LINE_3 AS AddressLine3, A.TOWN AS City, A.REGION AS Region, A.COUNTRY AS Country, A.UK_POST_CODE_PT1||' '||A.UK_POST_CODE_PT2 AS PostalCode, TO_CHAR(P.DATE_OF_BIRTH,'YYYY-MM-DD') as DateOfBirth, TRUNC(P.ETHNIC_ORIGIN) as Ethnicity, P.SEX AS Gender, P.NI_NUMBER as NationalId, P.USERNAME AS UserName FROM MAC4.HES_PEOPLE P, MAC4.HES_ADDRESSES A WHERE P.PERSON_CODE = {{p1}} AND  A.OWNER_TYPE = 'P' AND (TRUNC(TO_CHAR(P.PERSON_CODE)) = TRUNC(A.OWNER_REF))"
 
+
+
+	' Queries 30-40 are data transform lookups
+	querylist(30) = "SELECT TC.FUSIONTITLE FROM TITLECODES TC WHERE TC.LEGACYTITLE = '{{p1}}'"
+	querylist(31) = "SELECT CC.HESACODE FROM COUNTRYCODES CC WHERE CC.ISOCOUNTRYCODE = '{{p1}}'"
+
 	' Following query cut short by limiting to over 1733200. For real needs changing to
 	' reflect migration cohort
 	querylist(48) = "SELECT DISTINCT(PERSON_CODE) from MAC4.HES_PEOPLE WHERE PERSON_CODE > 1733200 AND rownum < 200 ORDER BY PERSON_CODE"
