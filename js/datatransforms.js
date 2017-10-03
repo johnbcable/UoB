@@ -147,9 +147,6 @@ function fusionTitleCode(oldtitlecode) {
 }
 
 
-
-}
-
 function fusionRelationship(oldrelationship) {
 
 	var myRelationship = oldrelationship || "NULL";

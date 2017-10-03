@@ -219,7 +219,7 @@ function compareEmployee(personcode) {
 		var comparison = {};
 
 		legacyurl += myperson;
-  	fusionurl += myperson;
+  		fusionurl += myperson;
 
 		// Look through legacy and fusion data filling in differences
 		// in comparator object
@@ -393,7 +393,7 @@ $(document).ready(function() {
 
 		paramSetup();
 
-    generateEmployeeComparisonTable();
+    	generateEmployeeComparisonTable();
 
 	});
 
@@ -401,13 +401,9 @@ $(document).ready(function() {
 	// Comparison Spreadsheet
 
 	$('#comparisonspreadsheet').click( function(event) {
-	  event.preventDefault();
+		event.preventDefault();
 
-		// Reinitialise comparisonSummary Array
-
-	  // Set up parameters for this run.
-
-	  paramSetup();														// Pull in run parameters from submission form
+	  	paramSetup();														// Pull in run parameters from submission form
 
 		generateComparisonSpreadsheet();
 
