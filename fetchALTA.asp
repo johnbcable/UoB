@@ -105,9 +105,12 @@ If queryref > -1 Then
 
 
 
-	' Queries 30-40 are data transform lookups
+' ==========================================================================================
+'
+' Queries 30-40 are data transform lookups
+'
 	querylist(30) = "SELECT TC.FUSIONTITLE FROM TITLECODES TC WHERE TC.LEGACYTITLE = '{{p1}}'"
-	querylist(31) = "SELECT CC.HESACODE FROM COUNTRYCODES CC WHERE CC.ISOCOUNTRYCODE = '{{p1}}'"
+	querylist(31) = "SELECT CC.HESACODE AS countrycode FROM COUNTRYCODES CC WHERE CC.ISOCOUNTRYCODE = '{{p1}}'"
 
 	' Following query cut short by limiting to over 1733200. For real needs changing to
 	' reflect migration cohort

@@ -6,40 +6,73 @@ Contains Javascript versions of transformation
 functions to be used as part of the data migration 
 pipeline.
 
-fusionCountryCode(oldcountrycode)
-fusionEthnicityCode(oldethnicdescription)
-fusionReligiousBelief(oldreligiousbelief)
-fusionTitleCode(oldtitlecode)
-fusionRelationship(oldrelationship)
+fusionCountryCode(oldcountrycode, baseurl)
+fusionEthnicityCode(oldethnicdescription, baseurl)
+fusionReligiousBelief(oldreligiousbelief, baseurl)
+fusionTitleCode(oldtitlecode, baseurl)
+fusionRelationship(oldrelationship, baseurl)
 
 **********************************************/
-function fusionCountryCode(oldcountrycode)
 
-var mycountry;
+// Global enumerated variables
 
-	var result = new String("GB").toString();
+var CountryQuery = 31;
+var TitleQuery = 30;
 
-	mycountry = oldcountrycode || "NULL";
+function fusionCountryCode(args)
+
+	var mycountry, myurl, mappingurl;
+
+	var result = new String("GB").toString();   // Default to Great Britain
+
+	// Process supplied args
+	oldcountrycode, baseurl
+	mycountry = args.oldcountrycode || "NULL";
 	mycountry = mycountry.toUpperCase();
+
+	myurl = args.baseurl || "ACCESS";
+	myurl = myurl == "ACCESS" ? "http://its-n-jcnc-01/fetchJSON.asp" : "http://its-n-jcnc-01/fetchALTA.asp";
+
+	mappingurl = myurl+"?id="+CountryQuery+"&p1="+mycountry;
+
+	console.log(mappingurl);
+
+	// Now do the getJSON call using the mappingurl
+	$.getJSON(mappingurl, function (data) {
+		// console.log("Legacy url: "+url);
+
+		jsonstring = JSON.stringify(data[0]);
+
+		// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
+    // debugwrite("Legacy jsonstring: "+jsonstring);
+	});
 
 	switch(mycountry) {
 
 	   case: "UNITED STATES"
 	      result = "US";
+	      break;
 	   case: "MALTA"
 	      result = "MT";
+	      break;
 	   case: "LUXEMBOURG"
 	      result = "LU";
+	      break;
 	   case: "IRELAND"
 	      result = "IE";
+	      break;
 	   case: "CYPRUS"
 	      result = "XB";
+	      break;
 	   case: "INDIA"
 	      result = "IN";
+	      break;
 	   case: "ITALY"
 	      result = "IT";
+	      break;
 	   case: "NULL"
 	      result = "GB";
+	      break;
 	   default:
 	      result = "GB";
 	}
@@ -49,11 +82,18 @@ var mycountry;
 
 }
 
-function fusionEthnicityCode(oldethnicdescription) {
+function fusionEthnicityCode(args) {
 
 	var myethnic = new String("");
 	var result = new String("10");     // default to White-British
-	myethnic = oldethnicdescription || "NULL";
+	var myurl;
+
+	// Process supplied args
+	oldcountrycode, baseurl
+	myethnic = args.oldethnicdescription || "NULL";
+
+	myurl = args.baseurl || "ACCESS";
+	myurl = myurl == "ACCESS" ? "http://its-n-jcnc-01/fetchJSON.asp" : "http://its-n-jcnc-01/fetchALTA.asp";
 
 	switch(myethnic) {
 
@@ -124,11 +164,16 @@ function fusionEthnicityCode(oldethnicdescription) {
 }
 
 
-function fusionReligiousBelief(oldreligiousbelief) {
-
-	var myReligion = oldreligiousbelief || "98";
+function fusionReligiousBelief(args) {
 
 	var result;
+	var myurl;
+
+	// Process supplied args
+	var myReligion = args.oldreligiousbelief || "98";
+
+	myurl = args.baseurl || "ACCESS";
+	myurl = myurl == "ACCESS" ? "http://its-n-jcnc-01/fetchJSON.asp" : "http://its-n-jcnc-01/fetchALTA.asp";
 
 	// myReligion = Array("01", "02", "03", "10", "11", "12", "13", "14", "80", "98")
 
@@ -136,20 +181,35 @@ function fusionReligiousBelief(oldreligiousbelief) {
 }
 
 
-function fusionTitleCode(oldtitlecode) {
+function fusionTitleCode(args) {
 
-	var mytitle = oldtitlecode || "NULL";
+	var myurl;
+
+	// Process supplied args
+	var mytitle = args.oldtitlecode || "NULL";
+
+	myurl = args.baseurl || "ACCESS";
+	myurl = myurl == "ACCESS" ? "http://its-n-jcnc-01/fetchJSON.asp" : "http://its-n-jcnc-01/fetchALTA.asp";
 
 	mytitle = mytitle.toUpperCase();
+
+	// If mytitle is not NULL, try and get its bona-fide Fusion
+	// equivalent from TITLECODES table
 
 	return ( mytitle );
 
 }
 
 
-function fusionRelationship(oldrelationship) {
+function fusionRelationship(args) {
 
-	var myRelationship = oldrelationship || "NULL";
+	var myurl;
+
+	// Process supplied args
+	var myrelationship = args.oldrelationship || "NULL";
+
+	myurl = args.baseurl || "ACCESS";
+	myurl = myurl == "ACCESS" ? "http://its-n-jcnc-01/fetchJSON.asp" : "http://its-n-jcnc-01/fetchALTA.asp";
 
 	myrelationship = myrelationship.toUpperCase();
 
