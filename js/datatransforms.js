@@ -41,7 +41,7 @@ var mycountry;
 	   case: "NULL"
 	      result = "GB";
 	   default:
-	      CountryCode = "GB";
+	      result = "GB";
 	}
 
 
