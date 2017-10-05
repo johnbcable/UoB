@@ -124,7 +124,7 @@ var mydebug = new String("N").toString();
           Low-level function test
         </td>
         <td>
-          <a id="functiontest" name="functiontest" href="#">Run Tests</a>
+          <a id="functiontest" name="functiontest" href="#">Run Tests &raquo;</a>
         </td>
       </tr>
     </tbody>

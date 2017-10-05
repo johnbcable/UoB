@@ -485,7 +485,7 @@ $(document).ready(function() {
 
 	  paramSetup();														// Pull in run parameters from submission form
 
-		generateComparisonSpreadsheet();
+		generateComparisonSpreadsheet(); 
 
 	});     // end of click event for #comparisonspreadsheet
 
