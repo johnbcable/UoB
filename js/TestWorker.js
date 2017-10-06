@@ -395,23 +395,57 @@ function getFusionEmployee(fusionemployee) {
 		var thefusionemployee = fusionemployee || 5500165;
 		var result = new Object();
 
-		result = {"Title":"MRS.","Forename":"Keira","Surname":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"};
+		result = {"Title":"MRS.","FirstName":"Keira","LastName":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"};
 
 			return ( result );
 }
 
 // ============================================================================
-function comparePeople(person1, person2) {
-	var myperson1 = person1 || {};
-	var myperson2 = person2 || {};
-	var result = new Object();
+function comparePeople(legacy, fusion) {
 
+	var nullobject = {};
+	var summarylength = 0;
 
+	// Now reinitialise comparator object
+	var comparison = {};
 
+		comparison.PersonID = legacy.PERSONNUMBER;
 
-	return ( result );
+		// Must apply developed transforms before doing Y/N comparison
+
+		var dummy = fusionTitleCode(legacy.TITLE);
+		comparison.Title = fusion.Salutation == dummy ? "Y" : "N";
+		comparison.Forename = fusion.FirstName == legacy.FORENAME ? "Y" : "N";
+		comparison.Surname = fusion.LastName == legacy.SURNAME ? "Y" : "N";
+		comparison.Preferredname = fusion.PreferredName == legacy.PREFERREDNAME ? "Y" : "N";
+		comparison.PersonCode = fusion.PersonNumber == legacy.PERSONNUMBER ? "Y" : "N";
+		comparison.HomeTelephone = fusion.HomeTelephone == legacy.HOMEPHONENUMBER ? "Y" : "N";
+		comparison.WorkEmail = fusion.WorkEmail == legacy.WORKEMAIL ? "Y" : "N";
+
+		//  Now do checks on address components
+		var addressmessage = "";
+		addressmessage += fusion.AddressLine1 == legacy.ADDRESSLINE1 ? "" : " line 1 different,";
+		addressmessage += fusion.AddressLine2 == legacy.ADDRESSLINE2 ? "" : " line 2 different,";
+		addressmessage += fusion.AddressLine3 == legacy.ADDRESSLINE3 ? "" : " line 3 different,";
+		addressmessage += fusion.City == legacy.CITY ? "" : " town different,";
+		addressmessage += fusion.Region == legacy.REGION ? "" : " region different,";
+		addressmessage += fusion.Country == legacy.COUNTRY ? "" : " country different,";
+		addressmessage += fusion.PostalCode == legacy.POSTALCODE ? "" : " postcode different,";
+
+		comparison.Address = addressmessage == "" ? "Y" : "N";
+		// End of address components checks
+
+		comparison.DateOfBirth = fusion.DateOfBirth == legacy.DATEOFBIRTH ? "Y" : "N";
+		dummy = fusionEthnicityCode(legacy.ETHNICITY);
+		comparison.Ethnicity = fusion.Ethnicity == dummy ? "Y" : "N";
+		comparison.Gender = fusion.Gender == legacy.GENDER ? "Y" : "N";
+		comparison.NINumber = fusion.NationalId == legacy.NATIONALID ? "Y" : "N";
+		comparison.UserName = fusion.UserName == legacy.USERNAME ? "Y" : "N";
+
+	return (  comparison );
 
 }
+
 // ============================================================================
 function runTestSuite() {
 
@@ -424,15 +458,11 @@ function runTestSuite() {
 	if (curperson) {
 		mylegacy = getLegacyEmployee(curperson);
 
-		console.log(mylegacy);
-
 		myfusion = getFusionEmployee(curperson);
-
-		console.log(myfusion);
 
 	  if ( mylegacy && myfusion) {
 			mycomparison = comparePeople(mylegacy, myfusion);
-			console.log(mycomparison);
+			debugger;
 		}
 
 	}

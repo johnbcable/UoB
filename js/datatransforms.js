@@ -91,7 +91,6 @@ function fusionEthnicityCode(args) {
 	var myurl;
 
 	// Process supplied args
-	oldcountrycode, baseurl
 	myethnic = args.oldethnicdescription || "NULL";
 
 	myurl = args.baseurl || "ACCESS";
