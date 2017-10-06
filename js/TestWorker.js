@@ -443,10 +443,23 @@ function getFusion(fusionemployee) {
 }
 
 // ============================================================================
+function comparePeople(person1, person2) {
+	var myperson1 = person1 || {};
+	var myperson2 = person2 || {};
+	var result = new Object();
+
+
+
+
+	return ( result );
+
+}
+// ============================================================================
 function runTestSuite() {
 
 	var mylegacy = new Object();
 	var myfusion = new Object();
+	var mycomparison = new Object();
 
 	paramSetup();   // Set up parameters for run from submitting form.
 
@@ -458,6 +471,11 @@ function runTestSuite() {
 		myfusion = getFusion(curperson);
 
 		console.log(myfusion);
+
+	  if ( mylegacy && myfusion) {
+			mycomparison = comparePeople(mylegacy, myfusion);
+			console.log(mycomparison);
+		}
 
 	}
 
@@ -485,7 +503,7 @@ $(document).ready(function() {
 
 	  paramSetup();														// Pull in run parameters from submission form
 
-		generateComparisonSpreadsheet(); 
+		generateComparisonSpreadsheet();
 
 	});     // end of click event for #comparisonspreadsheet
 
