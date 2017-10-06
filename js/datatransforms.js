@@ -2,8 +2,8 @@
 
 datatransforms.js
 
-Contains Javascript versions of transformation 
-functions to be used as part of the data migration 
+Contains Javascript versions of transformation
+functions to be used as part of the data migration
 pipeline.
 
 fusionCountryCode(oldcountrycode, baseurl)
@@ -19,7 +19,8 @@ fusionRelationship(oldrelationship, baseurl)
 var CountryQuery = 31;
 var TitleQuery = 30;
 
-function fusionCountryCode(args)
+// ============================================================================
+function fusionCountryCode(args) {
 
 	var mycountry, myurl, mappingurl;
 
@@ -49,28 +50,28 @@ function fusionCountryCode(args)
 
 	switch(mycountry) {
 
-	   case: "UNITED STATES"
+	   case "UNITED STATES":
 	      result = "US";
 	      break;
-	   case: "MALTA"
+	   case "MALTA":
 	      result = "MT";
 	      break;
-	   case: "LUXEMBOURG"
+	   case "LUXEMBOURG":
 	      result = "LU";
 	      break;
-	   case: "IRELAND"
+	   case "IRELAND":
 	      result = "IE";
 	      break;
-	   case: "CYPRUS"
+	   case "CYPRUS":
 	      result = "XB";
 	      break;
-	   case: "INDIA"
+	   case "INDIA":
 	      result = "IN";
 	      break;
-	   case: "ITALY"
+	   case "ITALY":
 	      result = "IT";
 	      break;
-	   case: "NULL"
+	   case "NULL":
 	      result = "GB";
 	      break;
 	   default:
@@ -82,6 +83,7 @@ function fusionCountryCode(args)
 
 }
 
+// ============================================================================
 function fusionEthnicityCode(args) {
 
 	var myethnic = new String("");
@@ -97,64 +99,64 @@ function fusionEthnicityCode(args) {
 
 	switch(myethnic) {
 
-	    case: "Arab"
+	    case "Arab":
 	        result = new String("50");
 	        break;
-	    case: "Asian or Asian British-Bangladeshi"
+	    case "Asian or Asian British-Bangladeshi":
 	        result = new String("33");
 	        break;
-	    case: "Asian or Asian British-Indian"
+	    case "Asian or Asian British-Indian":
 	        result = new String("31");
 	        break;
-	    case: "Asian or Asian British-Pakistani"
+	    case "Asian or Asian British-Pakistani":
 	        result = new String("32");
 	        break;
-	    case: "Black or Black British-African"
+	    case "Black or Black British-African":
 	        result = new String("22");
 	        break;
-	    case: "Black or Black British-Caribbean"
+	    case "Black or Black British-Caribbean":
 	        result = new String("21");
 	        break;
-	    case: "Chinese"
+	    case "Chinese":
 	        result = new String("34");
 	        break;
-	    case: "Mixed-White And Asian"
+	    case "Mixed-White And Asian":
 	        result = new String("43");
 	        break;
-	    case: "Mixed-White and Black African"
+	    case "Mixed-White and Black African":
 	        result = new String("42");
 	        break;
-	    case: "Mixed-White and Black Caribbean"
+	    case "Mixed-White and Black Caribbean":
 	        result = new String("21");
 	        break;
-	    case: "Other Asian background"
+	    case "Other Asian background":
 	        result = new String("39");
 	        break;
-	    case: "Other Black Background"
+	    case "Other Black Background":
 	        result = new String("29");
 	        break;
-	    case: "Other Ethnic background"
+	    case "Other Ethnic background":
 	        result = new String("80");
 	        break;
-	    case: "Other Mixed background"
+	    case "Other Mixed background":
 	        result = new String("49");
 	        break;
-	    case: "Other White Background"
+	    case "Other White Background":
 	        result = new String("10");
 	        break
-	    case: "Prefer not to disclose"
+	    case "Prefer not to disclose":
 	        result = new String("98");
 	        break;
-	    case: "White-British"
+	    case "White-British":
 	        result = new String("10");
 	        break;
-	    case: "White-Irish"
+	    case "White-Irish":
 	        result = new String("10");
 	        break;
-	   case: "NULL"
+	   case "NULL":
 	      result = new String("90");
 	      break;
-	   default: 
+	   default:
 	      result = new String("90");
 
 	}
@@ -164,6 +166,7 @@ function fusionEthnicityCode(args) {
 }
 
 
+// ============================================================================
 function fusionReligiousBelief(args) {
 
 	var result;
@@ -181,6 +184,7 @@ function fusionReligiousBelief(args) {
 }
 
 
+// ============================================================================
 function fusionTitleCode(args) {
 
 	var myurl;
@@ -201,6 +205,7 @@ function fusionTitleCode(args) {
 }
 
 
+// ============================================================================
 function fusionRelationship(args) {
 
 	var myurl;
@@ -216,4 +221,3 @@ function fusionRelationship(args) {
 	return( myrelationship );
 
 }
-
