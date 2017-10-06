@@ -198,7 +198,12 @@ querylist(21) = "SELECT 'MERGE' as METADATA, 'ContactRelationship' as ContactRel
 
 
 
-
+' ==========================================================================================
+'
+' Queries 30-40 are data transform lookups
+'
+querylist(30) = "SELECT tc.FusionTitle FROM TitleCodes tc WHERE tc.LegacyTitle = '{{p1}}'"
+querylist(31) = "SELECT cc.HESACode AS countrycode FROM CountryCodes cc WHERE cc.ISOCountryCode = '{{p1}}'"
 
 
 

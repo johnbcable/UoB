@@ -6,6 +6,7 @@ function Session_OnStart() {
 
   Application("ALTAHRN") = "dsn=ALTAHRN;uid=cablej_rw;pwd=Mc3GtqS8RvoFyOT7PS0j;"
   Application("testdata") = "Provider=Microsoft.ACE.OLEDB.12.0 ;Data Source=E:\\inetpub\\wwwroot\\data\\TestData.mdb;"
+  Application("WORKLINK") = "dsn=ALTAHRN;uid=cablej_rw;pwd=Mc3GtqS8RvoFyOT7PS0j;"
  }
 
 function Session_OnEnd() {

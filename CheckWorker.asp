@@ -103,7 +103,7 @@ var mydebug = new String("N").toString();
               <div>
                 <label>UoB Person ID (from ID badge)</label>
                 <input type="text" name="personcode" id="personcode" placeholder="Person ID" /><br />
-                <a id="personcomparator" href='#'>Check &raquo;</a>
+                <a id="personcomparator" name="personcomparator" href='#'>Check &raquo;</a>
               </div>
             </div>
 
@@ -332,7 +332,8 @@ Legacy
   <script src="/UoB/bower_components/handlebars/handlebars.js"></script>
   <script src="/UoB/js/swag.js"></script>
   <script>Swag.registerHelpers(window.Handlebars);</script>
-  <script src="/UoB/js/fusionextractdatawriter.js"></script>
+  <script src="/UoB/js/dataextractwriter.js"></script>
+  <script src="/UoB/js/datatransforms.js"></script>
   <script src="/UoB/js/CheckWorker.js"></script>
 
 	</body>
