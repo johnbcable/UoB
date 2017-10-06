@@ -384,7 +384,27 @@ function getLegacyEmployee(legacyemployee) {
 		var thelegacyemployee = legacyemployee || 5500165;
 		var result = new Object();
 
+		/*
 		result = {"TITLE":"MRS.","FORENAME":"Keira","SURNAME":"Grobstein","PREFERREDNAME":null,"PERSONNUMBER":5500165,"HOMEPHONENUMBER":null,"WORKEMAIL":"e.grobstein@yopmail.com","ADDRESSLINE1":"55 Tagwell Road","ADDRESSLINE3":null,"ADDRESSLINE4":null,"CITY":"Droitwich","REGION":"Worcestershire","COUNTRY":null,"POSTALCODE":"WR9 7AQ","DATEOFBIRTH":"1971-04-26","ETHNICITY":"White-British","GENDER":"F","NATIONALID":"NX707818A","USERNAME":"QUEENNM"}
+		*/
+
+		var myperson = legacyemployee || '5500165';
+	  var legacyurl = baseLegacyURL + "?id=49&p1=" + myperson;
+
+		var jsonstring;			// Used for legacy employee data
+
+		$.getJSON(legacyurl, function (data) {
+
+			// console.log("Legacy url: "+url);
+
+			jsonstring = JSON.stringify(data[0]);
+
+			// jsonstring = new String('{"legacydata:"' + jsonstring + '}').toString();
+	    // debugwrite("Legacy jsonstring: "+jsonstring);
+
+			result = JSON.parse(jsonstring);
+
+		});
 
 		return ( result );
 }
@@ -395,7 +415,33 @@ function getFusionEmployee(fusionemployee) {
 		var thefusionemployee = fusionemployee || 5500165;
 		var result = new Object();
 
+		/*
 		result = {"Title":"MRS.","FirstName":"Keira","LastName":"Grobstein","PreferredName":null,"PersonNumber":5500165,"HomePhoneNumber":null,"WorkEmail":"e.grobstein@yopmail.com","AddressLine1":"55 Tagwell Road","AddressLine2":null,"AddressLine3":null,"City":"Droitwich","Region":"Worcestershire","Country":null,"PostalCode":"WR9 7AQ","DateOfBirth":"1971-04-26","Ethnicity":"White-British","Gender":"F","NationalId":"NX707818A","UserName":"QUEENNM"};
+		*/
+	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10000&q=PersonNumber=" + thefusionemployee;
+		var jsonstring2;		// Used for Fusion employee data
+
+
+		// Now issue AJAX call to get fusion employee details
+		$.ajax({
+			type: "GET",
+			url: fusionurl,
+			dataType: "json",
+			headers: {"Authorization": "Basic " + btoa("TECHADMIN6:Banzai29")},
+			success: function(data) {
+				jsonstring2 = JSON.stringify(data.items[0]);
+
+				// debugwrite("Fusion jsonstring2: "+jsonstring2);
+
+				result = JSON.parse(jsonstring2);
+
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				$('#error').html(xhr.responseText);
+				return (null);
+			}
+
+		});  // end of ajax call
 
 			return ( result );
 }
@@ -403,44 +449,41 @@ function getFusionEmployee(fusionemployee) {
 // ============================================================================
 function comparePeople(legacy, fusion) {
 
-	var nullobject = {};
-	var summarylength = 0;
-
-	// Now reinitialise comparator object
+	// Now set up comparator object
 	var comparison = {};
 
-		comparison.PersonID = legacy.PERSONNUMBER;
+	comparison.PersonID = legacy.PERSONNUMBER;
 
-		// Must apply developed transforms before doing Y/N comparison
+	// Must apply developed transforms before doing Y/N comparison
 
-		var dummy = fusionTitleCode(legacy.TITLE);
-		comparison.Title = fusion.Salutation == dummy ? "Y" : "N";
-		comparison.Forename = fusion.FirstName == legacy.FORENAME ? "Y" : "N";
-		comparison.Surname = fusion.LastName == legacy.SURNAME ? "Y" : "N";
-		comparison.Preferredname = fusion.PreferredName == legacy.PREFERREDNAME ? "Y" : "N";
-		comparison.PersonCode = fusion.PersonNumber == legacy.PERSONNUMBER ? "Y" : "N";
-		comparison.HomeTelephone = fusion.HomeTelephone == legacy.HOMEPHONENUMBER ? "Y" : "N";
-		comparison.WorkEmail = fusion.WorkEmail == legacy.WORKEMAIL ? "Y" : "N";
+	var dummy = fusionTitleCode({oldtitlecode: legacy.TITLE});
+	comparison.Title = fusion.Salutation == dummy ? "Y" : "N";
+	comparison.Forename = fusion.FirstName == legacy.FORENAME ? "Y" : "N";
+	comparison.Surname = fusion.LastName == legacy.SURNAME ? "Y" : "N";
+	comparison.Preferredname = fusion.PreferredName == legacy.PREFERREDNAME ? "Y" : "N";
+	comparison.PersonCode = fusion.PersonNumber == legacy.PERSONNUMBER ? "Y" : "N";
+	comparison.HomeTelephone = fusion.HomeTelephone == legacy.HOMEPHONENUMBER ? "Y" : "N";
+	comparison.WorkEmail = fusion.WorkEmail == legacy.WORKEMAIL ? "Y" : "N";
 
-		//  Now do checks on address components
-		var addressmessage = "";
-		addressmessage += fusion.AddressLine1 == legacy.ADDRESSLINE1 ? "" : " line 1 different,";
-		addressmessage += fusion.AddressLine2 == legacy.ADDRESSLINE2 ? "" : " line 2 different,";
-		addressmessage += fusion.AddressLine3 == legacy.ADDRESSLINE3 ? "" : " line 3 different,";
-		addressmessage += fusion.City == legacy.CITY ? "" : " town different,";
-		addressmessage += fusion.Region == legacy.REGION ? "" : " region different,";
-		addressmessage += fusion.Country == legacy.COUNTRY ? "" : " country different,";
-		addressmessage += fusion.PostalCode == legacy.POSTALCODE ? "" : " postcode different,";
+	//  Now do checks on address components
+	var addressmessage = "";
+	addressmessage += fusion.AddressLine1 == legacy.ADDRESSLINE1 ? "" : " line 1 different,";
+	addressmessage += fusion.AddressLine2 == legacy.ADDRESSLINE2 ? "" : " line 2 different,";
+	addressmessage += fusion.AddressLine3 == legacy.ADDRESSLINE3 ? "" : " line 3 different,";
+	addressmessage += fusion.City == legacy.CITY ? "" : " town different,";
+	addressmessage += fusion.Region == legacy.REGION ? "" : " region different,";
+	addressmessage += fusion.Country == legacy.COUNTRY ? "" : " country different,";
+	addressmessage += fusion.PostalCode == legacy.POSTALCODE ? "" : " postcode different,";
 
-		comparison.Address = addressmessage == "" ? "Y" : "N";
-		// End of address components checks
+	comparison.Address = addressmessage == "" ? "Y" : "N";
+	// End of address components checks
 
-		comparison.DateOfBirth = fusion.DateOfBirth == legacy.DATEOFBIRTH ? "Y" : "N";
-		dummy = fusionEthnicityCode(legacy.ETHNICITY);
-		comparison.Ethnicity = fusion.Ethnicity == dummy ? "Y" : "N";
-		comparison.Gender = fusion.Gender == legacy.GENDER ? "Y" : "N";
-		comparison.NINumber = fusion.NationalId == legacy.NATIONALID ? "Y" : "N";
-		comparison.UserName = fusion.UserName == legacy.USERNAME ? "Y" : "N";
+	comparison.DateOfBirth = fusion.DateOfBirth == legacy.DATEOFBIRTH ? "Y" : "N";
+	dummy = fusionEthnicityCode({oldethnicdescription: legacy.ETHNICITY});
+	comparison.Ethnicity = fusion.Ethnicity == dummy ? "Y" : "N";
+	comparison.Gender = fusion.Gender == legacy.GENDER ? "Y" : "N";
+	comparison.NINumber = fusion.NationalId == legacy.NATIONALID ? "Y" : "N";
+	comparison.UserName = fusion.UserName == legacy.USERNAME ? "Y" : "N";
 
 	return (  comparison );
 
@@ -452,22 +495,37 @@ function runTestSuite() {
 	var mylegacy = new Object();
 	var myfusion = new Object();
 	var mycomparison = new Object();
+	var comparisonSummary = new Array();
+	var theperson;
 
 	paramSetup();   // Set up parameters for run from submitting form.
 
-	if (curperson) {
-		mylegacy = getLegacyEmployee(curperson);
+	var legacylist = [5500018, 5500215, 5500165, 6704306];
 
-		myfusion = getFusionEmployee(curperson);
+	var summarylength = legacylist.length;
+
+	// Set up loop to iterate over returned legacy list
+	for (var i=0; i<summarylength; i++) {
+
+		theperson = legacylist[i];
+
+		mylegacy = getLegacyEmployee(theperson);
+
+		myfusion = getFusionEmployee(theperson);
 
 	  if ( mylegacy && myfusion) {
 			mycomparison = comparePeople(mylegacy, myfusion);
-			debugger;
+			comparisonSummary.push(mycomparison);
 		}
 
-	}
+		myfusion= {};
+		mylegacy = {};
 
-}
+		console.table(comparisonSummary);
+
+	}   // end of for loop
+
+}    // end of function definition
 
 $(document).ready(function() {
 
@@ -479,7 +537,7 @@ $(document).ready(function() {
 
 		paramSetup();
 
-    	generateEmployeeComparisonTable();
+    generateEmployeeComparisonTable();
 
 	});
 
@@ -496,13 +554,13 @@ $(document).ready(function() {
 	});     // end of click event for #comparisonspreadsheet
 
 	// ===========================================
-	// Comparison Spreadsheet
+	// Test suite
 
 	$('#functiontest').click( function(event) {
 		event.preventDefault();
 
 		runTestSuite();
 
-	});     // end of click event for #comparisonspreadsheet
+	});     // end of click event for #functiontest
 
 })  // end of document.ready
