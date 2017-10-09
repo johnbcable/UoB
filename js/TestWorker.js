@@ -74,11 +74,9 @@ function paramSetup() {
 
 }
 
-	// Adjust URLs to reflect submitted person code (in curperson)
-
-}
 
 // ============================================================================
+// Needs refactoring to use getLegacyEmployee and get FusionEmployee
 function generateEmployeeComparisonTable() {
 
   	var myperson = curperson || '5500165';
@@ -225,7 +223,7 @@ function compareEmployee(personcode) {
 		var comparison = {};
 
 		legacyurl += myperson;
-  		fusionurl += myperson;
+  	fusionurl += myperson;
 
 		// Look through legacy and fusion data filling in differences
 		// in comparator object
@@ -316,6 +314,7 @@ function compareEmployee(personcode) {
 }
 
 // ============================================================================
+// Needs refactoring to use getLegacyEmployee and get FusionEmployee
 function generateComparisonSpreadsheet() {
 	console.log("generateComparisonSpreadsheet called");
 
@@ -325,32 +324,6 @@ function generateComparisonSpreadsheet() {
 	var theperson;													// Tne current person we are dealing with
 	var index = 0;
 	var comparisonSummary = new Array();    // Holds all results of comparisons for all people
-
-	// console.log(legacyurl);
-	// console.log(typeof legacylist);
-
-	/*
-	$.ajax({
-		url: legacyurl,
-		dataType: 'json',
-		error: function(xhr, textStatus, errorThrown) {
-			$('#error').html(xhr.responseText);
-			return (null);
-		},
-		success: function(data) {
-			$.each(data, function(item) {
-				theperson = this.PersonCode;
-				console.log(theperson+" - "+typeof theperson);
-				legacylist[index] = new Number(theperson).valueOf();
-				index++;
-			});
-		}
-	});
-
-	// End 1st JSON loop
-	console.log("End of legacy JSON loop - legacylist = ");
-	console.log(typeof legacylist);
-	*/
 
 	// Set up fixed array of person id's to prove concept of the
 	// further logic below.
@@ -364,18 +337,22 @@ function generateComparisonSpreadsheet() {
 		// Get person code
 
 		theperson = legacylist[i];
-		// console.log(theperson);
 
-		// Call compareEmployee for this person
+		console.log("Comparing " + theperson + " ...");
 
-		var mycomparison = compareEmployee(theperson);
-		comparisonSummary.push(mycomparison);
-		// console.log(mycomparison);
+		mylegacy = getLegacyEmployee(theperson);
+		console.log("mylegacy ");
+		console.table(mylegacy);
 
-		// Add comparisons object from the compareEmployee return to
-		// the summary array (comparisonSummary)
+		myfusion = getFusionEmployee(theperson);
+		console.log("myfusion ");
+		console.table(myfusion);
 
-		// summarylength = comparisonSummary.push(mycomparison);
+	  if ( mylegacy && myfusion) {
+			console.log("Adding " + theperson + " to comparisonSummary");
+			mycomparison = comparePeople(mylegacy, myfusion);
+			comparisonSummary.push(mycomparison);
+		}
 
 	};
 
