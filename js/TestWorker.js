@@ -13,7 +13,9 @@
 //
 
 var defaultlegacyqueryid = "?id=49";
+// N.B. baseCoreURL may chnage aftre each major Oracle upgrade
 var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
+// N.B.  baseLegacyURL will chnage depending on whic legacy system is selected (paramSetup)
 var baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
 var curperson = 5500165;
 var debugging = true;
@@ -57,12 +59,20 @@ function paramSetup() {
 	baseCoreURL = "https://"+whichfusion+".hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
 
 	// Construct appropriate starting legacy URL
+	// Done this way to preserve consistent use of query ID's across the legacy queries
 	if ( whichlegacy == "ACCESS") {
 		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
 	}
 	if ( whichlegacy == "ALTAHRN") {
 		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchALTA.asp";
 	}
+	if ( whichlegacy == "WORKLINK") {
+		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchWORKLINK.asp";
+	}
+
+	// Adjust URLs to reflect submitted person code (in curperson)
+
+}
 
 	// Adjust URLs to reflect submitted person code (in curperson)
 
