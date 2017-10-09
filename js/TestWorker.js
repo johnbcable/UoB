@@ -381,14 +381,13 @@ function generateComparisonSpreadsheet() {
 // ============================================================================
 function getLegacyEmployee(legacyemployee) {
 
-		var thelegacyemployee = legacyemployee || 5500165;
 		var result = new Object();
 
 		/*
 		result = {"TITLE":"MRS.","FORENAME":"Keira","SURNAME":"Grobstein","PREFERREDNAME":null,"PERSONNUMBER":5500165,"HOMEPHONENUMBER":null,"WORKEMAIL":"e.grobstein@yopmail.com","ADDRESSLINE1":"55 Tagwell Road","ADDRESSLINE3":null,"ADDRESSLINE4":null,"CITY":"Droitwich","REGION":"Worcestershire","COUNTRY":null,"POSTALCODE":"WR9 7AQ","DATEOFBIRTH":"1971-04-26","ETHNICITY":"White-British","GENDER":"F","NATIONALID":"NX707818A","USERNAME":"QUEENNM"}
 		*/
 
-		var myperson = legacyemployee || '5500165';
+		var myperson = legacyemployee || 5500165;
 	  var legacyurl = baseLegacyURL + "?id=49&p1=" + myperson;
 
 		var jsonstring;			// Used for legacy employee data
@@ -500,6 +499,7 @@ function runTestSuite() {
 
 	paramSetup();   // Set up parameters for run from submitting form.
 
+	// For testingh purposes, set up short list of person IDs
 	var legacylist = [5500018, 5500215, 5500165, 6704306];
 
 	var summarylength = legacylist.length;
@@ -509,11 +509,18 @@ function runTestSuite() {
 
 		theperson = legacylist[i];
 
+		console.log("Comparing " + theperson + " ...");
+
 		mylegacy = getLegacyEmployee(theperson);
+		console.log("mylegacy ");
+		console.table(mylegacy);
 
 		myfusion = getFusionEmployee(theperson);
+		console.log("myfusion ");
+		console.table(myfusion);
 
 	  if ( mylegacy && myfusion) {
+			console.log("Adding " + theperson + " to comparisonSummary");
 			mycomparison = comparePeople(mylegacy, myfusion);
 			comparisonSummary.push(mycomparison);
 		}
