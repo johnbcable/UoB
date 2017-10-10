@@ -82,8 +82,6 @@ function generateEmployeeComparisonTable() {
   	var myperson = curperson || '5500165';
 	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10000&q=PersonNumber=";
 	  var legacyurl = baseLegacyURL + "?id=49&p1=";
-  	var nullobjectstring = "{}";
-  	var nullobject = {};
 		var thefusionemployee = {};
 		var thelegacyemployee = {};
 
