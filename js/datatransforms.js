@@ -198,7 +198,7 @@ function fusionTitleCode(args) {
 
 	// If mytitle is not NULL, try and get its bona-fide Fusion
 	// equivalent from TITLECODES table
-
+ 
 	return ( mytitle );
 
 }
