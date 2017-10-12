@@ -77,7 +77,12 @@ End If
 
 On Error Resume Next
 'Retrieve the datSource name from the Application object in Global.asa
-dataSource = "dsn=WORKLINK;uid=cablej_rw;pwd=fruitbowl;"
+' dataSource = Application("WORKLINK");
+' dataSource = "dsn=WORKLINK; Source=ITS-N-JCNC-01\SQLEXPRESS; Catalog=Worklink;User ID=ADF\cablej-admin;Password=Review0Various30Human;"
+' dataSource = "Provider=SQLNCLI11; Data Source=; Database=Worklink; Integrated Security=SSPI; DataTypeCompatibility=80; MARS Connection=True;"
+' datasource = "Provider=SQLNCLI10;Data Source=ITS-N-JCNC-01\SQLExpress;Initial Catalog=Worklink;User ID=ADF\cablej-admin;Password=Review0Various30Human;"
+datasource = "Provider=SQLNCLI11;Data Source=ITS-N-JCNC-01\SQLEXPRESS;Initial Catalog=Worklink;User ID=sa;Password=Password123"
+
 If Err.Number <> 0 Then
   Response.Write "Error in setting dataSource: " & Err.Description
   Err.Clear
@@ -99,7 +104,7 @@ End If
 If queryref > -1 Then
 
 	'Initialise querylist with queries
-	querylist(0) = "SELECT count(*) AS kount FROM dbo.Candidates"
+	querylist(0) = "SELECT count(*) AS kount FROM Candidates"
 
 	' querylist(1) is the main people extract query from this data source used in
 	' comparison web pages.

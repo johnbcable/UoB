@@ -6,7 +6,7 @@ function Session_OnStart() {
 
   Application("ALTAHRN") = "dsn=ALTAHRN;uid=cablej_rw;pwd=Mc3GtqS8RvoFyOT7PS0j;"
   Application("testdata") = "Provider=Microsoft.ACE.OLEDB.12.0 ;Data Source=E:\\inetpub\\wwwroot\\data\\TestData.mdb;"
-  Application("WORKLINK") = "Server=ITS-N-JCNC-01\SQLEXPRESS;"
+  Application("WORKLINK") = "Provider=SQLNCLI;Data Source=ITS-N-JCNC-01\SQLEXPRESS Catalog=Worklink;User ID=sa;Password=Password123;"
  }
 
 function Session_OnEnd() {
