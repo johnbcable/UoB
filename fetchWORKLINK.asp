@@ -78,10 +78,11 @@ End If
 On Error Resume Next
 'Retrieve the datSource name from the Application object in Global.asa
 ' dataSource = Application("WORKLINK");
-' dataSource = "dsn=WORKLINK; Source=ITS-N-JCNC-01\SQLEXPRESS; Catalog=Worklink;User ID=ADF\cablej-admin;Password=Review0Various30Human;"
+dataSource = "dsn=WORKLINK; Source=ITS-N-JCNC-01\SQLEXPRESS; Catalog=Worklink;User ID=ADF\cablej-admin;Password=Review0Various30Human;"
 ' dataSource = "Provider=SQLNCLI11; Data Source=; Database=Worklink; Integrated Security=SSPI; DataTypeCompatibility=80; MARS Connection=True;"
 ' datasource = "Provider=SQLNCLI10;Data Source=ITS-N-JCNC-01\SQLExpress;Initial Catalog=Worklink;User ID=ADF\cablej-admin;Password=Review0Various30Human;"
-datasource = "Provider=SQLNCLI11;Data Source=ITS-N-JCNC-01\SQLEXPRESS;Initial Catalog=Worklink;User ID=sa;Password=Password123"
+' datasource = "Provider=SQLNCLI11;Data Source=ITS-N-JCNC-01\SQLEXPRESS;Initial Catalog=Worklink;User ID=sa;Password=Password123"
+' datasource = "Provider=SQLNCLI11;Data Source=ITS-N-JCNC-01\SQLEXPRESS;Initial Catalog=Worklink;User ID=ADF\cablej-admin;Password=Review0Various30Human;
 
 If Err.Number <> 0 Then
   Response.Write "Error in setting dataSource: " & Err.Description
@@ -104,7 +105,7 @@ End If
 If queryref > -1 Then
 
 	'Initialise querylist with queries
-	querylist(0) = "SELECT count(*) AS kount FROM Candidates"
+	querylist(0) = "SELECT count(*) AS kount FROM dbo.Candidates"
 
 	' querylist(1) is the main people extract query from this data source used in
 	' comparison web pages.
@@ -153,8 +154,6 @@ If debugging Then
 	Response.Write "Query ID: " & queryref & vbCrLf
 	Response.Write "dataSource: " & dataSource & vbCrLf
 	Response.Write "strSQL = [" & strSQL & "]<br />"
-
-	Response.End
 End If
 
 'Create an ADO connection object
@@ -180,7 +179,7 @@ If Err.Number <> 0 Then
 End If
 
 If debugging Then
-	Response.Write
+	Response.Write "About to call QueryToJSON ..."
 Else
 	dataResults = QueryToJSON(adoCon, strSQL).Flush
 	If Err.Number <> 0 Then
@@ -191,11 +190,11 @@ End If
 
 If debugging Then
 	Response.Write "Just after where the call to QueryToJSON would have happened<br />"
-Else
-  Response.ContentType = "application/json"
-
-  Response.Write(dataResults)
 End If
+
+Response.ContentType = "application/json"
+
+Response.Write(dataResults)
 
 Response.End
 %>
