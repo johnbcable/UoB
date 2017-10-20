@@ -1,0 +1,32 @@
+-- Create Worklink data table
+@e:\inetpub\wwwroot\UoB\SQL\CreateWorklinkDataTable.sql
+desc WorklinkData
+
+-- Alta matching process function definition
+@e:\inetpub\wwwroot\UoB\SQL\RunMatchWorklink.sql
+@e:\inetpub\wwwroot\UoB\SQL\MatchWorklink.sql
+commit;
+
+set serveroutput on
+exec RunMatchWorklink
+select * from all_objects where object_name = 'MATCHWORKLINK';
+set serveroutput on
+select MatchWorklink() from dual;
+drop function MatchWorklink;
+
+
+-- sAMPLE MADE-UP DATA (EXCEPT FOR sTUDENTid)
+INSERT INTO WORKLINKDATA(STUDENTID,STUDENTEXPIRYDATE,STUDENTFORENAME,STUDENTSURNAME) VALUES (1307128,NULL,NULL,NULL);
+INSERT INTO WORKLINKDATA(STUDENTID,STUDENTEXPIRYDATE,STUDENTFORENAME,STUDENTSURNAME) VALUES (1268901,NULL,NULL,NULL);
+INSERT INTO WORKLINKDATA(STUDENTID,STUDENTEXPIRYDATE,STUDENTFORENAME,STUDENTSURNAME) VALUES (1448548,NULL,NULL,NULL);
+INSERT INTO WORKLINKDATA(STUDENTID,STUDENTEXPIRYDATE,STUDENTFORENAME,STUDENTSURNAME) VALUES (1491970,NULL,NULL,NULL);
+INSERT INTO WORKLINKDATA(STUDENTID,STUDENTEXPIRYDATE,STUDENTFORENAME,STUDENTSURNAME) VALUES (1720996,NULL,NULL,NULL);
+INSERT INTO WORKLINKDATA(STUDENTID,STUDENTEXPIRYDATE,STUDENTFORENAME,STUDENTSURNAME) VALUES (1360292,NULL,NULL,NULL);
+COMMIT;
+
+select min(person_code) from hes_people;
+
+SELECT * FROM WORKLINKDATA;
+set heading off
+select surname, forename, date_of_birth from hes_people where person_code in (select studentid from studentids);
+
