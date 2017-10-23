@@ -9,9 +9,7 @@ commit;
 
 set serveroutput on
 exec RunMatchWorklink
-select * from all_objects where object_name = 'MATCHWORKLINK';
-set serveroutput on
-select MatchWorklink() from dual;
+select * from WORKLINKDATA;
 drop function MatchWorklink;
 
 
