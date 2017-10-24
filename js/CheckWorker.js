@@ -157,7 +157,7 @@ function generateEmployeeComparisonTable() {
 				// End of address components checks
 
 				comparison.DateOfBirth = thefusionemployee.DateOfBirth == thelegacyemployee.DATEOFBIRTH ? "OK" : "Dates of birth differ";
-				
+
 				dummy = fusionEthnicityCode(thelegacyemployee.ETHNICITY);
 				comparison.Ethnicity = thefusionemployee.Ethnicity == dummy ? "OK" : "Ethnicities differ";
 				comparison.Gender = thefusionemployee.Gender == thelegacyemployee.GENDER ? "OK" : "Genders differ";
@@ -255,8 +255,8 @@ function compareEmployee(personcode) {
 
 					// Must apply developed transforms before doing Y/N comparison
 
-					var dummy = fusionTitleCode(thelegacyemployee.TITLE);
-					comparison.Title = thefusionemployee.Salutation == dummy ? "Y" : "N";
+					var dummy = fusionTitleCode(legacy.TITLE);
+					comparison.Title = fusion.Salutation == dummy ? "Y" : "N";
 					comparison.Forename = fusion.FirstName == legacy.FORENAME ? "Y" : "N";
 					comparison.Surname = fusion.LastName == legacy.SURNAME ? "Y" : "N";
 					comparison.Preferredname = fusion.PreferredName == legacy.PREFERREDNAME ? "Y" : "N";
@@ -278,8 +278,8 @@ function compareEmployee(personcode) {
 					// End of address components checks
 
 					comparison.DateOfBirth = fusion.DateOfBirth == legacy.DATEOFBIRTH ? "Y" : "N";
-					dummy = fusionEthnicityCode(thelegacyemployee.ETHNICITY);
-					comparison.Ethnicity = thefusionemployee.Ethnicity == dummy ? "Y" : "N";
+					dummy = fusionEthnicityCode(legacy.ETHNICITY);
+					comparison.Ethnicity = fusion.Ethnicity == dummy ? "Y" : "N";
 					comparison.Gender = fusion.Gender == legacy.GENDER ? "Y" : "N";
 					comparison.NINumber = fusion.NationalId == legacy.NATIONALID ? "Y" : "N";
 					comparison.UserName = fusion.UserName == legacy.USERNAME ? "Y" : "N";
