@@ -16,6 +16,7 @@ IS
    my_alta_forename VARCHAR2(30);
    my_alta_surname VARCHAR2(30);
    my_alta_dob DATE;
+   my_ni_number VARCHAR2(10);
    my_alta_flag BOOLEAN;
 
 BEGIN
@@ -24,6 +25,7 @@ BEGIN
   my_alta_forename := '';
   my_alta_surname := '';
   my_alta_dob := to_date('01/01/0001','DD/MM/YYYY');
+  my_ni_number := '';
   matchedcount := 0;
   totalcount := 0;
   my_alta_flag := FALSE;
@@ -40,13 +42,13 @@ BEGIN
       totalcount := totalcount + 1;
 
       -- debugmode
-      DBMS_OUTPUT.PUT_LINE('NOW LOOKING AT STUDENT '||TO_CHAR(MY_STUDENTID,'9999999999'));
+      -- DBMS_OUTPUT.PUT_LINE('NOW LOOKING AT STUDENT '||TO_CHAR(MY_STUDENTID,'9999999999'));
 
       -- Check if a PERSON_CODE of my_studentid exists on Alta
       my_alta_flag := TRUE;    --  Default to a positive result
       BEGIN
-        SELECT forename, surname, date_of_birth
-        INTO my_alta_forename, my_alta_surname, my_alta_dob
+        SELECT forename, surname, date_of_birth, ni_number
+        INTO my_alta_forename, my_alta_surname, my_alta_dob, my_ni_number
         FROM HES_PEOPLE
         WHERE person_code = my_studentid;
       EXCEPTION
@@ -64,7 +66,8 @@ BEGIN
           SET AltaSurname = my_alta_surname,
               AltaForename = my_alta_forename,
               AltaPersonCode = my_studentid,
-              AltaDOB = my_alta_dob
+              AltaDOB = my_alta_dob,
+              AltaNINumber = my_ni_number
           WHERE CURRENT OF c1;
         END;
 
@@ -77,10 +80,11 @@ BEGIN
       my_alta_forename := '';
       my_alta_surname := '';
       my_alta_dob := to_date('01/01/0001','DD/MM/YYYY');
+      my_ni_number := '';
 
    END LOOP;
    COMMIT;
-   
+
    CLOSE c1;
 
   END;
