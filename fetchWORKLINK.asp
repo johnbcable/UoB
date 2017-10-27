@@ -115,13 +115,17 @@ If queryref > -1 Then
 
 ' ==========================================================================================
 '
+' The following queries are not used in the Worklink data set
+'
 ' Queries 30-40 are data transform lookups
 '
-	querylist(30) = "SELECT TC.FUSIONTITLE FROM TITLECODES TC WHERE TC.LEGACYTITLE = '{{p1}}'"
-	querylist(31) = "SELECT CC.HESACODE AS countrycode FROM COUNTRYCODES CC WHERE CC.ISOCOUNTRYCODE = '{{p1}}'"
-
-	' Following query provides source for list of people to be delat with via comparions
-	querylist(48) = "SELECT DISTINCT(PERSON_CODE) from MAC4.HES_PEOPLE WHERE PERSON_CODE > 1733200 AND rownum < 200 ORDER BY PERSON_CODE"
+'	querylist(30) = "SELECT TC.FUSIONTITLE FROM TITLECODES TC WHERE TC.LEGACYTITLE = '{{p1}}'"
+'	querylist(31) = "SELECT CC.HESACODE AS countrycode FROM COUNTRYCODES CC WHERE CC.ISOCOUNTRYCODE = '{{p1}}'"
+'
+' Following query provides source for sample list of people to be dealt with via comparisons
+'	querylist(48) = "SELECT DISTINCT(PERSON_CODE) from MAC4.HES_PEOPLE WHERE PERSON_CODE > 1733200 AND rownum < 200 ORDER BY PERSON_CODE"
+'
+' ==========================================================================================
 
 	strSQL = querylist(queryref)
 	origSQL = strSQL

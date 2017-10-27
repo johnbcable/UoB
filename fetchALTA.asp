@@ -107,6 +107,18 @@ If queryref > -1 Then
 
 ' ==========================================================================================
 '
+' Queries 21-30 deal with accessing Worklink data imported into ALTAHRN
+'
+' 21 - EXCLUDES ENTRIES PASSED ACROSS WITH DEFAULTED DATES OF BIRTH
+
+querylist(21) = "SELECT 'N/K' as Title, W.STUDENTFORENAME as Forename, W.STUDENTSURNAME as Surname, 'N/K' AS PreferredName, W.STUDENTID as PersonNumber, 'N/K' as HomePhoneNumber,'N/K' as WorkEmail, 'N/K' AS AddressLine1, '' AS AddressLine2, '' AS AddressLine3, '' AS City, '' AS Region, '' AS Country, 'N/K' AS PostalCode, TO_CHAR(W.STUDENTDOB,'YYYY-MM-DD') as DateOfBirth, 'N/K' as Ethnicity, 'U' AS Gender, W.STUDENTNINO as NationalId, 'N/K' AS UserName FROM WORKLINKDATA W WHERE W.STUDENTID = {{p1}} AND TO_CHAR(W.STUDENTDOB,'YYYY-MM-DD') NOT LIKE '1900-01-01'"
+
+' 22 - SAME AS 21 BUT ALLOWS INCLUSION OF ENTRIES WITH DEFAULT DATES OF BIRTH
+querylist(22) = "SELECT 'N/K' as Title, W.STUDENTFORENAME as Forename, W.STUDENTSURNAME as Surname, 'N/K' AS PreferredName, W.STUDENTID as PersonNumber, 'N/K' as HomePhoneNumber,'N/K' as WorkEmail, 'N/K' AS AddressLine1, '' AS AddressLine2, '' AS AddressLine3, '' AS City, '' AS Region, '' AS Country, 'N/K' AS PostalCode, TO_CHAR(W.STUDENTDOB,'YYYY-MM-DD') as DateOfBirth, 'N/K' as Ethnicity, 'U' AS Gender, W.STUDENTNINO as NationalId, 'N/K' AS UserName FROM WORKLINKDATA W WHERE W.STUDENTID = {{p1}}"
+
+
+' ==========================================================================================
+'
 ' Queries 30-40 are data transform lookups
 '
 	querylist(30) = "SELECT TC.FUSIONTITLE FROM TITLECODES TC WHERE TC.LEGACYTITLE = '{{p1}}'"

@@ -17,6 +17,7 @@ var defaultlegacyqueryid = "?id=49";
 var baseCoreURL = "https://edzz-test.hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
 // N.B.  baseLegacyURL will chnage depending on whic legacy system is selected (paramSetup)
 var baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
+var baselegacyqueryid = "49";
 var curperson = 5500165;
 var debugging = true;
 var comparisonSummary = new Object();
@@ -52,25 +53,37 @@ function paramSetup() {
 	debugwrite(whichlegacy);
 	debugwrite(whichfusion);
 	debugwrite(debugchoice);
+	debugwrite(baselegacyqueryid);
 
 	curperson = curperson || 5500165;
 
 	// Construct appropriate starting Fusion url
+	// N.B.  This URL usually changes with each major release of Fusion HCm Cloud
 	baseCoreURL = "https://"+whichfusion+".hcm.em3.oraclecloud.com/hcmCoreApi/resources/11.12.1.0/";
 
 	// Construct appropriate starting legacy URL
 	// Done this way to preserve consistent use of query ID's across the legacy queries
 	if ( whichlegacy == "ACCESS") {
+		baselegacyqueryid = "";
 		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchJSON.asp";
 	}
 	if ( whichlegacy == "ALTAHRN") {
-		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchALTA.asp";
+		baselegacyqueryid = "49";
+		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchALTA.asp?id=";
 	}
 	if ( whichlegacy == "WORKLINK") {
-		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchWORKLINK.asp";
+		baselegacyqueryid = "21";
+		baseLegacyURL = "http://its-n-jcnc-01/UoB/fetchALTA.asp?id=";
 	}
 
 	// Adjust URLs to reflect submitted person code (in curperson)
+
+	debugwrite("Values from CheckWorker form AFTER any checks or defaults applied:");
+	debugwrite(curperson);
+	debugwrite(whichlegacy);
+	debugwrite(whichfusion);
+	debugwrite(debugchoice);
+	debugwrite(baselegacyqueryid);
 
 }
 
@@ -81,7 +94,7 @@ function generateEmployeeComparisonTable() {
 
   	var myperson = curperson || '5500165';
 	  var fusionurl = baseCoreURL + "emps?onlyData&limit=10000&q=PersonNumber=";
-	  var legacyurl = baseLegacyURL + "?id=49&p1=";
+	  var legacyurl = baseLegacyURL + "?id=" + baselegacyqueryid + "&p1=";
 		var thefusionemployee = {};
 		var thelegacyemployee = {};
 
@@ -169,7 +182,7 @@ function generateComparisonSpreadsheet() {
 	console.log("generateComparisonSpreadsheet called");
 
 	// Outer getJSON call for legacy store
-	var legacyurl = baseLegacyURL + "?id=48";
+	var legacyurl = baseLegacyURL + "48";
 	var legacylist = new Array();
 	var theperson;													// Tne current person we are dealing with
 	var index = 0;
@@ -220,9 +233,11 @@ function getLegacyEmployee(legacyemployee) {
 		*/
 
 		var myperson = legacyemployee || 5500165;
-	  var legacyurl = baseLegacyURL + "?id=49&p1=" + myperson;
+	  var legacyurl = baseLegacyURL + baselegacyqueryid + "&p1=";
 
 		var jsonstring;			// Used for legacy employee data
+
+		legacyurl += myperson;
 
 		$.getJSON(legacyurl, function (data) {
 
