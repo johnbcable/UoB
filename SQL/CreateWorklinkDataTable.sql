@@ -25,7 +25,8 @@ CREATE TABLE WORKLINKDATA (
     AltaForename VARCHAR2(30),
     AltaSurname VARCHAR2(30),
     AltaDOB DATE,
-    AltaNINumber VARCHAR2(10) 
-);
+    AltaNINumber VARCHAR2(10),
+    AltaEthnicOrigin VARCHAR2(40)
+  );
 
 desc worklinkdata
