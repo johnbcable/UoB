@@ -22,6 +22,7 @@ IS
    personalemailnulls NUMBER(10);
    workemailmatches NUMBER(10);
    personalemailmatches NUMBER(10);
+   personalworkemailmatches NUMBER(10);
    worklinkemailnulls NUMBER(10);
 
    --
@@ -39,6 +40,7 @@ IS
    my_ni_number WORKLINKDATA.StudentNINO%TYPE;
    my_ethnic_origin WORKLINKDATA.StudentEthnicOrigin%TYPE;
    my_student_email WORKLINKDATA.StudentEmail%TYPE;
+   dummy_ethnicity VARCHAR2(40);
 
 BEGIN
   -- Initialisation prior to cursor loop
@@ -57,6 +59,7 @@ BEGIN
   my_dob := to_date('01/01/0001','DD/MM/YYYY');
   my_ni_number := '';
   my_ethnic_origin := '';
+  dummy_ethnicity := '';
   forenamediffers := 0;
   surnamediffers := 0;
   dobdiffers := 0;
@@ -67,6 +70,7 @@ BEGIN
   worklinkemailnulls := 0;
   workemailmatches := 0;
   personalemailmatches := 0;
+  personalworkemailmatches:= 0;
   totalcount := 0;
 
   -- Loop through matched worklinkdata records
@@ -110,7 +114,8 @@ BEGIN
       -- 5. Ethnicity
       -- N.B.  Ethnicity in Worklink is held as text; in Alta is held as a 2-digit code
       --       Therefore needs a mapping table to compare on the same basis
-      IF my_alta_ethnicity != my_ethnic_origin THEN
+      dummy_ethnicity := MapWorklinkEthnicity(my_ethnic_origin);
+      IF my_alta_ethnicity != dummy_ethnicity THEN
         ethnicitydiffers := ethnicitydiffers + 1;
       END IF;
 
@@ -124,9 +129,17 @@ BEGIN
         personalemailnulls := personalemailnulls + 1;
       END IF;
 
-      -- 8. Worklink email unknown
-      IF my_student_email = 'N/K' THEN
-        worklinkemailnulls := worklinkemailnulls + 1;
+      -- 8. Personal and work email on Alta match
+      IF my_personal_email = my_work_email THEN
+        personalworkemailmatches := personalworkemailmatches + 1;
+      END IF;
+
+      -- 9. Worklink email matching
+      IF my_student_email = my_work_email THEN
+        workemailmatches := workemailmatches + 1;
+      END IF;
+      IF my_student_email = my_personal_email THEN
+        personalemailmatches := personalemailmatches + 1;
       END IF;
 
       -- 9. Emails present
@@ -173,6 +186,7 @@ BEGIN
   dbms_output.put_line(' ');
   dbms_output.put_line('Total Missing Work Emails on Alta          '||to_char(workemailnulls,'999999'));
   dbms_output.put_line('Total Missing Personal Emails on Alta      '||to_char(workemailnulls,'999999'));
+  dbms_output.put_line('Total Work Emails That Match Personal Email'||to_char(personalworkemailmatches,'999999'));
   dbms_output.put_line('Total Missing Emails on Worklink           '||to_char(worklinkemailnulls,'999999'));
   dbms_output.put_line('WorkLink Emails That Match Work Email      '||to_char(workemailmatches,'999999'));
   dbms_output.put_line('WorkLink Emails That Match Personal Email  '||to_char(personalemailmatches,'999999'));
