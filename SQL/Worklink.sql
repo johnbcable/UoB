@@ -30,7 +30,7 @@ select count(*) from worklinkdata where altaPersonCode is not null and ALTAPERSO
 select count(*) from worklinkdata where altaPersonCode is not null and ALTAPERSONCODE > 0 and StudentNINO <> AltaNINumber;
 
 
-
-desc hes_addresses
+desc worklinkdata
+desc hes_people
 select address_type from hes_addresses group by address_type;
 select owner_ref, count(*) as kount from hes_addresses where owner_type = 'P' and address_type = 'H' and end_date is null group by owner_ref having count(*) > 1 order by 2 desc;

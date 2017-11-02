@@ -18,6 +18,8 @@ IS
    my_alta_dob DATE;
    my_ni_number VARCHAR2(10);
    my_ethnic_origin VARCHAR2(40);
+   my_work_email VARCHAR2(255);
+   my_personal_email VARCHAR2(255);
    my_alta_flag BOOLEAN;
 
 BEGIN
@@ -28,6 +30,8 @@ BEGIN
   my_alta_dob := to_date('01/01/0001','DD/MM/YYYY');
   my_ni_number := '';
   my_ethnic_origin := '';
+  my_work_email := '';
+  my_personal_email  := '';
   matchedcount := 0;
   totalcount := 0;
   my_alta_flag := FALSE;
@@ -49,8 +53,9 @@ BEGIN
       -- Check if a PERSON_CODE of my_studentid exists on Alta
       my_alta_flag := TRUE;    --  Default to a positive result
       BEGIN
-        SELECT forename, surname, date_of_birth, ni_number, ethnic_origin
-        INTO my_alta_forename, my_alta_surname, my_alta_dob, my_ni_number, my_ethnic_origin
+        SELECT forename, surname, date_of_birth, ni_number, ethnic_origin, nvl(altahr_email_address,'N/K') as altahr_email_address, nvl(altahr_personal_email_address, 'N/K') as altahr_personal_email_address
+        INTO my_alta_forename, my_alta_surname, my_alta_dob, my_ni_number, my_ethnic_origin,
+            my_work_email, my_personal_email
         FROM HES_PEOPLE
         WHERE person_code = my_studentid;
       EXCEPTION
@@ -70,7 +75,9 @@ BEGIN
               AltaPersonCode = my_studentid,
               AltaDOB = my_alta_dob,
               AltaNINumber = my_ni_number,
-              AltaEthnicOrigin = my_ethnic_origin
+              AltaEthnicOrigin = my_ethnic_origin,
+              AltaWorkEmailAddress = my_work_email,
+              AltaPersonalEmailAddress = my_personal_email
           WHERE CURRENT OF c1;
         END;
 
@@ -85,6 +92,8 @@ BEGIN
       my_alta_dob := to_date('01/01/0001','DD/MM/YYYY');
       my_ni_number := '';
       my_ethnic_origin := '';
+      my_work_email := '';
+      my_personal_email  := '';
 
    END LOOP;
    COMMIT;
