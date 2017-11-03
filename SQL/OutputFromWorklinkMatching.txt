@@ -1,0 +1,30 @@
+=====================================================
+Summary report from MATCHWORKLINK
+
+Total WorkLink students                  22972
+Total matched to Alta                    14903
+
+=====================================================
+=====================================================
+Summary report from ANALYSEWORKLINK
+
+Total Matched WorkLink students              14903
+Total Surnames That Differ                     891
+Total Forenames That Differ                   2081
+Total Dates of Birth That Differ              3003
+Total NI Numbers That Differ                   663
+Total Ethnicities That Differ                 8306
+
+Email addresses
+
+Total Missing Work Emails on Alta            12388
+Total Missing Personal Emails on Alta        12388
+Total Work Emails That Match Personal Email   3408
+Total Missing Emails on Worklink                 0
+WorkLink Emails That Match Work Email           21
+WorkLink Emails That Match Personal Email     8813
+
+=====================================================
+
+
+PL/SQL procedure successfully completed.
