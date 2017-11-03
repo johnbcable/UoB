@@ -22,7 +22,9 @@ set autocommit on
 commit;
 
 -- Run Alta matching processes
- 
+set serveroutput on
+exec RunMatchWorklink
+
 --  Quick SQL checks (to validate the above analyses)
 select studentethnicorigin, altaethnicorigin from worklinkdata where altaPersonCode is not null and ALTAPERSONCODE > 0;
 select distinct studentethnicorigin from worklinkdata order by studentethnicorigin;

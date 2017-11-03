@@ -124,6 +124,11 @@ BEGIN
         workemailnulls := workemailnulls + 1;
       END IF;
 
+      -- 8. Student email unknown
+      IF my_student_email = 'N/K' THEN
+        worklinkemailnulls := worklinkemailnulls + 1;
+      END IF;
+
       -- 7. Personal email unknown
       IF my_personal_email = 'N/K' THEN
         personalemailnulls := personalemailnulls + 1;
@@ -142,14 +147,10 @@ BEGIN
         personalemailmatches := personalemailmatches + 1;
       END IF;
 
-      -- 9. Emails present
-      --    Need to match up Worklink email (if present) with either
-      --    work or personal email as held on Alta
 
+      -- Consider saving sumary comparison results to another table.
 
-      -- Consider saving comparison results in more detail to another table.
-
-      -- Re-initialise local variables
+      -- Re-initialise local variables each pass through loop
       my_studentid := 0;
       my_alta_forename := '';
       my_alta_surname := '';
@@ -182,7 +183,7 @@ BEGIN
   dbms_output.put_line('Total NI Numbers That Differ               '||to_char(nidiffers,'999999'));
   dbms_output.put_line('Total Ethnicities That Differ              '||to_char(ethnicitydiffers,'999999'));
   dbms_output.put_line(' ');
-  dbms_output.put_line('Email addresses ');
+  dbms_output.put_line('Email addresses: ');
   dbms_output.put_line(' ');
   dbms_output.put_line('Total Missing Work Emails on Alta          '||to_char(workemailnulls,'999999'));
   dbms_output.put_line('Total Missing Personal Emails on Alta      '||to_char(workemailnulls,'999999'));
