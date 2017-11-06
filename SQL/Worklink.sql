@@ -8,6 +8,14 @@ SELECT * FROM WORKLINKETHNICORIGINS
 -- Create Worklink STUDENTid LOOKUP table
 DROP TABLE STUDENTIDLOOKUP;
 @e:\inetpub\wwwroot\UoB\SQL\CreateStudentIDLookup.sql
+DESC STUDENTIDLOOKUP;
+SELECT COUNT(*) FROM STUDENTIDLOOKUP;
+SELECT COUNT(DISTINCT STUDENTID) FROM STUDENTIDLOOKUP;
+SELECT COUNT(DISTINCT CANDIDATEID) FROM STUDENTIDLOOKUP;
+@e:\inetpub\wwwroot\UoB\SQL\MatchStudentID.sql
+@e:\inetpub\wwwroot\UoB\SQL\RunMatchStudentID.sql
+exec RunMatchStudentID;
+select * from worklinkfiles
 
 -- Create Worklink files table
 @e:\inetpub\wwwroot\UoB\SQL\CreateWorklinkFilesTable.sql
