@@ -3,7 +3,7 @@ var Path = require('path');
 
 // Now initialise the directory split character(s)
 // OS dependent:  \\\ for Windows; / for UNIX-like environments
-var splitter = '/';
+var splitter = '\\';
 
 function WalkDirs(dirPath) {
 	console.log(dirPath);
@@ -16,7 +16,7 @@ function WalkDirs(dirPath) {
 
 					    var fullparts = fullPath.split(splitter);
 
-					    // The next processing is dependent on where in that tree 
+					    // The next processing is dependent on where in that tree
 					    // you want to start recording information from
 
 				    	var candidate = fullparts[2];
@@ -35,4 +35,4 @@ function WalkDirs(dirPath) {
 		}
 	});
 }
-WalkDirs("/etc");
+WalkDirs("c:\\Work\\WorkLinkRawData\\WorkLinkFiles");
