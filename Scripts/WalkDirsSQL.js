@@ -22,9 +22,9 @@ function WalkDirs(dirPath) {
 				    	var candidate = fullparts[6];
     					var filedir = fullparts[7];
     					var thefile = fullparts[8];
-    					var textline = "INSERT INTO WORKLINKFILES(CANIDATEID,FOLDER,FILENAME) VALUES("+candidate+",'"+filedir+"','"+thefile+"');\r\n";
+    					var textline = "INSERT INTO WORKLINKFILES(CANDIDATEID,FOLDER,FILENAME) VALUES("+candidate+",'"+filedir+"','"+thefile+"');\r\n";
 
-						fs.appendFileSync('WLDOCS.SQL', textline);
+						fs.appendFileSync('WLDdocs.sql', textline);
 
 						console.log(fullPath);
 					} else if (stats && stats.isDirectory()) {
