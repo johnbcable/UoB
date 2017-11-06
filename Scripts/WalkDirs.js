@@ -19,9 +19,9 @@ function WalkDirs(dirPath) {
 					    // The next processing is dependent on where in that tree
 					    // you want to start recording information from
 
-				    	var candidate = fullparts[2];
-    					var filedir = fullparts[3];
-    					var thefile = fullparts[4];
+				    	var candidate = fullparts[6];
+    					var filedir = fullparts[7];
+    					var thefile = fullparts[8];
     					var textline = candidate+",'"+filedir+"','"+thefile+"'\r\n";
 
 						fs.appendFileSync('WLdocs.csv', textline);
