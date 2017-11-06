@@ -5,6 +5,9 @@ SELECT COUNT(*) FROM WORKLINKDATA;
 @e:\inetpub\wwwroot\UoB\SQL\CreateWorklinkEthnicOrigins.sql
 SELECT * FROM WORKLINKETHNICORIGINS
 
+-- Create Worklink files table
+@e:\inetpub\wwwroot\UoB\SQL\CreateWorklinkFilesTable.sql
+-- Import files data from external load file
 
 
 -- Import data from external load file
