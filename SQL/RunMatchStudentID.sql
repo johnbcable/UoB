@@ -1,20 +1,17 @@
-CREATE OR REPLACE PROCEDURE RunMatchWorklink
+CREATE OR REPLACE PROCEDURE RunMatchStudentID
 IS
 
 matchkount NUMBER(6);
-analysekount NUMBER(6);
 
 BEGIN
 
 matchkount := 0;
-analysekount := 0;
+
   --
   -- Main procedure controlling the matching of imported
   -- Worklink student data with AltaHR
   --
-  matchkount := MATCHWORKLINK();
-
-  analysekount := AnalyseWorklink();
+  matchkount := MatchStudentID();
 
   /*
   dbms_output.put_line('=====================================================');
@@ -26,6 +23,6 @@ analysekount := 0;
   dbms_output.put_line('=====================================================');
 */
 
-END RunMatchWorklink;
+END RunMatchStudentID;
 
 /

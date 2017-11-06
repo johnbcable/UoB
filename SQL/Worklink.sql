@@ -1,14 +1,22 @@
 -- Create Worklink data table
 @e:\inetpub\wwwroot\UoB\SQL\CreateWorklinkDataTable.sql
 desc WorklinkData
-SELECT COUNT(*) FROM WORKLINKDATA;
+SELECT COUNT(DISTINCT StudentID) FROM WORKLINKDATA;
 @e:\inetpub\wwwroot\UoB\SQL\CreateWorklinkEthnicOrigins.sql
 SELECT * FROM WORKLINKETHNICORIGINS
 
+-- Create Worklink STUDENTid LOOKUP table
+DROP TABLE STUDENTIDLOOKUP;
+@e:\inetpub\wwwroot\UoB\SQL\CreateStudentIDLookup.sql
+
 -- Create Worklink files table
 @e:\inetpub\wwwroot\UoB\SQL\CreateWorklinkFilesTable.sql
+desc WORKLINKFILES;
 -- Import files data from external load file
-
+DELETE FROM WORKLINKFILES;
+@e:\inetpub\wwwroot\UoB\SQL\WLdocs.sql
+commit;
+select count(*) from worklinkfiles;
 
 -- Import data from external load file
 -- Clear out WORKLINKDATA before insert
