@@ -129,7 +129,7 @@ var mydebug = new String("N").toString();
       </tr>
     </tbody>
   </table>
-  
+
     <br />
     <a href="index.asp">Home page &raquo;</a>
     <br />
@@ -288,7 +288,7 @@ Legacy
   <script src="/UoB/bower_components/handlebars/handlebars.js"></script>
   <script src="/UoB/js/swag.js"></script>
   <script>Swag.registerHelpers(window.Handlebars);</script>
-  <script src="/UoB/js/fusionextractdatawriter.js"></script>
+  <script src="/UoB/js/datawriter.js"></script>
   <script src="/UoB/js/RESTPoints.js"></script>
 
 	</body>

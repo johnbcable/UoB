@@ -21,6 +21,8 @@ var baselegacyqueryid = "49";
 var curperson = 5500165;
 var debugging = true;
 var comparisonSummary = new Object();
+var fusionuser = "TECHADMIN6";
+var fusionpassword = "Banzai29";
 
 // ============================================================================
 function debugwrite(text) {
