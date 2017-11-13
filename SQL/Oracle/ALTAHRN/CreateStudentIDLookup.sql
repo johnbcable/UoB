@@ -10,6 +10,7 @@ desc STUDENTIDLOOKUP;
 --
 --  e.g many lines of the form:
 --  insert into studentidlookup(candidateid, studentid) values(17066,1545911);
+--  This will normally have been saved as StudentIDLookupInsert.sql 
 --
 
 
