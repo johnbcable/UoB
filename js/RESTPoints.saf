@@ -263,13 +263,6 @@ function getOrganisations(orgtype, filetype) {
 				 console.log("CSV file chosen");
 				 downloadCSV({ data: data.items, filename:  myorgtype+".csv" });
 			 }
-			 if (generatedfiletype == 'XML') {
-				 console.log("XML file chosen");
-				 // var xml = json2xml.convert(data.items,"root");
-				 // console.log(xml);
-				 downloadXML({ data: data.items, filename:  myorgtype+".xml" });
-			 }
-
 
 		},
 		error: function(xhr, textStatus, errorThrown) {
@@ -513,12 +506,6 @@ $(document).ready(function() {
 		event.preventDefault();
 		getOrganisations('HCM_TRU','CSV');
 	});
-
-	$('#alltruxml').click( function(event) {
-		event.preventDefault();
-		getOrganisations('HCM_TRU','XML');
-	});
-
 
 	// 5. Legal Reporting Unit
 	$('#alllrulink').click( function(event) {

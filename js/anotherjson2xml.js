@@ -1,48 +1,45 @@
-/**
-*  VERSION // 0.1
-*  AUTHOR // siegfried.ehret@gmail.com
-*
-*  LICENSE //
-*
-*  DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-*                   Version 2, December 2004
-*
-* Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
-*
-* Everyone is permitted to copy and distribute verbatim or modified
-* copies of this license document, and changing it is allowed as long
-* as the name is changed.
-*
-*           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-*   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-*
-* 0. You just DO WHAT THE FUCK YOU WANT TO.
+/*	This work is licensed under Creative Commons GNU LGPL License.
+
+	License: http://creativecommons.org/licenses/LGPL/2.1/
+   Version: 0.9
+	Author:  Stefan Goessner/2006
+	Web:     http://goessner.net/
 */
-var json2xml = (function (my, undefined) {
-  "use strict";
-  var tag = function(name, options) {
-    options = options || {};
-    return "<"+(options.closing ? "/" : "")+name+">";
-  };
-  var exports = {
-    convert:function(obj, rootname) {
+function json2xml(o, tab) {
+   var toXml = function(v, name, ind) {
       var xml = "";
-      for (var i in obj) {
-        if(obj.hasOwnProperty(i)){
-          var value = obj[i], type = typeof value;
-          if (value instanceof Array && type == 'object') {
-            for (var sub in value) {
-              xml += exports.convert(value[sub]);
-            }
-          } else if (value instanceof Object && type == 'object') {
-            xml += tag(i)+exports.convert(value)+tag(i,{closing:1});
-          } else {
-            xml += tag(i)+value+tag(i,{closing:1});
-          }
-        }
+      if (v instanceof Array) {
+         for (var i=0, n=v.length; i<n; i++)
+            xml += ind + toXml(v[i], name, ind+"\t") + "\n";
       }
-      return rootname ? tag(rootname) + xml + tag(rootname,{closing:1}) : xml;
-    }
-  };
-  return exports;
-})(json2xml || {});
+      else if (typeof(v) == "object") {
+         var hasChild = false;
+         xml += ind + "<" + name;
+         for (var m in v) {
+            if (m.charAt(0) == "@")
+               xml += " " + m.substr(1) + "=\"" + v[m].toString() + "\"";
+            else
+               hasChild = true;
+         }
+         xml += hasChild ? ">" : "/>";
+         if (hasChild) {
+            for (var m in v) {
+               if (m == "#text")
+                  xml += v[m];
+               else if (m == "#cdata")
+                  xml += "<![CDATA[" + v[m] + "]]>";
+               else if (m.charAt(0) != "@")
+                  xml += toXml(v[m], m, ind+"\t");
+            }
+            xml += (xml.charAt(xml.length-1)=="\n"?ind:"") + "</" + name + ">";
+         }
+      }
+      else {
+         xml += ind + "<" + name + ">" + v.toString() +  "</" + name + ">";
+      }
+      return xml;
+   }, xml="";
+   for (var m in o)
+      xml += toXml(o[m], m, "");
+   return tab ? xml.replace(/\t/g, tab) : xml.replace(/\t|\n/g, "");
+}

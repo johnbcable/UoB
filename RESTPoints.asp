@@ -33,9 +33,9 @@ var mydebug = new String("N").toString();
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Fusion HCM RESTPoints - Home Page</title>
+    <title>Fusion HCM RESTPoints - Test Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="Description" lang="en" content="Fusion HCM RESTPoints">
+    <meta name="Description" lang="en" content="Test Fusion HCM RESTPoints">
     <style type="text/css">
       table tr td {
         padding: 10px;
@@ -52,6 +52,7 @@ var mydebug = new String("N").toString();
         <th>View JSON</th>
         <th>Download DAT</th>
         <th>Download CSV</th>
+        <th>Download XML</th>
       </tr>
     </thead>
     <tbody>
@@ -60,72 +61,84 @@ var mydebug = new String("N").toString();
         <td><a id="allgradeslink" href='#'>JSON</a></td>
         <td><a id="allgradesdat" href='#'>DAT file</td>
         <td><a id="allgradescsv" href='#'>CSV file</td>
+        <td><a id="allgradesxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>All Job Families</td>
         <td><a id="alljobfamilieslink" href='#'>JSON</a></td>
         <td><a id="alljobfamiliesdat" href='#'>DAT file</td>
         <td><a id="alljobfamiliescsv" href='#'>CSV file</td>
+        <td><a id="alljobfamiliesxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>All Jobs</td>
         <td><a id="alljobslink" href='#'>JSON</a></td>
         <td><a id="alljobsdat" href='#'>DAT file</td>
         <td><a id="alljobscsv" href='#'>CSV file</td>
+        <td><a id="alljobsxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>All Positions</td>
         <td><a id="allpositionslink" href='#'>JSON</a></td>
         <td><a id="allpositionsdat" href='#'>DAT file</td>
         <td><a id="allpositionscsv" href='#'>CSV file</td>
+        <td><a id="allpositionsxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>All Locations</td>
         <td><a id="alllocationslink" href='#'>JSON</a></td>
         <td><a id="alllocationsdat" href='#'>DAT file</td>
         <td><a id="alllocationscsv" href='#'>CSV file</td>
+        <td><a id="alllocationsxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>All Departments</td>
         <td><a id="allorganizationslink" href='#'>JSON</a></td>
         <td><a id="allorganizationsdat" href='#'>DAT file</td>
         <td><a id="allorganizationscsv" href='#'>CSV file</td>
+        <td><a id="allorganizationsxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>All Divisions</td>
         <td><a id="alldivisionslink" href='#'>JSON</a></td>
         <td><a id="alldivisionsdat" href='#'>DAT file</td>
         <td><a id="alldivisionscsv" href='#'>CSV file</td>
+        <td><a id="alldivisionsxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>Payroll Statutory Unit (PSU)</td>
         <td><a id="allpsulink" href='#'>JSON</a></td>
         <td><a id="allpsudat" href='#'>DAT file</td>
         <td><a id="allpsucsv" href='#'>CSV file</td>
+        <td><a id="allpsuxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>Tax Reporting Unit (TRU)</td>
         <td><a id="alltrulink" href='#'>JSON</a></td>
         <td><a id="alltrudat" href='#'>DAT file</td>
         <td><a id="alltrucsv" href='#'>CSV file</td>
+        <td><a id="alltruxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>Legal Reporting Unit (LRU)</td>
         <td><a id="alllrulink" href='#'>JSON</a></td>
         <td><a id="alllrudat" href='#'>DAT file</td>
         <td><a id="alllrucsv" href='#'>CSV file</td>
+        <td><a id="alllruxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>Legal Employer (LEMP)</td>
         <td><a id="alllemplink" href='#'>JSON</a></td>
         <td><a id="alllempdat" href='#'>DAT file</td>
         <td><a id="alllempcsv" href='#'>CSV file</td>
+        <td><a id="alllempxml" href='#'>XML file</td>
       </tr>
       <tr>
         <td>Reporting Establishment</td>
         <td><a id="allrelink" href='#'>JSON</a></td>
         <td><a id="allredat" href='#'>DAT file</td>
         <td><a id="allrecsv" href='#'>CSV file</td>
+        <td><a id="allrexml" href='#'>XML file</td>
       </tr>
     </tbody>
   </table>
